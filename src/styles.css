@@ -71,7 +71,10 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 10px 14px;
+  /* env(safe-area-inset-top) clears the status bar / notch when the app is
+     launched full-screen from the Home Screen (display: standalone). */
+  padding: calc(10px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) 10px
+    calc(14px + env(safe-area-inset-left));
   position: sticky;
   top: 0;
   background: var(--bg);
@@ -561,7 +564,8 @@ tr.maybe td:first-child {
   color: var(--muted);
   margin: 16px 2px 4px;
   position: sticky;
-  top: 48px;
+  /* sit just below the sticky topbar, including its safe-area inset */
+  top: calc(48px + env(safe-area-inset-top));
   background: var(--bg);
   padding: 4px 0;
   z-index: 10;
