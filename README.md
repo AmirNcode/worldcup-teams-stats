@@ -27,14 +27,29 @@ No accounts, no API keys, no backend — a static React app you can host anywher
   and highlight its fixtures; theme follows your system and can be toggled.
   Both saved on your device.
 
-## Score updates
+## Score updates & match facts
 
 Scores are updated at **half-time and full-time** (no minute-by-minute live
-feed, by design). The app fetches the public
-[openfootball](https://github.com/openfootball/worldcup.json) dataset on load
-and every 5 minutes while open, and merges it over a bundled copy of the
-schedule — so the site always renders even if the feed is unreachable (the
-last good fetch is also cached in `localStorage`).
+feed, by design): during the first half a match shows "1st half", at the
+break the half-time score appears, during the second half the HT score stays
+up (labelled), and the final score lands at full-time. Tapping the middle of
+any started match card opens a **match facts** sheet — goals with minutes,
+possession, shots, corners, cards, attendance, venue and referee — fetched
+on demand. Tapping a team name still goes to that team's stats page.
+
+Two keyless public sources are layered, fetched client-side on load and every
+5 minutes while open:
+
+1. **ESPN's public JSON API** (`site.api.espn.com`, CORS-enabled) — primary
+   source for live scores, status, scorers and the match-facts stats.
+2. **[openfootball](https://github.com/openfootball/worldcup.json)** — slower
+   to update but community-curated; provides the schedule and acts as the
+   fallback score source.
+
+Both merge over a bundled copy of the schedule and are cached in
+`localStorage`, so the site always renders even if both feeds are
+unreachable. If ESPN ever changes its (unofficial) API shape, parsing fails
+soft and the site simply behaves as openfootball-only.
 
 ## Running locally
 
@@ -63,7 +78,9 @@ regardless.
 
 ## Data sources & accuracy
 
-- **Schedule, scores, scorers:** [openfootball/worldcup.json](https://github.com/openfootball/worldcup.json)
+- **Live scores, scorers, match stats:** ESPN public JSON API (no key
+  required, CORS-friendly; unofficial, parsed defensively).
+- **Schedule + fallback scores:** [openfootball/worldcup.json](https://github.com/openfootball/worldcup.json)
   (public domain, no key required, CORS-friendly).
 - **Historical team data** (`src/data/teams.json`): curated from Wikipedia /
   FIFA records through the 2022 World Cup. Spot a mistake? It's one JSON file —
