@@ -117,6 +117,8 @@ export function DataProvider({ children }) {
         updatedAt: anyLive ? new Date(fetchedAt) : s.updatedAt,
         source: anyLive ? 'live' : s.source,
       }))
+    } catch {
+      // a malformed payload must never take the page down; keep current state
     } finally {
       fetching.current = false
     }

@@ -170,6 +170,11 @@ button {
   margin: 8px 2px;
 }
 
+.section-title {
+  font-size: 0.95rem;
+  margin: 14px 2px 6px;
+}
+
 .flag {
   font-size: 1.1em;
 }

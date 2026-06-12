@@ -79,6 +79,13 @@ function goalsFromDetails(details, homeId) {
   return [home, away]
 }
 
+// ESPN often omits per-period linescores until a match is final, so mid-match
+// we reconstruct period scores from the goal minutes instead (stoppage time
+// parses to 45/90/120, landing in the right period).
+function goalsUpTo(list, maxMinute) {
+  return list.filter((g) => g.minute != null && g.minute <= maxMinute).length
+}
+
 // Normalize a scoreboard payload into simple event objects.
 export function parseScoreboard(json) {
   const out = []
@@ -89,6 +96,27 @@ export function parseScoreboard(json) {
     const home = competitors.find((c) => c.homeAway === 'home') ?? competitors[0]
     const away = competitors.find((c) => c !== home)
     const status = ev.status ?? comp?.status
+    const goals = goalsFromDetails(comp?.details, home.team?.id ?? home.id)
+    const canDerive =
+      Array.isArray(comp?.details) && goals.flat().every((g) => g.minute != null)
+    let homeHt = periodGoals(home, 1)
+    let awayHt = periodGoals(away, 1)
+    if (homeHt == null && canDerive) {
+      homeHt = goalsUpTo(goals[0], 45)
+      awayHt = goalsUpTo(goals[1], 45)
+    }
+    let home90 =
+      periodGoals(home, 1) != null && periodGoals(home, 2) != null
+        ? periodGoals(home, 1) + periodGoals(home, 2)
+        : null
+    let away90 =
+      periodGoals(away, 1) != null && periodGoals(away, 2) != null
+        ? periodGoals(away, 1) + periodGoals(away, 2)
+        : null
+    if (home90 == null && canDerive) {
+      home90 = goalsUpTo(goals[0], 90)
+      away90 = goalsUpTo(goals[1], 90)
+    }
     out.push({
       id: String(ev.id ?? comp?.id ?? ''),
       date: ev.date ?? comp?.date,
@@ -99,19 +127,13 @@ export function parseScoreboard(json) {
       awayName: canonName(away.team?.displayName ?? away.team?.name),
       homeScore: num(home.score),
       awayScore: num(away.score),
-      homeHt: periodGoals(home, 1),
-      awayHt: periodGoals(away, 1),
-      home90:
-        periodGoals(home, 1) != null && periodGoals(home, 2) != null
-          ? periodGoals(home, 1) + periodGoals(home, 2)
-          : null,
-      away90:
-        periodGoals(away, 1) != null && periodGoals(away, 2) != null
-          ? periodGoals(away, 1) + periodGoals(away, 2)
-          : null,
+      homeHt,
+      awayHt,
+      home90,
+      away90,
       homeShootout: num(home.shootoutScore),
       awayShootout: num(away.shootoutScore),
-      goals: goalsFromDetails(comp?.details, home.team?.id ?? home.id),
+      goals,
     })
   }
   return out

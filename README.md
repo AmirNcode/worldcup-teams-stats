@@ -11,6 +11,8 @@ No accounts, no API keys, no backend — a static React app you can host anywher
 - **📊 Group leaderboard** — all 12 group tables with points, wins/draws/losses,
   goals for/against and goal difference, recomputed automatically from results.
   Green = top-2 (qualify), amber = 3rd place (8 best 3rds also advance).
+  A **3rd-place race** table ranks all 12 third-placed teams, and a **Today**
+  section surfaces the day's matches at the top of the home page.
 - **🔎 Team search & stats** — search all 48 teams; each team page shows its 2026
   results with goalscorers, group position, every past World Cup appearance and
   result, titles, all-time top scorer, an icon of the team, and fun facts.
@@ -26,6 +28,9 @@ No accounts, no API keys, no backend — a static React app you can host anywher
 - **★ Favorite team & 🌙 dark mode** — star a team to pin it on the home page
   and highlight its fixtures; theme follows your system and can be toggled.
   Both saved on your device.
+- **📱 Add to Home Screen** — web app manifest + icons, so installing from the
+  browser menu gives a full-screen app with its own icon (no service worker,
+  so no stale-cache surprises).
 
 ## Score updates & match facts
 
@@ -58,6 +63,7 @@ npm install
 npm run dev      # dev server
 npm run build    # production build -> dist/
 npm run preview  # serve the production build
+npm test         # logic tests + renders every route (no browser needed)
 ```
 
 ## Deploying

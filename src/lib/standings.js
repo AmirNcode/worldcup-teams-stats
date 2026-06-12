@@ -44,6 +44,18 @@ export function computeGroups(matches) {
   return result
 }
 
+// The 12 third-placed teams ranked by the FIFA criteria (points, GD, GF);
+// the best 8 advance to the Round of 32.
+export function thirdPlaceRace(groups) {
+  return Object.entries(groups)
+    .map(([group, rows]) => ({ group, ...rows[2] }))
+    .filter((r) => r.team)
+    .sort(
+      (x, y) =>
+        y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || x.team.localeCompare(y.team),
+    )
+}
+
 // One team's overall tournament record (group + knockout).
 export function teamTournamentRecord(matches, team) {
   const rec = { mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 }
