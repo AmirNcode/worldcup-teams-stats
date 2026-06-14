@@ -245,9 +245,20 @@ export function applyEspn(matches, events) {
   return matches
 }
 
-// ---- match facts (summary endpoint) ----
+// ---- match summary (facts + lineups share one fetch) ----
 
-const factsCache = new Map()
+const summaryCache = new Map() // espnId -> raw summary json (cached once final)
+
+async function getSummary(match) {
+  if (!match?.espnId) return null
+  if (summaryCache.has(match.espnId)) return summaryCache.get(match.espnId)
+  const res = await fetch(summaryUrl(match.espnId))
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const json = await res.json()
+  // a finished match's summary won't change, so it's safe to keep
+  if (match.score?.ft || match.liveState === 'ft') summaryCache.set(match.espnId, json)
+  return json
+}
 
 export function parseSummary(json, match) {
   const facts = { stats: [], info: [], header: null }
@@ -281,12 +292,69 @@ export function parseSummary(json, match) {
 }
 
 export async function fetchMatchFacts(match) {
-  if (!match?.espnId) return null
-  if (factsCache.has(match.espnId)) return factsCache.get(match.espnId)
-  const res = await fetch(summaryUrl(match.espnId))
-  if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  const facts = parseSummary(await res.json(), match)
-  // stats keep changing during a match; only cache once it's over
-  if (match.score?.ft || match.liveState === 'ft') factsCache.set(match.espnId, facts)
-  return facts
+  const json = await getSummary(match)
+  return json ? parseSummary(json, match) : null
 }
+
+// ---- lineups (from the same summary payload) ----
+
+export const POSITION_GROUPS = [
+  ['GK', 'Goalkeeper'],
+  ['DEF', 'Defenders'],
+  ['MID', 'Midfielders'],
+  ['FWD', 'Forwards'],
+  ['OTH', 'Other'],
+]
+
+// ESPN soccer positions abbreviate to G/D/M/F; fall back to the full name.
+export function bucketPosition(position) {
+  const abbr = String(position?.abbreviation ?? '').toUpperCase()
+  const nm = String(position?.name ?? position?.displayName ?? '').toLowerCase()
+  if (abbr.startsWith('G') || nm.includes('keeper')) return 'GK'
+  if (abbr.startsWith('D') || nm.includes('back') || nm.includes('defen')) return 'DEF'
+  if (abbr.startsWith('M') || nm.includes('midfield')) return 'MID'
+  if (
+    abbr.startsWith('F') ||
+    abbr.startsWith('S') ||
+    abbr.startsWith('W') ||
+    nm.includes('forward') ||
+    nm.includes('strik') ||
+    nm.includes('wing')
+  )
+    return 'FWD'
+  return 'OTH'
+}
+
+function jerseyNum(v) {
+  const n = parseInt(v, 10)
+  return Number.isFinite(n) ? n : 999
+}
+
+// Per-team starting XI + bench, keyed by our canonical team name.
+export function parseLineups(json) {
+  const out = {}
+  for (const r of json?.rosters ?? []) {
+    const name = canonName(r.team?.displayName ?? r.team?.name) ?? r.team?.displayName
+    if (!name || !Array.isArray(r.roster)) continue
+    const players = r.roster.map((p) => ({
+      name: p.athlete?.displayName ?? p.athlete?.shortName ?? '—',
+      number: p.jersey ?? p.athlete?.jersey ?? null,
+      starter: Boolean(p.starter),
+      captain: Boolean(p.captain ?? p.athlete?.captain),
+      group: bucketPosition(p.position),
+    }))
+    if (players.length === 0) continue
+    const byNumber = (a, b) => jerseyNum(a.number) - jerseyNum(b.number)
+    out[name] = {
+      starters: players.filter((p) => p.starter).sort(byNumber),
+      bench: players.filter((p) => !p.starter).sort(byNumber),
+    }
+  }
+  return out
+}
+
+export async function fetchLineups(match) {
+  const json = await getSummary(match)
+  return json ? parseLineups(json) : null
+}
+

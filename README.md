@@ -16,6 +16,11 @@ No accounts, no API keys, no backend — a static React app you can host anywher
 - **🔎 Team search & stats** — search all 48 teams; each team page shows its 2026
   results with goalscorers, group position, every past World Cup appearance and
   result, titles, all-time top scorer, an icon of the team, and fun facts.
+- **👕 Lineups** — each team page shows the starting XI from its most recent
+  match, grouped by position (GK / DEF / MID / FWD) with shirt numbers and a
+  rounded "C" badge on the captain, plus a Reserves subsection for the named
+  substitutes. Pulled live from ESPN, falling back to the latest available
+  lineup if the newest match hasn't published one yet.
 - **📅 Schedule in your time zone** — kickoff times render in the visitor's local
   time zone automatically (a fan in Toronto sees Eastern time). Includes a
   **weekly calendar view** with day-by-day match chips plus a full list view.

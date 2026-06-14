@@ -735,6 +735,74 @@ table.history-table .year {
   margin: 7px 0;
 }
 
+/* ---------- lineup ---------- */
+.lineup-caption {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 2px 8px;
+}
+
+.lineup-group h4 {
+  margin: 12px 0 4px;
+}
+
+.lineup-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lineup-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 2px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.lineup-group .lineup-row:first-child {
+  border-top: none;
+}
+
+.player-num {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cap-badge {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
 /* ---------- bracket ---------- */
 .bracket-round h2 {
   font-size: 0.95rem;

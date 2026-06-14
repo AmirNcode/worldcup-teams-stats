@@ -8,7 +8,14 @@ import schedule from '../src/data/schedule.json'
 import { computeGroups, thirdPlaceRace, teamTournamentRecord } from '../src/lib/standings.js'
 import { goldenBoot, tournamentTotals } from '../src/lib/scorers.js'
 import { placeholderLabel, scoreline, dayKey } from '../src/lib/format.js'
-import { canonName, parseScoreboard, applyEspn, parseSummary } from '../src/lib/espn.js'
+import {
+  canonName,
+  parseScoreboard,
+  applyEspn,
+  parseSummary,
+  parseLineups,
+  bucketPosition,
+} from '../src/lib/espn.js'
 import { DataProvider, matchStatus, finalScore } from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
 
@@ -173,6 +180,37 @@ check('alias unknown', canonName('Narnia'), null)
   }]}))
   check('final placeholders adopted', [fin.team1, fin.team2], ['Argentina', 'France'])
   check('final derived 90/et/ht', [fin.score?.ft, fin.score?.et, fin.score?.ht], [[1, 1], [2, 1], [1, 0]])
+
+  // ---------- lineups ----------
+  check('bucket GK', bucketPosition({ abbreviation: 'G' }), 'GK')
+  check('bucket DEF', bucketPosition({ abbreviation: 'D' }), 'DEF')
+  check('bucket MID', bucketPosition({ abbreviation: 'M' }), 'MID')
+  check('bucket FWD', bucketPosition({ abbreviation: 'F' }), 'FWD')
+  check('bucket by name winger', bucketPosition({ abbreviation: 'X', name: 'Left Winger' }), 'FWD')
+  const lineups = parseLineups({
+    rosters: [
+      {
+        team: { displayName: 'Argentina' },
+        roster: [
+          { starter: true, jersey: '10', captain: true, athlete: { displayName: 'Lionel Messi' }, position: { abbreviation: 'F' } },
+          { starter: true, jersey: '23', athlete: { displayName: 'Emiliano Martínez' }, position: { abbreviation: 'G' } },
+          { starter: true, jersey: '13', athlete: { displayName: 'Cristian Romero' }, position: { abbreviation: 'D' } },
+          { starter: false, jersey: '9', athlete: { displayName: 'Julián Álvarez' }, position: { abbreviation: 'F' } },
+          { starter: false, jersey: '2', athlete: { displayName: 'Some Sub' }, position: { abbreviation: 'D' } },
+        ],
+      },
+      { team: { displayName: 'France' }, roster: [
+        { starter: true, jersey: '10', athlete: { displayName: 'Kylian Mbappé' }, position: { abbreviation: 'F' } },
+      ]},
+    ],
+  })
+  check('lineup keyed by canonical team', Object.keys(lineups).sort(), ['Argentina', 'France'])
+  check('starters count', lineups.Argentina.starters.length, 3)
+  check('bench count', lineups.Argentina.bench.length, 2)
+  check('captain flagged', lineups.Argentina.starters.find((p) => p.captain)?.name, 'Lionel Messi')
+  check('starters sorted by number', lineups.Argentina.starters.map((p) => p.number), ['10', '13', '23'])
+  check('bench sorted by number', lineups.Argentina.bench.map((p) => p.number), ['2', '9'])
+  check('position grouped', lineups.Argentina.starters.find((p) => p.number === '23').group, 'GK')
 
   const facts = parseSummary({
     boxscore: { teams: [

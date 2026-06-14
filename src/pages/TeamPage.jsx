@@ -6,6 +6,7 @@ import { computeGroups, teamTournamentRecord } from '../lib/standings'
 import { goldenBoot } from '../lib/scorers'
 import { useFavorite } from '../lib/prefs'
 import MatchCard from '../components/MatchCard'
+import Lineup from '../components/Lineup'
 
 function Stat({ label, value }) {
   return (
@@ -103,6 +104,8 @@ export default function TeamPage() {
           <MatchCard key={m.key} match={m} showDate />
         ))}
       </section>
+
+      <Lineup team={name} matches={teamMatches} />
 
       <section className="card">
         <h3>World Cup history</h3>
