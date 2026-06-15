@@ -1,6 +1,7 @@
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { useData } from './lib/data.jsx'
 import { useTheme } from './lib/prefs'
+import AdSlot from './components/AdSlot'
 import GroupsPage from './pages/GroupsPage'
 import SchedulePage from './pages/SchedulePage'
 import TeamsPage from './pages/TeamsPage'
@@ -25,6 +26,7 @@ function UpdatedChip() {
 
 export default function App() {
   const [theme, toggleTheme] = useTheme()
+  const location = useLocation()
   return (
     <div className="app">
       <header className="topbar">
@@ -49,6 +51,8 @@ export default function App() {
           <Route path="/compare" element={<ComparePage />} />
           <Route path="*" element={<GroupsPage />} />
         </Routes>
+        {/* keyed by route so a genuine in-app navigation requests a fresh ad */}
+        <AdSlot key={location.pathname} />
       </main>
       <nav className="tabbar">
         <NavLink to="/" end>

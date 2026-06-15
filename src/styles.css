@@ -843,6 +843,66 @@ table.boot-table th:last-child {
   text-align: center;
 }
 
+/* ---------- ad / sponsor slot ---------- */
+.ad-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 16px auto 4px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ad-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.ad-slot .adsbygoogle {
+  display: block;
+  width: 100%;
+  min-height: 90px;
+}
+
+.sponsor-banner {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+}
+
+.sponsor-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.ad-placeholder {
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 18px 12px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--card);
+}
+
+.ad-placeholder span {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.ad-placeholder small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.7rem;
+}
+
 /* ---------- match facts sheet ---------- */
 .sheet-backdrop {
   position: fixed;

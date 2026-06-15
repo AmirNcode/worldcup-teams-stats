@@ -87,6 +87,28 @@ Useful occasionally during the tournament so first paint (before the live
 fetch lands) is as fresh as possible. The live fetch keeps users current
 regardless.
 
+## Monetization (single ad / sponsor slot)
+
+There's one responsive, non-intrusive ad slot at the bottom of each page
+(above the tab bar), rendered by `src/components/AdSlot.jsx`. It has three
+modes, chosen automatically from build-time env vars:
+
+1. **Google AdSense** — when `VITE_ADSENSE_CLIENT` and `VITE_ADSENSE_SLOT`
+   are set, it serves a responsive display unit and the build emits a matching
+   `ads.txt` at the site root automatically. A fresh ad is requested on each
+   in-app navigation (the AdSense-approved single-page-app pattern).
+2. **Direct sponsor banner** — if AdSense isn't set but `VITE_SPONSOR_IMAGE`
+   and `VITE_SPONSOR_URL` are, it shows a linked banner image instead. Good
+   for selling the slot to one sponsor without touching code.
+3. **Nothing** — with neither configured, production renders no slot at all
+   (so users never see an empty box); `npm run dev` shows a labelled
+   placeholder so you can see where it sits.
+
+Config lives in env vars (see `.env.example`). Nothing here is secret —
+AdSense IDs are public — but the recommended path is to set them in your host
+(e.g. Netlify → Site settings → Environment variables) so going live needs no
+code change, just a redeploy. There's no database, login, or payment code.
+
 ## Data sources & accuracy
 
 - **Live scores, scorers, match stats:** ESPN public JSON API (no key

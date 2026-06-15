@@ -18,6 +18,7 @@ import {
 } from '../src/lib/espn.js'
 import { DataProvider, matchStatus, finalScore } from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
+import AdSlot from '../src/components/AdSlot.jsx'
 
 let fails = 0
 const check = (label, got, want) => {
@@ -247,6 +248,8 @@ check('alias unknown', canonName('Narnia'), null)
       console.log(`FAIL route ${r}: ${e.message}`)
     }
   }
+  // Unconfigured (no env) ad slot must render nothing — never an empty box.
+  check('ad slot renders nothing when unconfigured', renderToString(<AdSlot />), '')
 }
 
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nall tests passed')
