@@ -25,6 +25,12 @@ import {
 } from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
+import {
+  analyticsEnabled,
+  normalizeRoute,
+  track,
+  trackPageview,
+} from '../src/lib/analytics.js'
 
 let fails = 0
 const check = (label, got, want) => {
@@ -296,6 +302,23 @@ check('alias unknown', canonName('Narnia'), null)
   }
   // Unconfigured (no env) ad slot must render nothing — never an empty box.
   check('ad slot renders nothing when unconfigured', renderToString(<AdSlot />), '')
+}
+
+// ---------- analytics (env-gated, no-op when unconfigured) ----------
+{
+  check('analytics disabled without a key', analyticsEnabled(), false)
+  check('normalizeRoute collapses team slugs', normalizeRoute('/team/brazil'), '/team/:slug')
+  check('normalizeRoute keeps static routes', normalizeRoute('/schedule'), '/schedule')
+  check('normalizeRoute defaults empty to /', normalizeRoute(''), '/')
+  // calls must be safe no-ops when disabled (never throw, never load posthog)
+  let threw = false
+  try {
+    track('test_event', { a: 1 })
+    trackPageview('/team/brazil')
+  } catch {
+    threw = true
+  }
+  check('track/trackPageview are safe no-ops', threw, false)
 }
 
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nall tests passed')

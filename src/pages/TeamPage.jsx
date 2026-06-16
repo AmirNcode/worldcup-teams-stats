@@ -1,10 +1,11 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import teams from '../data/teams.json'
 import { useData } from '../lib/data.jsx'
 import { computeGroups, teamTournamentRecord } from '../lib/standings'
 import { goldenBoot } from '../lib/scorers'
 import { useFavorite } from '../lib/prefs'
+import { track } from '../lib/analytics'
 import MatchCard from '../components/MatchCard'
 import Lineup from '../components/Lineup'
 
@@ -41,6 +42,10 @@ export default function TeamPage() {
 
   const scorers = useMemo(() => goldenBoot(matches).filter((s) => s.team === name), [matches, name])
 
+  useEffect(() => {
+    if (name) track('team_viewed', { team: name })
+  }, [name])
+
   if (!entry) {
     return (
       <div className="page">
@@ -71,7 +76,10 @@ export default function TeamPage() {
         </div>
         <button
           className={`star-btn${isFav ? ' on' : ''}`}
-          onClick={() => setFavorite(isFav ? null : name)}
+          onClick={() => {
+            track(isFav ? 'favorite_cleared' : 'favorite_set', { team: name })
+            setFavorite(isFav ? null : name)
+          }}
           aria-label={isFav ? 'Remove favorite' : 'Set as favorite team'}
         >
           {isFav ? '★' : '☆'}

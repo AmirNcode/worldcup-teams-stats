@@ -114,6 +114,34 @@ AdSense IDs are public — but the recommended path is to set them in your host
 (e.g. Netlify → Site settings → Environment variables) so going live needs no
 code change, just a redeploy. There's no database, login, or payment code.
 
+## Analytics (PostHog)
+
+Optional product analytics via PostHog, in `src/lib/analytics.js`. It's
+**env-gated**: with no `VITE_POSTHOG_KEY` set, every call is a no-op and the
+posthog-js library is never even downloaded (it's a lazy chunk that's only
+fetched once a key is present). Set the key to enable:
+
+- `VITE_POSTHOG_KEY` — your project API key (starts with `phc_`).
+- `VITE_POSTHOG_HOST` — `https://us.i.posthog.com` (default) or the EU host.
+
+What it captures when enabled:
+
+- **Pageviews** on every in-app navigation. Because the app uses `HashRouter`,
+  PostHog's automatic (History-API) pageview tracking can't see route changes,
+  so we capture them manually with a clean path plus a normalized `route`
+  property (e.g. all team pages group under `/team/:slug`).
+- **Autocapture** of taps/clicks — interactions without per-element wiring.
+- **Named events** on the key flows: `team_viewed`, `match_facts_opened`,
+  `favorite_set` / `favorite_cleared`, `schedule_view_changed`,
+  `schedule_week_changed`, `teams_compared`, `theme_toggled`.
+
+Privacy: configured as cookieless (`persistence: 'localStorage'`) with
+`person_profiles: 'identified_only'`, so visitors stay anonymous and no person
+profiles are created. Depending on your audience/region you may still want a
+consent banner; PostHog's opt-out API makes that easy to add later. Tip: set
+the key only in your host (not a local `.env`) so dev sessions don't pollute
+your data.
+
 ## Data sources & accuracy
 
 - **Live scores, scorers, match stats:** ESPN public JSON API (no key

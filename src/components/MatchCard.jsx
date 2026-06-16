@@ -3,6 +3,7 @@ import TeamTag from './TeamTag'
 import MatchFacts from './MatchFacts'
 import { matchStatus, finalScore, isInPlay } from '../lib/data.jsx'
 import { STADIUMS, fmtTime, fmtDate, shortCity, liveLabel } from '../lib/format'
+import { track } from '../lib/analytics'
 
 // In-play badge: a pulsing red dot + minute clock (amber, no pulse, at HT).
 function LiveBadge({ status, clock }) {
@@ -33,13 +34,18 @@ export default function MatchCard({ match, showDate = false, highlight = false }
   const label = match.group ? `Group ${match.group}` : match.round
   const stadium = STADIUMS[match.city]
 
+  const openFacts = () => {
+    track('match_facts_opened', { stage: match.stage, status })
+    setFactsOpen(true)
+  }
+
   return (
     <>
       <div
         className={`match-card${highlight ? ' fav' : ''}${openable ? ' tappable' : ''}${
           live ? ' is-live' : ''
         }`}
-        onClick={openable ? () => setFactsOpen(true) : undefined}
+        onClick={openable ? openFacts : undefined}
       >
         <div className="match-meta">
           <span>

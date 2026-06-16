@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import teams from '../data/teams.json'
 import { useData, matchStatus } from '../lib/data.jsx'
 import { teamTournamentRecord } from '../lib/standings'
+import { track } from '../lib/analytics'
 import MatchCard from '../components/MatchCard'
 
 const bySlug = Object.fromEntries(Object.entries(teams).map(([name, t]) => [t.slug, name]))
@@ -39,6 +40,10 @@ export default function ComparePage() {
   const slugB = params.get('b')
   const nameA = bySlug[slugA]
   const nameB = bySlug[slugB]
+
+  useEffect(() => {
+    if (nameA && nameB) track('teams_compared', { a: nameA, b: nameB })
+  }, [nameA, nameB])
 
   const set = (key) => (slug) => {
     const next = new URLSearchParams(params)

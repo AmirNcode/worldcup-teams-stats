@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { useData } from './lib/data.jsx'
 import { useTheme } from './lib/prefs'
+import { initAnalytics, trackPageview, track } from './lib/analytics'
 import AdSlot from './components/AdSlot'
 import GroupsPage from './pages/GroupsPage'
 import SchedulePage from './pages/SchedulePage'
@@ -27,6 +29,14 @@ function UpdatedChip() {
 export default function App() {
   const [theme, toggleTheme] = useTheme()
   const location = useLocation()
+
+  useEffect(() => {
+    initAnalytics()
+  }, [])
+  useEffect(() => {
+    trackPageview(location.pathname)
+  }, [location.pathname])
+
   return (
     <div className="app">
       <header className="topbar">
@@ -35,7 +45,14 @@ export default function App() {
         </h1>
         <div className="topbar-actions">
           <UpdatedChip />
-          <button className="chip" onClick={toggleTheme} aria-label="Toggle dark mode">
+          <button
+            className="chip"
+            onClick={() => {
+              track('theme_toggled', { to: theme === 'dark' ? 'light' : 'dark' })
+              toggleTheme()
+            }}
+            aria-label="Toggle dark mode"
+          >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
         </div>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useData } from '../lib/data.jsx'
 import { useFavorite } from '../lib/prefs'
 import { dayKey, fmtDateLong, tzLabel } from '../lib/format'
+import { track } from '../lib/analytics'
 import teams from '../data/teams.json'
 import MatchCard from '../components/MatchCard'
 
@@ -48,6 +49,7 @@ function WeekView({ matches, favorite }) {
   const shiftWeek = (dir) => {
     const next = new Date(weekStart.getTime() + dir * 7 * DAY_MS)
     if (next < firstDay || next > lastDay) return
+    track('schedule_week_changed', { dir: dir > 0 ? 'next' : 'prev' })
     setWeekStart(next)
     setSelectedDay(null)
   }
@@ -167,10 +169,22 @@ export default function SchedulePage() {
     <div className="page">
       <div className="toolbar">
         <div className="segmented">
-          <button className={view === 'week' ? 'active' : ''} onClick={() => setView('week')}>
+          <button
+            className={view === 'week' ? 'active' : ''}
+            onClick={() => {
+              track('schedule_view_changed', { view: 'week' })
+              setView('week')
+            }}
+          >
             Weekly
           </button>
-          <button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')}>
+          <button
+            className={view === 'list' ? 'active' : ''}
+            onClick={() => {
+              track('schedule_view_changed', { view: 'list' })
+              setView('list')
+            }}
+          >
             All matches
           </button>
         </div>
