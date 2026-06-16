@@ -14,6 +14,8 @@
   --good-soft: #dcfce7;
   --warn-soft: #fef9c3;
   --star: #f59e0b;
+  --live: #dc2626;
+  --live-soft: #fee2e2;
   --tabbar: #ffffff;
 }
 
@@ -29,6 +31,8 @@
   --good-soft: #14352246;
   --warn-soft: #3a330f66;
   --star: #fbbf24;
+  --live: #f87171;
+  --live-soft: #45161699;
   --tabbar: #101828;
 }
 
@@ -413,6 +417,63 @@ tr.maybe td:first-child {
 .badge.pending {
   background: var(--line);
   color: var(--muted);
+}
+
+/* live (in-play) indicators */
+.badge.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--live-soft);
+  color: var(--live);
+}
+
+.badge.live-badge.paused {
+  background: var(--warn-soft);
+  color: var(--star);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--live);
+  animation: live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+.score.live-score {
+  color: var(--live);
+}
+
+.match-card.is-live {
+  border-color: var(--live);
+  box-shadow: inset 0 0 0 1px var(--live);
+}
+
+.match-card.fav.is-live {
+  box-shadow: inset 3px 0 0 var(--star), inset 0 0 0 1px var(--live);
+}
+
+.score-note.live-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--live);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .match-foot {

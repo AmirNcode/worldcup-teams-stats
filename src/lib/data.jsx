@@ -13,7 +13,11 @@ import { SCOREBOARD_URL, parseScoreboard, applyEspn } from './espn'
 const OPENFOOTBALL_URL = bundled.source
 const OF_CACHE_KEY = 'wc26.liveData.v1'
 const ESPN_CACHE_KEY = 'wc26.espnData.v1'
-const REFRESH_MS = 5 * 60 * 1000 // scores surface at HT and FT; 5 min is plenty
+const LIVE_MS = 25 * 1000 // poll hard while a match is being played
+const IDLE_MS = 5 * 60 * 1000 // gentle background poll otherwise
+const SOON_MS = 5 * 60 * 1000 // ramp up this long before a kickoff
+
+const LIVE_STATES = new Set(['1h', 'ht', '2h', 'et', 'pens', 'live'])
 
 // Overlay the openfootball payload onto the bundled schedule.
 // date+ground uniquely identifies a match; index is the fallback in case a
@@ -76,6 +80,11 @@ export function DataProvider({ children }) {
     }
   })
   const fetching = useRef(false)
+  // always-current matches for the scheduler, without re-creating it each poll
+  const matchesRef = useRef(state.matches)
+  useEffect(() => {
+    matchesRef.current = state.matches
+  }, [state.matches])
 
   const refresh = useCallback(async () => {
     if (fetching.current) return
@@ -125,16 +134,25 @@ export function DataProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    refresh()
-    const id = setInterval(() => {
-      if (document.visibilityState === 'visible') refresh()
-    }, REFRESH_MS)
+    let stopped = false
+    let timer = null
+    const schedule = () => {
+      if (stopped) return
+      clearTimeout(timer)
+      timer = setTimeout(run, nextRefreshDelay(matchesRef.current))
+    }
+    const run = async () => {
+      if (document.visibilityState === 'visible') await refresh()
+      schedule()
+    }
+    run() // immediate fetch, then self-schedules at the adaptive cadence
     const onVisible = () => {
-      if (document.visibilityState === 'visible') refresh()
+      if (document.visibilityState === 'visible') run()
     }
     document.addEventListener('visibilitychange', onVisible)
     return () => {
-      clearInterval(id)
+      stopped = true
+      clearTimeout(timer)
       document.removeEventListener('visibilitychange', onVisible)
     }
   }, [refresh])
@@ -145,6 +163,23 @@ export function DataProvider({ children }) {
 
 export function useData() {
   return useContext(DataContext)
+}
+
+// True while a match is being played (any half, the break, ET or pens).
+export function isInPlay(status) {
+  return LIVE_STATES.has(status)
+}
+
+// Poll fast when any match is in play (or kicks off within a few minutes),
+// gently otherwise. Keeps live matches snappy without hammering the feed.
+export function nextRefreshDelay(matches, now = new Date()) {
+  const t = now.getTime()
+  for (const m of matches) {
+    if (LIVE_STATES.has(matchStatus(m, now))) return LIVE_MS
+    const ko = new Date(m.kickoff).getTime()
+    if (ko > t && ko - t < SOON_MS) return LIVE_MS
+  }
+  return IDLE_MS
 }
 
 // Status precedence: a recorded result, then ESPN's live state, then the clock.

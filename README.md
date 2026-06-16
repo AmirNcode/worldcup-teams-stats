@@ -37,18 +37,23 @@ No accounts, no API keys, no backend — a static React app you can host anywher
   browser menu gives a full-screen app with its own icon (no service worker,
   so no stale-cache surprises).
 
-## Score updates & match facts
+## Live score updates & match facts
 
-Scores are updated at **half-time and full-time** (no minute-by-minute live
-feed, by design): during the first half a match shows "1st half", at the
-break the half-time score appears, during the second half the HT score stays
-up (labelled), and the final score lands at full-time. Tapping the middle of
-any started match card opens a **match facts** sheet — goals with minutes,
-possession, shots, corners, cards, attendance, venue and referee — fetched
-on demand. Tapping a team name still goes to that team's stats page.
+Scores update **live while the app is open**. Match cards show the current
+score with a pulsing minute clock ("⦿ 67'"), the half-time score, extra time
+and penalties, then the final result — all updated automatically. Polling is
+**adaptive**: roughly every 25 seconds while any match is in play (or about to
+kick off), and every 5 minutes otherwise — and only while the tab is visible,
+so it stays easy on battery and data. Tapping the middle of a match card opens
+a **match facts** sheet — goals with minutes, possession, shots, corners,
+cards, attendance, venue and referee — which itself re-polls every 30 seconds
+while the match is live. Tapping a team name still goes to that team's page.
 
-Two keyless public sources are layered, fetched client-side on load and every
-5 minutes while open:
+Live scores are kept separate from the official result internally, so the
+group standings only ever count a match once it's actually full-time.
+
+Two keyless public sources are layered, fetched client-side on load and on the
+adaptive cadence above:
 
 1. **ESPN's public JSON API** (`site.api.espn.com`, CORS-enabled) — primary
    source for live scores, status, scorers and the match-facts stats.

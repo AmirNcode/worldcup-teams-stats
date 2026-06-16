@@ -16,7 +16,13 @@ import {
   parseLineups,
   bucketPosition,
 } from '../src/lib/espn.js'
-import { DataProvider, matchStatus, finalScore } from '../src/lib/data.jsx'
+import {
+  DataProvider,
+  matchStatus,
+  finalScore,
+  isInPlay,
+  nextRefreshDelay,
+} from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
 
@@ -224,6 +230,46 @@ check('alias unknown', canonName('Narnia'), null)
   }, mex)
   check('facts aligned to team1', [facts.teamA, facts.stats[0].a], ['Mexico', '59%'])
   check('facts attendance', facts.info[1], ['Attendance', '87,523'])
+}
+
+// ---------- live (in-play) updates ----------
+{
+  const matches = schedule.matches.map((m) => ({ ...m }))
+  const live = parseScoreboard({
+    events: [
+      {
+        // Mexico 1-0 South Africa, 32' of the first half (ESPN home/away flipped)
+        id: 'L1', date: '2026-06-11T19:30Z',
+        status: { type: { state: 'in', name: 'STATUS_FIRST_HALF' }, period: 1, displayClock: "32'" },
+        competitions: [{
+          competitors: [
+            { homeAway: 'home', team: { id: '20', displayName: 'South Africa' }, score: '0' },
+            { homeAway: 'away', team: { id: '21', displayName: 'Mexico' }, score: '1' },
+          ],
+          details: [{ scoringPlay: true, type: { text: 'Goal' }, clock: { displayValue: "32'" }, team: { id: '21' }, athletesInvolved: [{ displayName: 'Raúl Jiménez' }] }],
+        }],
+      },
+    ],
+  })
+  applyEspn(matches, live)
+  const mex = matches.find((m) => m.team1 === 'Mexico' && m.team2 === 'South Africa')
+  check('live snapshot score (oriented)', mex.live?.score, [1, 0])
+  check('live clock', mex.live?.clock, "32'")
+  check('live state 1h', matchStatus(mex), '1h')
+  check('isInPlay true', isInPlay(matchStatus(mex)), true)
+  check('1st half does NOT set official ft', mex.score?.ft ?? null, null)
+  check('live goal credited to team1', mex.goals1?.[0]?.name, 'Raúl Jiménez')
+  // standings must ignore an in-progress match (no ft yet)
+  const g = computeGroups(matches)
+  check('live match not counted in standings', g.A.find((r) => r.team === 'Mexico').mp, 0)
+  // golden boot DOES reflect live goals
+  check('live goal in golden boot', goldenBoot(matches)[0]?.name, 'Raúl Jiménez')
+
+  // adaptive polling: fast when live, gentle otherwise
+  const idle = schedule.matches.map((m) => ({ ...m })) // untouched -> all upcoming/far
+  const farFuture = new Date('2027-01-01T00:00:00Z')
+  check('idle poll is gentle', nextRefreshDelay(idle, farFuture) >= 60000, true)
+  check('live poll is fast', nextRefreshDelay(matches, new Date('2026-06-11T19:30Z')) <= 30000, true)
 }
 
 // ---------- SSR smoke: every route renders ----------

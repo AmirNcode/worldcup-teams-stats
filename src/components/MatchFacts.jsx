@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import teams from '../data/teams.json'
 import { fetchMatchFacts } from '../lib/espn'
-import { matchStatus, finalScore } from '../lib/data.jsx'
-import { STADIUMS, fmtDateLong, fmtTime, shortCity } from '../lib/format'
+import { matchStatus, finalScore, isInPlay } from '../lib/data.jsx'
+import { STADIUMS, fmtDateLong, fmtTime, shortCity, liveLabel } from '../lib/format'
+
+const FACTS_POLL_MS = 30 * 1000
 
 function GoalTimeline({ match }) {
   const rows = []
@@ -34,19 +36,28 @@ export default function MatchFacts({ match, onClose }) {
   const [facts, setFacts] = useState(null)
   const [error, setError] = useState(false)
 
+  // Fetch facts on open, and while the match is in play re-poll for live
+  // stats — without flicking back to the loading state on each refresh.
   useEffect(() => {
     let alive = true
-    if (match.espnId) {
-      fetchMatchFacts(match)
-        .then((f) => alive && setFacts(f))
-        .catch(() => alive && setError(true))
-    } else {
+    if (!match.espnId) {
       setError(true)
+      return
     }
+    const load = () =>
+      fetchMatchFacts(match)
+        .then((f) => alive && f && setFacts(f))
+        .catch(() => alive && setError(true))
+    load()
+    const timer = isInPlay(matchStatus(match)) ? setInterval(load, FACTS_POLL_MS) : null
     return () => {
       alive = false
+      if (timer) clearInterval(timer)
     }
-  }, [match])
+    // espnId is the stable identity; match object changes each poll but the
+    // fetch target doesn't, so we avoid resetting the interval every refresh.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [match.espnId])
 
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -60,7 +71,9 @@ export default function MatchFacts({ match, onClose }) {
   }, [onClose])
 
   const status = matchStatus(match)
-  const score = finalScore(match) ?? match.score?.ht
+  const final = finalScore(match)
+  const live = !final && isInPlay(status) ? match.live : null
+  const score = final ?? live?.score ?? match.score?.ht
   const ht = match.score?.ht
   const pens = match.score?.p
   const t1 = teams[match.team1]
@@ -93,8 +106,12 @@ export default function MatchFacts({ match, onClose }) {
                 {status === 'ft' && ht && (
                   <div className="score-note">HT {ht[0]} – {ht[1]}</div>
                 )}
-                {status === 'ht' && <div className="score-note">Half-time</div>}
-                {status === '2h' && <div className="score-note">HT score · 2nd half in play</div>}
+                {live && (
+                  <div className="score-note live-note">
+                    <span className="live-dot" />
+                    {liveLabel(status, live.clock)}
+                  </div>
+                )}
               </>
             ) : (
               <div className="kickoff-time">{fmtTime(match.kickoff)}</div>

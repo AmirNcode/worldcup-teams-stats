@@ -1,37 +1,34 @@
 import { useState } from 'react'
 import TeamTag from './TeamTag'
 import MatchFacts from './MatchFacts'
-import { matchStatus, finalScore } from '../lib/data.jsx'
-import { STADIUMS, fmtTime, fmtDate, shortCity } from '../lib/format'
+import { matchStatus, finalScore, isInPlay } from '../lib/data.jsx'
+import { STADIUMS, fmtTime, fmtDate, shortCity, liveLabel } from '../lib/format'
 
-const BADGES = {
-  ft: ['FT', 'ft'],
-  ht: ['HT', 'ht'],
-  '1h': ['1st half', 'live'],
-  '2h': ['2nd half', 'live'],
-  et: ['Extra time', 'live'],
-  pens: ['Penalties', 'live'],
-  live: ['In play', 'live'],
-  pending: ['Result pending', 'pending'],
-}
-
-function StatusBadge({ status }) {
-  const b = BADGES[status]
-  return b ? <span className={`badge ${b[1]}`}>{b[0]}</span> : null
+// In-play badge: a pulsing red dot + minute clock (amber, no pulse, at HT).
+function LiveBadge({ status, clock }) {
+  const atBreak = status === 'ht'
+  return (
+    <span className={`badge live-badge${atBreak ? ' paused' : ''}`}>
+      {!atBreak && <span className="live-dot" />}
+      {liveLabel(status, clock)}
+    </span>
+  )
 }
 
 export default function MatchCard({ match, showDate = false, highlight = false }) {
   const [factsOpen, setFactsOpen] = useState(false)
   const status = matchStatus(match)
-  const score = finalScore(match)
+  const final = finalScore(match)
   const ht = match.score?.ht
   const pens = match.score?.p
+  // a live snapshot only counts while the match is actually in play
+  const live = !final && isInPlay(status) ? match.live : null
 
   // Tapping the card opens match facts once there's something to show;
   // team names (links inside) still navigate to team pages.
   const openable =
     status !== 'upcoming' &&
-    Boolean(match.espnId || score || ht || match.goals1?.length || match.goals2?.length)
+    Boolean(match.espnId || final || ht || match.goals1?.length || match.goals2?.length)
 
   const label = match.group ? `Group ${match.group}` : match.round
   const stadium = STADIUMS[match.city]
@@ -39,7 +36,9 @@ export default function MatchCard({ match, showDate = false, highlight = false }
   return (
     <>
       <div
-        className={`match-card${highlight ? ' fav' : ''}${openable ? ' tappable' : ''}`}
+        className={`match-card${highlight ? ' fav' : ''}${openable ? ' tappable' : ''}${
+          live ? ' is-live' : ''
+        }`}
         onClick={openable ? () => setFactsOpen(true) : undefined}
       >
         <div className="match-meta">
@@ -57,10 +56,10 @@ export default function MatchCard({ match, showDate = false, highlight = false }
             <TeamTag name={match.team1} bold />
           </div>
           <div className="center">
-            {score ? (
+            {final ? (
               <>
                 <div className="score">
-                  {score[0]} – {score[1]}
+                  {final[0]} – {final[1]}
                 </div>
                 {pens ? (
                   <div className="score-note">
@@ -69,21 +68,32 @@ export default function MatchCard({ match, showDate = false, highlight = false }
                 ) : match.score?.et ? (
                   <div className="score-note">aet</div>
                 ) : null}
+                <span className="badge ft">FT</span>
+              </>
+            ) : live?.score ? (
+              <>
+                <div className="score live-score">
+                  {live.score[0]} – {live.score[1]}
+                </div>
+                <LiveBadge status={status} clock={live.clock} />
               </>
             ) : ht ? (
               <>
                 <div className="score">
                   {ht[0]} – {ht[1]}
                 </div>
-                {status === '2h' && <div className="score-note">HT score</div>}
+                <LiveBadge status={status} clock={null} />
               </>
             ) : (
-              <div className="kickoff">
-                {showDate && <div className="kickoff-date">{fmtDate(match.kickoff)}</div>}
-                <div className="kickoff-time">{fmtTime(match.kickoff)}</div>
-              </div>
+              <>
+                <div className="kickoff">
+                  {showDate && <div className="kickoff-date">{fmtDate(match.kickoff)}</div>}
+                  <div className="kickoff-time">{fmtTime(match.kickoff)}</div>
+                </div>
+                {isInPlay(status) && <LiveBadge status={status} clock={live?.clock ?? null} />}
+                {status === 'pending' && <span className="badge pending">Result pending</span>}
+              </>
             )}
-            <StatusBadge status={status} />
           </div>
           <div className="side away" onClick={(e) => e.stopPropagation()}>
             <TeamTag name={match.team2} bold />

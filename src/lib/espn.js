@@ -123,6 +123,7 @@ export function parseScoreboard(json) {
       state: status?.type?.state ?? 'pre', // pre | in | post
       statusName: status?.type?.name ?? '',
       period: num(status?.period) ?? 0,
+      displayClock: status?.displayClock ?? null, // e.g. "45'"
       homeName: canonName(home.team?.displayName ?? home.team?.name),
       awayName: canonName(away.team?.displayName ?? away.team?.name),
       homeScore: num(home.score),
@@ -142,8 +143,9 @@ export function parseScoreboard(json) {
 const HOUR = 3600e3
 
 // Overlay ESPN events onto our match list (mutates the passed clones).
-// Scores appear at half-time and full-time only — the milestones the site
-// promises — never minute-by-minute.
+// The current in-play snapshot lives on `m.live` (score, minute, state); the
+// official `m.score` only ever holds HT and the final FT/ET/pens — so the
+// standings, which read `m.score.ft`, never count an in-progress match.
 export function applyEspn(matches, events) {
   for (const ev of events) {
     if (!ev.date) continue
@@ -219,26 +221,33 @@ export function applyEspn(matches, events) {
       }
     } else if (ev.state === 'in') {
       if (best.score?.ft) continue // feed already finalized it
-      if (atHalftime) {
-        best.liveState = 'ht'
-        const ht = pair(ev.homeScore, ev.awayScore)
-        if (ht) best.score = { ht }
-        const [gh, ga] = ev.goals
-        ;[best.goals1, best.goals2] = flipped ? [ga, gh] : [gh, ga]
-      } else if (ev.period <= 1) {
-        best.liveState = '1h'
-      } else if (ev.period === 2) {
-        best.liveState = '2h'
-        const ht = pair(ev.homeHt, ev.awayHt)
-        if (ht && !best.score?.ht) best.score = { ht }
-      } else {
-        best.liveState = ev.period >= 5 ? 'pens' : 'et'
-        const ht = pair(ev.homeHt, ev.awayHt)
-        const ninety = pair(ev.home90, ev.away90)
-        const score = {}
-        if (ht) score.ht = ht
-        if (ninety) score.ft = ninety
-        if (score.ft) best.score = score
+      const cur = pair(ev.homeScore, ev.awayScore)
+      best.liveState = atHalftime
+        ? 'ht'
+        : ev.period <= 1
+          ? '1h'
+          : ev.period === 2
+            ? '2h'
+            : ev.period >= 5
+              ? 'pens'
+              : 'et'
+      best.live = {
+        score: cur,
+        clock: ev.displayClock || null,
+        period: ev.period,
+        state: best.liveState,
+      }
+      // record HT into the official score once we reach the break
+      const ht = atHalftime ? cur : pair(ev.homeHt, ev.awayHt)
+      if (ht && ev.period >= 2 && !best.score?.ht) best.score = { ...(best.score ?? {}), ht }
+      else if (atHalftime && cur && !best.score?.ht) best.score = { ht: cur }
+      // live scorers, so the card detail, team pages and boot update in play
+      const [gh, ga] = ev.goals
+      const live1 = flipped ? ga : gh
+      const live2 = flipped ? gh : ga
+      if (live1?.length || live2?.length) {
+        best.goals1 = live1
+        best.goals2 = live2
       }
     }
   }

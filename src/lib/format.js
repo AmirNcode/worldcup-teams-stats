@@ -77,3 +77,12 @@ export function scoreline(score) {
   else if (score.et) s += ' (aet)'
   return s
 }
+
+// Short label for an in-play match: the live minute when known, else a state.
+export function liveLabel(status, clock) {
+  if (status === 'ht') return 'HT'
+  if (status === 'pens') return 'PENS'
+  if (clock) return clock // e.g. "67'"
+  if (status === 'et') return 'ET'
+  return 'LIVE'
+}
