@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { track } from '../lib/analytics'
 
 const TYPES = ['Report bug', 'Feature request', 'General feedback']
@@ -13,6 +14,8 @@ const encode = (data) =>
     .join('&')
 
 export default function FeedbackForm({ onClose }) {
+  const location = useLocation()
+  const page = location.pathname + location.search // route the user is on
   const [type, setType] = useState(TYPES[0])
   const [message, setMessage] = useState('')
   const [bot, setBot] = useState('') // honeypot — humans leave this empty
@@ -41,11 +44,12 @@ export default function FeedbackForm({ onClose }) {
           'form-name': 'feedback',
           'feedback-type': type,
           message,
+          page,
           'bot-field': bot,
         }),
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      track('feedback_submitted', { type })
+      track('feedback_submitted', { type, page })
       setStatus('done')
     } catch {
       setStatus('error')
@@ -53,7 +57,7 @@ export default function FeedbackForm({ onClose }) {
   }
 
   return (
-    <div className="sheet-backdrop" onClick={onClose}>
+    <div className="sheet-backdrop feedback-backdrop" onClick={onClose}>
       <div className="sheet" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
         <button className="sheet-close" onClick={onClose} aria-label="Close">
           ✕
@@ -77,6 +81,7 @@ export default function FeedbackForm({ onClose }) {
           >
             {/* hidden fields Netlify expects */}
             <input type="hidden" name="form-name" value="feedback" />
+            <input type="hidden" name="page" value={page} />
             <p className="hidden-field">
               <label>
                 Leave blank: <input name="bot-field" value={bot} onChange={(e) => setBot(e.target.value)} />

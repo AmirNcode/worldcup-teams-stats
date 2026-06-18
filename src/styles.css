@@ -86,7 +86,7 @@ button {
 }
 
 .topbar h1 {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin: 0;
   white-space: nowrap;
 }
@@ -1040,6 +1040,18 @@ table.boot-table th:last-child {
 .sheet-title {
   margin: 2px 0 12px;
   font-size: 1.05rem;
+}
+
+/* Feedback sheet anchors near the top so the on-screen keyboard doesn't
+   cover the inputs (a bottom sheet would be hidden behind it). */
+.feedback-backdrop {
+  align-items: flex-start;
+}
+
+.feedback-backdrop .sheet {
+  margin-top: calc(8vh + env(safe-area-inset-top));
+  border-radius: 18px;
+  max-height: 80dvh;
 }
 
 /* ---------- feedback form ---------- */
