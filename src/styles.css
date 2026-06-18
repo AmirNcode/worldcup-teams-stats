@@ -91,6 +91,10 @@ button {
   white-space: nowrap;
 }
 
+.home-link {
+  color: inherit;
+}
+
 .topbar-actions {
   display: flex;
   gap: 6px;
@@ -797,6 +801,28 @@ table.history-table .year {
 }
 
 /* ---------- lineup ---------- */
+.lineup-coach {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.coach-label {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.coach-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
 .lineup-caption {
   font-size: 0.78rem;
   color: var(--muted);
@@ -1009,6 +1035,69 @@ table.boot-table th:last-child {
   border-radius: 999px;
   width: 30px;
   height: 30px;
+}
+
+.sheet-title {
+  margin: 2px 0 12px;
+  font-size: 1.05rem;
+}
+
+/* ---------- feedback form ---------- */
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 10px 0 4px;
+}
+
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.form-btn {
+  margin-top: 14px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.form-btn:disabled {
+  opacity: 0.5;
+}
+
+.hidden-field {
+  position: absolute;
+  left: -5000px;
+}
+
+.feedback-done {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.feedback-done p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
 }
 
 .sheet-head {
