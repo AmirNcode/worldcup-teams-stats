@@ -588,11 +588,53 @@ tr.maybe td:first-child {
   padding: 3px 10px;
 }
 
+.week-grid-wrap {
+  overflow: hidden; /* clip the slide animation so it can't cause h-scroll */
+}
+
 .week-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
   touch-action: pan-y; /* let vertical scroll through; we handle horizontal swipe */
+}
+
+/* week paging slide+fade (re-keyed on week change so it replays each time) */
+.week-grid.from-right {
+  animation: week-slide-right 0.22s ease-out;
+}
+
+.week-grid.from-left {
+  animation: week-slide-left 0.22s ease-out;
+}
+
+@keyframes week-slide-right {
+  from {
+    opacity: 0.3;
+    transform: translateX(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes week-slide-left {
+  from {
+    opacity: 0.3;
+    transform: translateX(-30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .week-grid.from-right,
+  .week-grid.from-left {
+    animation: none;
+  }
 }
 
 .swipe-hint {

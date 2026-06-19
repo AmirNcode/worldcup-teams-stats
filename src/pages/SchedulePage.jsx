@@ -39,6 +39,7 @@ function WeekView({ matches, favorite }) {
   const initial = todayMonday < firstDay ? firstDay : todayMonday > lastDay ? lastDay : todayMonday
 
   const [weekStart, setWeekStart] = useState(initial)
+  const [slideDir, setSlideDir] = useState(1) // +1 slide from right (next), -1 from left (prev)
   const [selectedDay, setSelectedDay] = useState(() => {
     const today = dayKey(new Date())
     return byDay.has(today) ? today : null
@@ -50,6 +51,7 @@ function WeekView({ matches, favorite }) {
     const next = new Date(weekStart.getTime() + dir * 7 * DAY_MS)
     if (next < firstDay || next > lastDay) return
     track('schedule_week_changed', { dir: dir > 0 ? 'next' : 'prev', via })
+    setSlideDir(dir)
     setWeekStart(next)
     setSelectedDay(null)
   }
@@ -80,6 +82,7 @@ function WeekView({ matches, favorite }) {
   const onCurrentWeek = weekStart.getTime() === todayMonday.getTime()
   const goToToday = () => {
     track('schedule_today', { view: 'week' })
+    setSlideDir(todayMonday >= weekStart ? 1 : -1)
     setWeekStart(todayMonday)
     setSelectedDay(byDay.has(todayKey) ? todayKey : null)
   }
@@ -111,12 +114,16 @@ function WeekView({ matches, favorite }) {
         </button>
       </div>
       <div
-        className="week-grid"
+        className="week-grid-wrap"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         style={{ touchAction: 'pan-y' }}
       >
-        {days.map((d) => {
+        <div
+          key={weekStart.getTime()}
+          className={`week-grid ${slideDir > 0 ? 'from-right' : 'from-left'}`}
+        >
+          {days.map((d) => {
           const k = dayKey(d)
           const dayMatches = byDay.get(k) ?? []
           const isToday = k === dayKey(new Date())
@@ -137,7 +144,8 @@ function WeekView({ matches, favorite }) {
               </div>
             </button>
           )
-        })}
+          })}
+        </div>
       </div>
       <p className="swipe-hint">‹ swipe to change week ›</p>
       {shownDay ? (
