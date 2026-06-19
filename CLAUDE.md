@@ -31,7 +31,10 @@ snapshot is the offline floor so the app always renders.
   GD), a "Today's matches" strip, and a "3rd-place race" table (best 8 third
   finishers advance).
 - **Schedule** (`/schedule`): weekly calendar view + full list view, all
-  kickoff times rendered in the visitor's local time zone.
+  kickoff times rendered in the visitor's local time zone. The weekly grid
+  supports horizontal **swipe** (left → next week, right → previous) and a
+  **"Today"** chip in the week-nav that appears only when you've navigated off
+  the current week; the list view auto-scrolls to today each time it opens.
 - **Teams** (`/teams`): searchable list of all 48 teams; links to team pages
   and to the compare tool.
 - **Team page** (`/team/:slug`): 2026 record + scorers, group position, head
@@ -296,8 +299,8 @@ all hook instances** (same tab via a `prefs-sync` CustomEvent, other tabs via
   `/team/<x>` → `/team/:slug`).
 - `track(event, props)` for named events already wired:
   `team_viewed, match_facts_opened, favorite_set, favorite_cleared,
-  schedule_view_changed, schedule_week_changed, teams_compared, theme_toggled,
-  feedback_opened, feedback_submitted`.
+  schedule_view_changed, schedule_week_changed, schedule_today, teams_compared,
+  theme_toggled, feedback_opened, feedback_submitted`.
 - Host defaults to `https://us.i.posthog.com`; override with `VITE_POSTHOG_HOST`.
 
 ---
@@ -395,8 +398,16 @@ browser-free.
 - Reuse existing patterns: `usePersistent` for device prefs, the bottom-sheet
   pattern for modals, `track()` for analytics events, CSS variables for color.
 - Prefer no new dependencies. The app is intentionally tiny.
-- Branch: develop on `claude/world-cup-stats-site-ywmj82`. Run `npm test` and
-  `npm run build` before committing. Commits/PRs in normal English.
+- Run `npm test` and `npm run build` before committing. Commits/PRs in normal
+  English.
+
+### Branch & push policy (IMPORTANT)
+- **Push only to the `development` branch.** Never push to `main` (the branch
+  Netlify deploys to production) except by the user's **direct, explicit
+  request**. Day-to-day feature work lands on `development`.
+- Commit identity is `Claude <noreply@anthropic.com>`. Commits made in the
+  sandbox are unsigned (no signing key) and GitHub shows them "Unverified" —
+  this is expected and harmless; do not churn history trying to "fix" it.
 
 ---
 

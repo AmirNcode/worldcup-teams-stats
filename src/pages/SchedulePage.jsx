@@ -73,6 +73,17 @@ function WeekView({ matches, favorite }) {
     }
   }
 
+  // "Today" chip: only shown when the viewed week isn't the current one and
+  // today falls within the tournament — jumps back to today's week + day.
+  const todayKey = dayKey(new Date())
+  const todayInRange = todayMonday >= firstDay && todayMonday <= lastDay
+  const onCurrentWeek = weekStart.getTime() === todayMonday.getTime()
+  const goToToday = () => {
+    track('schedule_today', { view: 'week' })
+    setWeekStart(todayMonday)
+    setSelectedDay(byDay.has(todayKey) ? todayKey : null)
+  }
+
   const shownDay =
     selectedDay && days.some((d) => dayKey(d) === selectedDay)
       ? selectedDay
@@ -84,10 +95,17 @@ function WeekView({ matches, favorite }) {
         <button onClick={() => shiftWeek(-1)} disabled={weekStart <= firstDay} aria-label="Previous week">
           ‹
         </button>
-        <span>
-          {weekStart.toLocaleDateString([], { month: 'short', day: 'numeric' })} –{' '}
-          {weekEnd.toLocaleDateString([], { month: 'short', day: 'numeric' })}
-        </span>
+        <div className="week-nav-center">
+          <span className="week-range">
+            {weekStart.toLocaleDateString([], { month: 'short', day: 'numeric' })} –{' '}
+            {weekEnd.toLocaleDateString([], { month: 'short', day: 'numeric' })}
+          </span>
+          {todayInRange && !onCurrentWeek && (
+            <button className="today-chip" onClick={goToToday}>
+              Today
+            </button>
+          )}
+        </div>
         <button onClick={() => shiftWeek(1)} disabled={weekStart >= lastDay} aria-label="Next week">
           ›
         </button>
