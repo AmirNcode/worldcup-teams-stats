@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { useData } from './lib/data.jsx'
 import { useTheme } from './lib/prefs'
 import { initAnalytics, trackPageview, track } from './lib/analytics'
 import AdSlot from './components/AdSlot'
+import FeedbackForm from './components/FeedbackForm'
 import GroupsPage from './pages/GroupsPage'
 import SchedulePage from './pages/SchedulePage'
 import TeamsPage from './pages/TeamsPage'
@@ -28,6 +29,7 @@ function UpdatedChip() {
 
 export default function App() {
   const [theme, toggleTheme] = useTheme()
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -41,9 +43,22 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <h1>
-          <span aria-hidden="true">🏆</span> World Cup 2026
+          <Link to="/" className="home-link">
+            <span aria-hidden="true">🏆</span> World Cup 2026
+          </Link>
         </h1>
         <div className="topbar-actions">
+          <button
+            className="chip"
+            onClick={() => {
+              track('feedback_opened')
+              setFeedbackOpen(true)
+            }}
+            aria-label="Send feedback"
+            title="Send feedback"
+          >
+            ✉️
+          </button>
           <UpdatedChip />
           <button
             className="chip"
@@ -57,6 +72,7 @@ export default function App() {
           </button>
         </div>
       </header>
+      {feedbackOpen && <FeedbackForm onClose={() => setFeedbackOpen(false)} />}
       <main className="content">
         <Routes>
           <Route path="/" element={<GroupsPage />} />

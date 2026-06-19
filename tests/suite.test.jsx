@@ -294,6 +294,12 @@ check('alias unknown', canonName('Narnia'), null)
       if (r === '/') {
         const groups = [...html.matchAll(/Group <!-- -->([A-L])</g)].map((m) => m[1]).join('')
         check('all 12 groups render', groups, 'ABCDEFGHIJKL')
+        check('feedback button present', html.includes('Send feedback'), true)
+        check('home link present', html.includes('home-link'), true)
+      }
+      if (r === '/team/brazil') {
+        check('coach label shown', html.includes('Head coach'), true)
+        check('coach name shown', html.includes('Carlo Ancelotti'), true)
       }
     } catch (e) {
       fails++

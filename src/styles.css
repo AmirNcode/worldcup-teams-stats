@@ -86,9 +86,13 @@ button {
 }
 
 .topbar h1 {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin: 0;
   white-space: nowrap;
+}
+
+.home-link {
+  color: inherit;
 }
 
 .topbar-actions {
@@ -565,10 +569,80 @@ tr.maybe td:first-child {
   color: var(--line);
 }
 
+.week-nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* scoped to beat the generic `.week-nav button` size/color rule above */
+.week-nav .today-chip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.week-grid-wrap {
+  overflow: hidden; /* clip the slide animation so it can't cause h-scroll */
+}
+
 .week-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
+  touch-action: pan-y; /* let vertical scroll through; we handle horizontal swipe */
+}
+
+/* week paging slide+fade (re-keyed on week change so it replays each time) */
+.week-grid.from-right {
+  animation: week-slide-right 0.22s ease-out;
+}
+
+.week-grid.from-left {
+  animation: week-slide-left 0.22s ease-out;
+}
+
+@keyframes week-slide-right {
+  from {
+    opacity: 0.3;
+    transform: translateX(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes week-slide-left {
+  from {
+    opacity: 0.3;
+    transform: translateX(-30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .week-grid.from-right,
+  .week-grid.from-left {
+    animation: none;
+  }
+}
+
+.swipe-hint {
+  text-align: center;
+  font-size: 0.66rem;
+  color: var(--muted);
+  opacity: 0.7;
+  margin: 6px 0 2px;
 }
 
 .day-cell {
@@ -797,6 +871,28 @@ table.history-table .year {
 }
 
 /* ---------- lineup ---------- */
+.lineup-coach {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.coach-label {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.coach-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
 .lineup-caption {
   font-size: 0.78rem;
   color: var(--muted);
@@ -1009,6 +1105,81 @@ table.boot-table th:last-child {
   border-radius: 999px;
   width: 30px;
   height: 30px;
+}
+
+.sheet-title {
+  margin: 2px 0 12px;
+  font-size: 1.05rem;
+}
+
+/* Feedback sheet anchors near the top so the on-screen keyboard doesn't
+   cover the inputs (a bottom sheet would be hidden behind it). */
+.feedback-backdrop {
+  align-items: flex-start;
+}
+
+.feedback-backdrop .sheet {
+  margin-top: calc(8vh + env(safe-area-inset-top));
+  border-radius: 18px;
+  max-height: 80dvh;
+}
+
+/* ---------- feedback form ---------- */
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 10px 0 4px;
+}
+
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.form-btn {
+  margin-top: 14px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.form-btn:disabled {
+  opacity: 0.5;
+}
+
+.hidden-field {
+  position: absolute;
+  left: -5000px;
+}
+
+.feedback-done {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.feedback-done p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
 }
 
 .sheet-head {

@@ -14,6 +14,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <!--
+      Static form so Netlify Forms detects "feedback" at build time. The real
+      form is rendered by React and submitted via fetch; field names must match.
+    -->
+    <form name="feedback" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="feedback" />
+      <select name="feedback-type">
+        <option>Report bug</option>
+        <option>Feature request</option>
+        <option>General feedback</option>
+      </select>
+      <textarea name="message"></textarea>
+      <input name="page" />
+      <input name="bot-field" />
+    </form>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
