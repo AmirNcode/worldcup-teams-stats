@@ -573,6 +573,15 @@ tr.maybe td:first-child {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
+  touch-action: pan-y; /* let vertical scroll through; we handle horizontal swipe */
+}
+
+.swipe-hint {
+  text-align: center;
+  font-size: 0.66rem;
+  color: var(--muted);
+  opacity: 0.7;
+  margin: 6px 0 2px;
 }
 
 .day-cell {

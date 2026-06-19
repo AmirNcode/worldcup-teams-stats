@@ -46,12 +46,31 @@ function WeekView({ matches, favorite }) {
 
   const days = [...Array(7)].map((_, i) => new Date(weekStart.getTime() + i * DAY_MS))
   const weekEnd = new Date(weekStart.getTime() + 6 * DAY_MS)
-  const shiftWeek = (dir) => {
+  const shiftWeek = (dir, via = 'button') => {
     const next = new Date(weekStart.getTime() + dir * 7 * DAY_MS)
     if (next < firstDay || next > lastDay) return
-    track('schedule_week_changed', { dir: dir > 0 ? 'next' : 'prev' })
+    track('schedule_week_changed', { dir: dir > 0 ? 'next' : 'prev', via })
     setWeekStart(next)
     setSelectedDay(null)
+  }
+
+  // Horizontal swipe on the week grid pages the weeks: swipe left → next week,
+  // swipe right → previous. A 45px threshold (and dx > dy) keeps day taps and
+  // vertical page scroll working.
+  const touchStart = useRef(null)
+  const onTouchStart = (e) => {
+    const t = e.touches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+  }
+  const onTouchEnd = (e) => {
+    if (!touchStart.current) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchStart.current.x
+    const dy = t.clientY - touchStart.current.y
+    touchStart.current = null
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      shiftWeek(dx < 0 ? 1 : -1, 'swipe')
+    }
   }
 
   const shownDay =
@@ -73,7 +92,12 @@ function WeekView({ matches, favorite }) {
           ›
         </button>
       </div>
-      <div className="week-grid">
+      <div
+        className="week-grid"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ touchAction: 'pan-y' }}
+      >
         {days.map((d) => {
           const k = dayKey(d)
           const dayMatches = byDay.get(k) ?? []
@@ -97,6 +121,7 @@ function WeekView({ matches, favorite }) {
           )
         })}
       </div>
+      <p className="swipe-hint">‹ swipe to change week ›</p>
       {shownDay ? (
         <div className="day-list">
           <h3>{fmtDateLong(`${shownDay}T12:00:00`)}</h3>
