@@ -73,7 +73,6 @@ export default function App() {
           <SportSwitcher active={section} />
         </h1>
         <div className="topbar-actions">
-          {section.id === 'f1' ? <F1UpdatedChip /> : <UpdatedChip />}
           <div className="topbar-actions-row">
             <button
               className="chip"
@@ -97,6 +96,7 @@ export default function App() {
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
           </div>
+          {section.id === 'f1' ? <F1UpdatedChip /> : <UpdatedChip />}
         </div>
       </header>
       {feedbackOpen && <FeedbackForm onClose={() => setFeedbackOpen(false)} />}
