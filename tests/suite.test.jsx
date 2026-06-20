@@ -283,7 +283,7 @@ check('alias unknown', canonName('Narnia'), null)
   globalThis.matchMedia = () => ({ matches: false })
   const routes = ['/', '/schedule', '/teams', '/team/brazil', '/team/curacao', '/team/nope',
     '/bracket', '/scorers', '/compare?a=brazil&b=argentina',
-    '/f1', '/f1/calendar', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
+    '/f1', '/f1/standings', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope']
   for (const r of routes) {
@@ -306,9 +306,12 @@ check('alias unknown', canonName('Narnia'), null)
       }
       if (r === '/f1') {
         check('f1 section title shown', html.includes('Grand Prix 2026'), true)
+        check('f1 calendar shows a round', html.includes('Australian Grand Prix'), true)
+        check('f1 tab Standings present', html.includes('Standings'), true)
+      }
+      if (r === '/f1/standings') {
         check('f1 constructors table', html.includes('Constructors'), true)
         check('f1 driver listed', html.includes('Oscar Piastri'), true)
-        check('f1 tab Standings present', html.includes('Standings'), true)
       }
       if (r === '/f1/driver/piastri') {
         check('f1 driver page renders results', html.includes('most recent first'), true)

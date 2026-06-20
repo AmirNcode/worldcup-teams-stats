@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { calendar, driverBySlug, circuitBySlug, fmtRoundDate } from '../data'
+import { calendar, driverBySlug, circuitBySlug } from '../data'
+import { fmtDate, fmtTime, tzLabel } from '../../lib/format'
 
 export default function F1CalendarPage() {
   return (
     <div className="page">
-      <p className="hint">2026 race calendar. Completed rounds show the winner; tap a round for the circuit.</p>
+      <p className="hint">2026 race calendar. Start times are shown in your local time zone. Tap a round for the circuit.</p>
       <div className="team-list">
         {calendar.map((r) => {
           const c = circuitBySlug(r.circuitSlug)
@@ -14,8 +15,9 @@ export default function F1CalendarPage() {
               <span className="driver-num">{r.round}</span>
               <div className="team-row-main">
                 <div className="team-row-name">{r.name}</div>
+                <div className="team-row-sub">{c ? `${c.flag} ${c.locality}` : ''}</div>
                 <div className="team-row-sub">
-                  {c ? `${c.flag} ${c.locality}` : ''} · {fmtRoundDate(r.date)}
+                  {fmtDate(r.start)} · {fmtTime(r.start)}
                 </div>
               </div>
               <div className="team-row-tags">
@@ -31,7 +33,7 @@ export default function F1CalendarPage() {
           )
         })}
       </div>
-      <p className="f1-note">Sample placeholder data — not a real schedule.</p>
+      <p className="f1-note">Times in your zone ({tzLabel()}). Sample placeholder data — not a real schedule.</p>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { teamsByPoints, teamDrivers } from '../data'
+import F1TeamLogo from '../components/F1TeamLogo'
 
 export default function F1TeamsPage() {
   const teams = teamsByPoints()
@@ -9,7 +10,7 @@ export default function F1TeamsPage() {
       <div className="team-list">
         {teams.map((t) => (
           <Link className="team-row" key={t.slug} to={`/f1/team/${t.slug}`}>
-            <span className="f1-bar" style={{ background: t.color }} />
+            <F1TeamLogo team={t} />
             <div className="team-row-main">
               <div className="team-row-name">{t.name}</div>
               <div className="team-row-sub">

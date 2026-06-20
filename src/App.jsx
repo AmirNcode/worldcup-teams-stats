@@ -101,8 +101,8 @@ export default function App() {
           <Route path="/bracket" element={<BracketPage />} />
           <Route path="/scorers" element={<ScorersPage />} />
           <Route path="/compare" element={<ComparePage />} />
-          <Route path="/f1" element={<F1StandingsPage />} />
-          <Route path="/f1/calendar" element={<F1CalendarPage />} />
+          <Route path="/f1" element={<F1CalendarPage />} />
+          <Route path="/f1/standings" element={<F1StandingsPage />} />
           <Route path="/f1/teams" element={<F1TeamsPage />} />
           <Route path="/f1/team/:slug" element={<F1TeamPage />} />
           <Route path="/f1/drivers" element={<F1DriversPage />} />

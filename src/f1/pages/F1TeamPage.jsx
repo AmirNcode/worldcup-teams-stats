@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { teamBySlug, teamDrivers, teamsByPoints } from '../data'
+import F1TeamLogo from '../components/F1TeamLogo'
 
 function Stat({ label, value }) {
   return (
@@ -29,7 +30,7 @@ export default function F1TeamPage() {
   return (
     <div className="page">
       <header className="team-header">
-        <span className="f1-bar" style={{ background: team.color }} />
+        <F1TeamLogo team={team} className="big" />
         <div>
           <h2>{team.name}</h2>
           <div className="team-sub">

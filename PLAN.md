@@ -79,13 +79,17 @@ the current blue. This is a few CSS lines and is trivially reversible (drop the
 ### 3.1 Tabs (bottom bar, left → right)
 | Tab | Route | Emoji | Purpose |
 |-----|-------|-------|---------|
-| Standings | `/f1` | 🏆 | Drivers' + Constructors' championship tables (cumulative points). Section home. |
-| Calendar | `/f1/calendar` | 📅 | Season rounds: date, circuit, country; completed rounds show the winner/podium. |
-| Teams | `/f1/teams` | 🏎️ | Browse constructors. → team page. |
+| Calendar | `/f1` | 📅 | Season rounds with **local-time start**, circuit, country; completed rounds show the winner. **Section home** (selecting Grand Prix lands here). |
+| Standings | `/f1/standings` | 🏆 | Drivers' + Constructors' championship tables (cumulative points), each with a newcomer explainer. |
+| Teams | `/f1/teams` | 🏎️ | Browse constructors (with logos). → team page. |
 | Drivers | `/f1/drivers` | 🧑‍✈️ | Browse drivers. → driver page. |
 | Circuits | `/f1/circuits` | 🏟️ | Browse circuits. → circuit page. |
 
 Non-tab (detail) routes: `/f1/team/:slug`, `/f1/driver/:slug`, `/f1/circuit/:slug`.
+
+**Team logos:** rendered by `F1TeamLogo` from `public/f1/logos/<slug>.svg`, with a
+color-badge fallback (team color + abbreviation) until a file is supplied. Logos
+are user-supplied trademarks; none are committed to the repo.
 
 **Why these five (vs. soccer's Groups/Schedule/Teams/Bracket/Boot):** F1 has no
 knockout bracket and no single "top scorer" leaderboard, so:
@@ -138,6 +142,22 @@ This mirrors the soccer stack's three layers exactly: **F1DB snapshot → Jolpic
 overlay → OpenF1 live**. **To verify before wiring:** CORS from the static
 browser app (OpenF1 is browser-friendly; Jolpica needs a check) and the OpenF1
 free-tier rate limits (3 req/s, 30 req/min).
+
+### 4.1 Decided v1 scope (live data)
+Target chosen with the user: **real structured data (Jolpica) + a live race-day
+timing overlay (OpenF1)** — the full mirror of the soccer side. Plan:
+- **Jolpica** replaces the mock for standings, schedule/calendar, results,
+  drivers, constructors, circuits. The current `src/f1/data/*` becomes the bundled
+  **offline floor** (like `schedule.json`), so the app still renders if a fetch
+  fails.
+- **OpenF1** provides a live overlay (positions/intervals/last-lap) during a race
+  session, shown on the Calendar's current round and a race view.
+- An `F1DataProvider` (mirroring `DataProvider`) owns fetching + adaptive
+  polling; pure parse/merge logic in `src/f1/lib/*` with tests.
+- **Open risk to settle first:** CORS. If either API blocks browser calls, a
+  tiny serverless proxy (e.g. a Netlify function) is needed — that's a deviation
+  from the "no backend" rule and needs sign-off. This is a separate design pass
+  (its own brainstorm) before coding.
 
 ---
 

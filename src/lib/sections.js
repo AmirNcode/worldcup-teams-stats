@@ -28,8 +28,8 @@ export const SECTIONS = [
     title: 'Grand Prix 2026',
     home: '/f1',
     tabs: [
-      { to: '/f1', end: true, emoji: '🏆', label: 'Standings' },
-      { to: '/f1/calendar', emoji: '📅', label: 'Calendar' },
+      { to: '/f1', end: true, emoji: '📅', label: 'Calendar' },
+      { to: '/f1/standings', emoji: '🏆', label: 'Standings' },
       { to: '/f1/teams', emoji: '🏎️', label: 'Teams' },
       { to: '/f1/drivers', emoji: '🧑‍✈️', label: 'Drivers' },
       { to: '/f1/circuits', emoji: '🏟️', label: 'Circuits' },

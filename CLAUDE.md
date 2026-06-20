@@ -140,7 +140,9 @@ src/
     BracketPage.jsx  ScorersPage.jsx  ComparePage.jsx
   f1/                      # Formula 1 section (isolated)
     data/                  # MOCK sample data: teams, drivers, circuits, calendar, index
-    pages/                 # F1Standings/Calendar/Teams/Team/Drivers/Driver/Circuits/Circuit
+    components/            # F1TeamLogo (logo-or-fallback-badge)
+    pages/                 # F1Calendar/Standings/Teams/Team/Drivers/Driver/Circuits/Circuit
+public/f1/logos/           # drop <team-slug>.svg here to show real constructor logos
 ```
 
 ---
@@ -496,14 +498,26 @@ is just deleting those two blocks. **Status: F1 red is provisional** pending an
 in-app look; may revert to the default accent.
 
 ### 20.6 Formula 1 section (`src/f1/`)
-Tabs (L→R): **🏆 Standings** (`/f1`, home) · **📅 Calendar** (`/f1/calendar`) ·
+Tabs (L→R): **📅 Calendar** (`/f1`, home) · **🏆 Standings** (`/f1/standings`) ·
 **🏎️ Teams** (`/f1/teams`) · **🧑‍✈️ Drivers** (`/f1/drivers`) · **🏟️ Circuits**
 (`/f1/circuits`). Detail routes: `/f1/team/:slug`, `/f1/driver/:slug`,
-`/f1/circuit/:slug`.
+`/f1/circuit/:slug`. **Calendar is the section home** — selecting Grand Prix in
+the switcher lands there.
+- The **Calendar** lists each round with its **start time in the visitor's local
+  zone** (each round has a `start` ISO carrying the circuit's UTC offset; rendered
+  with the shared `fmtTime`/`fmtDate` from `src/lib/format.js`).
+- The **Standings** page opens each championship with a newcomer-friendly
+  explainer (how drivers/constructors score points).
 - The **Team page** shows a constructor **plus its drivers** (their stats/facts).
 - The **Driver page** shows bio + season stats + **per-GP results, most recent
   first** (the "Wins" surface).
 - The **Circuit page** shows track facts + **fastest-lap record**.
+
+**Team logos:** `src/f1/components/F1TeamLogo.jsx` renders
+`public/f1/logos/<slug>.svg`, falling back to a color badge (team color +
+`abbr`) when the file is absent. Drop logo files into `public/f1/logos/` to light
+them up (convention in that folder's README). Logos are user-supplied
+(trademarks) — none are committed.
 
 **Data is MOCK** for now — `src/f1/data/{teams,drivers,circuits,calendar}.js`
 with `index.js` lookups/derivations. Clearly labelled placeholder; shapes chosen

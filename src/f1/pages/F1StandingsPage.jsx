@@ -10,6 +10,11 @@ export default function F1StandingsPage() {
 
       <section className="card">
         <h2>Drivers’ Championship</h2>
+        <p className="hint">
+          Every driver ranked by total points scored this season. Drivers earn points by
+          finishing in the top 10 of each Grand Prix — 25 for a win down to 1 for tenth (Sprint
+          races award a few more) — so the leader is the current favourite for the world title.
+        </p>
         <table className="standings">
           <thead>
             <tr>
@@ -42,6 +47,11 @@ export default function F1StandingsPage() {
 
       <section className="card">
         <h2>Constructors’ Championship</h2>
+        <p className="hint">
+          The teams’ title. Each constructor’s score is its two drivers’ points added together,
+          so it rewards the strongest car-and-team package overall. It runs alongside the drivers’
+          championship and decides how prize money is shared out.
+        </p>
         <table className="standings">
           <thead>
             <tr>

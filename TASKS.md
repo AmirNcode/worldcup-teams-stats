@@ -43,10 +43,25 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done
 ## Phase 5 — Ship
 - [x] Commit on `development`
 - [x] Push to `origin/development`
-- [ ] (User) review F1 red accent in-app; keep or revert
+- [x] (User) reviewed F1 red accent in-app — kept
+
+## Phase 6 — F1 refinements (round 2)
+- [x] Standings: newcomer explainers under Drivers’ + Constructors’ Championship
+- [x] Team logos: `F1TeamLogo` + `public/f1/logos/` convention + color-badge fallback
+- [x] Tab reorder: Calendar first and section home (Standings → `/f1/standings`)
+- [x] Calendar: per-round start time in the visitor’s local time zone
+- [x] Tests updated (routes + assertions); `npm test` + `npm run build` green
+- [x] Commit + push to `development`
+
+## Phase 7 — Live data (next; see PLAN.md §4.1)
+- [ ] Design pass: verify Jolpica + OpenF1 CORS from a static browser app; decide on a proxy if blocked
+- [ ] Jolpica overlay: standings, schedule/calendar, results, drivers, constructors, circuits
+- [ ] Mock data (`src/f1/data/*`) becomes the bundled offline floor
+- [ ] OpenF1 live overlay: race-day positions/intervals on the current round
+- [ ] `F1DataProvider` + adaptive polling; pure parse/merge logic in `src/f1/lib/` + tests
+- [ ] `npm test` + `npm run build`; commit on `development`
 
 ---
 
 ## Future initiatives (backlog — see PLAN.md §1, §5)
-- [ ] Wire real F1 data (F1DB snapshot → Jolpica overlay → OpenF1 live); verify CORS + rate limits
 - [ ] Next sport (tennis / a domestic soccer league) via the same section recipe

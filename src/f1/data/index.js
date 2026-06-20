@@ -7,17 +7,6 @@ import { calendar } from './calendar'
 
 export { teams, drivers, circuits, calendar }
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-// Format a 'YYYY-MM-DD' date without constructing a Date (avoids time-zone drift).
-export function fmtRoundDate(iso) {
-  const [, m, d] = iso.split('-').map(Number)
-  return `${d} ${MONTHS[m - 1]}`
-}
-export function fmtRoundDateLong(iso) {
-  const [y, m, d] = iso.split('-').map(Number)
-  return `${d} ${MONTHS[m - 1]} ${y}`
-}
-
 export const driverBySlug = (slug) => drivers.find((d) => d.slug === slug)
 export const teamBySlug = (slug) => teams.find((t) => t.slug === slug)
 export const circuitBySlug = (slug) => circuits.find((c) => c.slug === slug)

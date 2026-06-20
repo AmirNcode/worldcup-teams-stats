@@ -2,11 +2,14 @@
 // Not authoritative. Replaced later by a real feed (Jolpica). See PLAN.md §3-4.
 // `points` is the constructors' championship total and equals the sum of the
 // team's two drivers' points in drivers.js (kept consistent by hand).
+// `abbr` is the 3-letter code used by the fallback logo badge when no logo file
+// is present at public/f1/logos/<slug>.svg.
 export const teams = [
   {
     slug: 'mclaren',
     name: 'McLaren',
     short: 'McLaren',
+    abbr: 'MCL',
     color: '#FF8000',
     base: 'Woking, United Kingdom',
     powerUnit: 'Mercedes',
@@ -22,6 +25,7 @@ export const teams = [
     slug: 'mercedes',
     name: 'Mercedes',
     short: 'Mercedes',
+    abbr: 'MER',
     color: '#27F4D2',
     base: 'Brackley, United Kingdom',
     powerUnit: 'Mercedes',
@@ -37,6 +41,7 @@ export const teams = [
     slug: 'ferrari',
     name: 'Ferrari',
     short: 'Ferrari',
+    abbr: 'FER',
     color: '#E8002D',
     base: 'Maranello, Italy',
     powerUnit: 'Ferrari',
@@ -52,6 +57,7 @@ export const teams = [
     slug: 'redbull',
     name: 'Red Bull Racing',
     short: 'Red Bull',
+    abbr: 'RBR',
     color: '#3671C6',
     base: 'Milton Keynes, United Kingdom',
     powerUnit: 'Honda RBPT',
@@ -67,6 +73,7 @@ export const teams = [
     slug: 'williams',
     name: 'Williams',
     short: 'Williams',
+    abbr: 'WIL',
     color: '#64C4FF',
     base: 'Grove, United Kingdom',
     powerUnit: 'Mercedes',
@@ -82,6 +89,7 @@ export const teams = [
     slug: 'aston',
     name: 'Aston Martin',
     short: 'Aston',
+    abbr: 'AMR',
     color: '#229971',
     base: 'Silverstone, United Kingdom',
     powerUnit: 'Honda',
@@ -97,6 +105,7 @@ export const teams = [
     slug: 'sauber',
     name: 'Kick Sauber',
     short: 'Sauber',
+    abbr: 'SAU',
     color: '#52E252',
     base: 'Hinwil, Switzerland',
     powerUnit: 'Audi',
@@ -112,6 +121,7 @@ export const teams = [
     slug: 'haas',
     name: 'Haas',
     short: 'Haas',
+    abbr: 'HAA',
     color: '#B6BABD',
     base: 'Kannapolis, United States',
     powerUnit: 'Ferrari',
@@ -127,6 +137,7 @@ export const teams = [
     slug: 'racingbulls',
     name: 'Racing Bulls',
     short: 'Racing Bulls',
+    abbr: 'RB',
     color: '#6692FF',
     base: 'Faenza, Italy',
     powerUnit: 'Honda RBPT',
@@ -142,6 +153,7 @@ export const teams = [
     slug: 'alpine',
     name: 'Alpine',
     short: 'Alpine',
+    abbr: 'ALP',
     color: '#0093CC',
     base: 'Enstone, United Kingdom',
     powerUnit: 'Mercedes',

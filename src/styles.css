@@ -1468,3 +1468,34 @@ table.cmp-table td {
   color: var(--muted);
   margin: 10px 2px 0;
 }
+
+/* constructor logo (image from public/f1/logos/<slug>.svg) or fallback badge */
+.f1-logo {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.f1-logo.big {
+  width: 52px;
+  height: 52px;
+}
+
+/* fallback when no logo file exists: color tile with the team abbreviation */
+.f1-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.f1-logo-badge.big {
+  font-size: 0.85rem;
+}
