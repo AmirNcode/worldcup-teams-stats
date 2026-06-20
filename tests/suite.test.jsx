@@ -282,7 +282,10 @@ check('alias unknown', canonName('Narnia'), null)
 {
   globalThis.matchMedia = () => ({ matches: false })
   const routes = ['/', '/schedule', '/teams', '/team/brazil', '/team/curacao', '/team/nope',
-    '/bracket', '/scorers', '/compare?a=brazil&b=argentina']
+    '/bracket', '/scorers', '/compare?a=brazil&b=argentina',
+    '/f1', '/f1/calendar', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
+    '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
+    '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope']
   for (const r of routes) {
     try {
       const html = renderToString(
@@ -295,11 +298,20 @@ check('alias unknown', canonName('Narnia'), null)
         const groups = [...html.matchAll(/Group <!-- -->([A-L])</g)].map((m) => m[1]).join('')
         check('all 12 groups render', groups, 'ABCDEFGHIJKL')
         check('feedback button present', html.includes('Send feedback'), true)
-        check('home link present', html.includes('home-link'), true)
+        check('sport switcher present', html.includes('sport-switcher'), true)
       }
       if (r === '/team/brazil') {
         check('coach label shown', html.includes('Head coach'), true)
         check('coach name shown', html.includes('Carlo Ancelotti'), true)
+      }
+      if (r === '/f1') {
+        check('f1 section title shown', html.includes('Grand Prix 2026'), true)
+        check('f1 constructors table', html.includes('Constructors'), true)
+        check('f1 driver listed', html.includes('Oscar Piastri'), true)
+        check('f1 tab Standings present', html.includes('Standings'), true)
+      }
+      if (r === '/f1/driver/piastri') {
+        check('f1 driver page renders results', html.includes('most recent first'), true)
       }
     } catch (e) {
       fails++

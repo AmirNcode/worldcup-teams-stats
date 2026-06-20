@@ -36,6 +36,20 @@
   --tabbar: #101828;
 }
 
+/* Per-section accent (multi-sport). F1 → red; soccer keeps the default blue.
+   Provisional: delete these two blocks to revert F1 to the default accent.
+   data-section lives on .app; data-theme lives on <html>, hence the descendant
+   selector for the dark variant. */
+[data-section='f1'] {
+  --accent: #e10600;
+  --accent-soft: #ffe1de;
+}
+
+[data-theme='dark'] [data-section='f1'] {
+  --accent: #ff5a52;
+  --accent-soft: #3a1614;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -91,11 +105,87 @@ button {
   white-space: nowrap;
 }
 
-.home-link {
-  color: inherit;
+/* sport switcher (the top-bar title is a dropdown to switch sports) */
+.sport-switcher {
+  position: relative;
 }
 
+.sport-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.sport-caret {
+  font-size: 0.7em;
+  color: var(--muted);
+}
+
+.sport-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  min-width: 220px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.sport-option {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'main check' 'sub check';
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  gap: 0 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.sport-option:hover,
+.sport-option.on {
+  background: var(--accent-soft);
+}
+
+.sport-option-main {
+  grid-area: main;
+  font-weight: 600;
+}
+
+.sport-option-sub {
+  grid-area: sub;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.sport-check {
+  grid-area: check;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* right side of the top bar: update chip on top, feedback + theme below it */
 .topbar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.topbar-actions-row {
   display: flex;
   gap: 6px;
   align-items: center;
@@ -1333,4 +1423,48 @@ table.cmp-table td {
   border-top: 1px solid var(--line);
   text-align: center;
   font-weight: 600;
+}
+
+/* ---------- Formula 1 ---------- */
+/* constructor color: a vertical bar in a row, or a small dot inline */
+.f1-bar {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 4px;
+  flex: none;
+}
+
+.f1-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+
+/* driver car number badge */
+.driver-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2em;
+  height: 2em;
+  border-radius: 8px;
+  background: var(--bg);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+/* a win (P1) finish, highlighted in results tables */
+.f1-win {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.f1-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 10px 2px 0;
 }
