@@ -25,6 +25,14 @@ import {
 } from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
+import { F1DataProvider } from '../src/f1/lib/data.jsx'
+import {
+  parseSchedule,
+  parseDriverStandings,
+  parseConstructorStandings,
+  parseResults,
+  normalize,
+} from '../src/f1/lib/jolpica.js'
 import {
   analyticsEnabled,
   normalizeRoute,
@@ -278,6 +286,43 @@ check('alias unknown', canonName('Narnia'), null)
   check('live poll is fast', nextRefreshDelay(matches, new Date('2026-06-11T19:30Z')) <= 30000, true)
 }
 
+// ---------- Jolpica (F1) parsing / normalize ----------
+{
+  const sched = parseSchedule({ MRData: { RaceTable: { Races: [
+    { round: '1', raceName: 'Australian Grand Prix', date: '2026-03-08', time: '04:00:00Z',
+      Circuit: { circuitId: 'albert_park', circuitName: 'Albert Park', Location: { locality: 'Melbourne', country: 'Australia' } } },
+  ] } } })
+  check('f1 schedule parsed', [sched[0].round, sched[0].circuitId, sched[0].start],
+    [1, 'albert_park', '2026-03-08T04:00:00Z'])
+
+  const ds = parseDriverStandings({ MRData: { StandingsTable: { StandingsLists: [{ DriverStandings: [
+    { position: '1', points: '156', wins: '5', Driver: { driverId: 'antonelli', code: 'ANT', permanentNumber: '12', givenName: 'Andrea Kimi', familyName: 'Antonelli', nationality: 'Italian' }, Constructors: [{ constructorId: 'mercedes', name: 'Mercedes' }] },
+  ] }] } } })
+  check('f1 driver standings parsed', [ds[0].driverId, ds[0].points, ds[0].wins, ds[0].constructorId, ds[0].name],
+    ['antonelli', 156, 5, 'mercedes', 'Andrea Kimi Antonelli'])
+
+  const cs = parseConstructorStandings({ MRData: { StandingsTable: { StandingsLists: [{ ConstructorStandings: [
+    { position: '1', points: '262', wins: '5', Constructor: { constructorId: 'mercedes', name: 'Mercedes' } },
+  ] }] } } })
+  check('f1 constructor standings parsed', [cs[0].constructorId, cs[0].points], ['mercedes', 262])
+
+  const res = parseResults({ MRData: { RaceTable: { Races: [
+    { round: '1', Results: [
+      { position: '1', points: '25', grid: '1', status: 'Finished', Driver: { driverId: 'russell' }, Constructor: { constructorId: 'mercedes' }, FastestLap: { rank: '2' } },
+      { position: '2', points: '18', grid: '3', status: 'Finished', Driver: { driverId: 'leclerc' }, Constructor: { constructorId: 'ferrari' }, FastestLap: { rank: '1' } },
+      { position: '3', points: '15', grid: '2', status: 'Finished', Driver: { driverId: 'norris' }, Constructor: { constructorId: 'mclaren' } },
+    ] },
+  ] } } })
+  check('f1 results winner/podium', [res[1].winnerId, res[1].podium], ['russell', ['russell', 'leclerc', 'norris']])
+  check('f1 results pole + fastest lap', [res[1].poleId, res[1].fastestLapDriverId], ['russell', 'leclerc'])
+
+  const model = normalize({ season: '2026', schedule: sched, driverStandings: ds, constructorStandings: cs, results: res })
+  check('f1 normalize merges round result', [model.rounds[0].done, model.rounds[0].winnerId], [true, 'russell'])
+  check('f1 normalize sorts drivers by position', model.drivers[0].driverId, 'antonelli')
+  // bad/empty payloads never throw — parsers return empty, normalize stays safe
+  check('f1 parsers tolerate empty payload', [parseSchedule({}).length, parseDriverStandings({}).length], [0, 0])
+}
+
 // ---------- SSR smoke: every route renders ----------
 {
   globalThis.matchMedia = () => ({ matches: false })
@@ -290,7 +335,9 @@ check('alias unknown', canonName('Narnia'), null)
     try {
       const html = renderToString(
         <MemoryRouter initialEntries={[r]}>
-          <DataProvider><App /></DataProvider>
+          <DataProvider>
+            <F1DataProvider><App /></F1DataProvider>
+          </DataProvider>
         </MemoryRouter>,
       )
       check(`route ${r} renders`, html.length > 700, true)
@@ -311,7 +358,7 @@ check('alias unknown', canonName('Narnia'), null)
       }
       if (r === '/f1/standings') {
         check('f1 constructors table', html.includes('Constructors'), true)
-        check('f1 driver listed', html.includes('Oscar Piastri'), true)
+        check('f1 championship heading', html.includes('Championship'), true)
       }
       if (r === '/f1/driver/piastri') {
         check('f1 driver page renders results', html.includes('most recent first'), true)

@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
-import { driverBySlug, teamBySlug, driversByPoints, driverResults } from '../data'
+import { useF1Data } from '../lib/data.jsx'
+import { driverById, constructorById, driverResults } from '../lib/select'
 
 function Stat({ label, value }) {
   return (
@@ -12,7 +13,8 @@ function Stat({ label, value }) {
 
 export default function F1DriverPage() {
   const { slug } = useParams()
-  const d = driverBySlug(slug)
+  const { model } = useF1Data()
+  const d = driverById(model, slug)
 
   if (!d) {
     return (
@@ -23,57 +25,53 @@ export default function F1DriverPage() {
     )
   }
 
-  const t = teamBySlug(d.team)
-  const pos = driversByPoints().findIndex((x) => x.slug === slug) + 1
-  const results = driverResults(slug)
+  const team = constructorById(model, d.constructorId)
+  const results = driverResults(model, slug)
 
   return (
     <div className="page">
       <header className="team-header">
-        <span className="driver-num">{d.number}</span>
+        <span className="driver-num">{d.number ?? d.code ?? '–'}</span>
         <div>
           <h2>
             {d.flag} {d.name}
           </h2>
           <div className="team-sub">
-            <span className="f1-swatch" style={{ background: t?.color }} />{' '}
-            {t ? <Link to={`/f1/team/${t.slug}`}>{t.name}</Link> : '—'} · {d.country}
+            <span className="f1-swatch" style={{ background: team?.color }} />{' '}
+            {team ? <Link to={`/f1/team/${team.constructorId}`}>{team.name}</Link> : d.constructorName} · {d.nationality}
           </div>
         </div>
       </header>
 
       <section className="card">
-        <h3>2026 season</h3>
+        <h3>{model.season} season</h3>
         <div className="stat-grid three">
-          <Stat label="Position" value={`P${pos}`} />
+          <Stat label="Position" value={d.position ? `P${d.position}` : '—'} />
           <Stat label="Points" value={d.points} />
           <Stat label="Wins" value={d.wins} />
-          <Stat label="Podiums" value={d.podiums} />
-          <Stat label="Poles" value={d.poles} />
-          <Stat label="Car number" value={d.number} />
         </div>
       </section>
 
-      <section className="card">
-        <h3>Results — most recent first</h3>
-        <table className="history-table">
-          <tbody>
-            {results.map((r) => (
-              <tr key={r.round}>
-                <td className="year">R{r.round}</td>
-                <td>
-                  <Link to={`/f1/circuit/${r.circuitSlug}`}>{r.name}</Link>
-                </td>
-                <td className={r.pos === 1 ? 'f1-win' : ''} style={{ textAlign: 'right' }}>
-                  {r.pos ? `P${r.pos}${r.pos === 1 ? ' 🏆' : ''}` : '—'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-
-      <p className="f1-note">Sample placeholder data — not live results.</p>
+      {results.length > 0 && (
+        <section className="card">
+          <h3>Results — most recent first</h3>
+          <table className="history-table">
+            <tbody>
+              {results.map((r) => (
+                <tr key={r.round}>
+                  <td className="year">R{r.round}</td>
+                  <td>
+                    <Link to={`/f1/circuit/${r.circuitId}`}>{r.name}</Link>
+                  </td>
+                  <td className={r.pos === 1 ? 'f1-win' : ''} style={{ textAlign: 'right' }}>
+                    {r.pos ? `P${r.pos}${r.pos === 1 ? ' 🏆' : ''}` : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
     </div>
   )
 }

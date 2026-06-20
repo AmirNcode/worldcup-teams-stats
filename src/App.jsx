@@ -4,6 +4,7 @@ import { useData } from './lib/data.jsx'
 import { useTheme } from './lib/prefs'
 import { initAnalytics, trackPageview, track } from './lib/analytics'
 import { sectionForPath } from './lib/sections'
+import { useF1Data } from './f1/lib/data.jsx'
 import AdSlot from './components/AdSlot'
 import FeedbackForm from './components/FeedbackForm'
 import SportSwitcher from './components/SportSwitcher'
@@ -37,6 +38,20 @@ function UpdatedChip() {
   )
 }
 
+function F1UpdatedChip() {
+  const { updatedAt, source, refresh } = useF1Data()
+  const label = updatedAt
+    ? `Updated ${updatedAt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`
+    : source === 'bundled'
+      ? 'Offline data'
+      : 'Loading…'
+  return (
+    <button className="chip" onClick={refresh} title="Live F1 data via Jolpica. Tap to refresh now.">
+      ⟳ {label}
+    </button>
+  )
+}
+
 export default function App() {
   const [theme, toggleTheme] = useTheme()
   const [feedbackOpen, setFeedbackOpen] = useState(false)
@@ -57,15 +72,7 @@ export default function App() {
           <SportSwitcher active={section} />
         </h1>
         <div className="topbar-actions">
-          {/* F1 runs on mock data for now, so it shows a static label instead of
-              the soccer live/update chip. */}
-          {section.id === 'f1' ? (
-            <span className="chip" title="Formula 1 is showing sample placeholder data">
-              Sample data
-            </span>
-          ) : (
-            <UpdatedChip />
-          )}
+          {section.id === 'f1' ? <F1UpdatedChip /> : <UpdatedChip />}
           <div className="topbar-actions-row">
             <button
               className="chip"

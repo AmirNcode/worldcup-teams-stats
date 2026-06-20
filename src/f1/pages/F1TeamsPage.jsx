@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom'
-import { teamsByPoints, teamDrivers } from '../data'
+import { useF1Data } from '../lib/data.jsx'
+import { constructorsByPoints, teamDrivers } from '../lib/select'
 import F1TeamLogo from '../components/F1TeamLogo'
 
 export default function F1TeamsPage() {
-  const teams = teamsByPoints()
+  const { model } = useF1Data()
+  const teams = constructorsByPoints(model)
   return (
     <div className="page">
-      <p className="hint">Constructors in the 2026 championship. Tap a team for its drivers and stats.</p>
+      <p className="hint">Constructors in the {model.season} championship. Tap a team for its drivers and stats.</p>
       <div className="team-list">
         {teams.map((t) => (
-          <Link className="team-row" key={t.slug} to={`/f1/team/${t.slug}`}>
+          <Link className="team-row" key={t.constructorId} to={`/f1/team/${t.constructorId}`}>
             <F1TeamLogo team={t} />
             <div className="team-row-main">
               <div className="team-row-name">{t.name}</div>
               <div className="team-row-sub">
-                {teamDrivers(t.slug)
+                {teamDrivers(model, t.constructorId)
                   .map((d) => d.name)
                   .join(' · ')}
               </div>
@@ -25,7 +27,6 @@ export default function F1TeamsPage() {
           </Link>
         ))}
       </div>
-      <p className="f1-note">Sample placeholder data.</p>
     </div>
   )
 }

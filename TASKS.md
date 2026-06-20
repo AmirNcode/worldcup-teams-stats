@@ -53,12 +53,21 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] Tests updated (routes + assertions); `npm test` + `npm run build` green
 - [x] Commit + push to `development`
 
-## Phase 7 — Live data (next; see PLAN.md §4.1)
-- [ ] Design pass: verify Jolpica + OpenF1 CORS from a static browser app; decide on a proxy if blocked
-- [ ] Jolpica overlay: standings, schedule/calendar, results, drivers, constructors, circuits
-- [ ] Mock data (`src/f1/data/*`) becomes the bundled offline floor
-- [ ] OpenF1 live overlay: race-day positions/intervals on the current round
-- [ ] `F1DataProvider` + adaptive polling; pure parse/merge logic in `src/f1/lib/` + tests
+## Phase 7a — Live structured data (Jolpica) — DONE
+- [x] CORS verified open on Jolpica + OpenF1 (no proxy / backend needed)
+- [x] `src/f1/lib/jolpica.js` parsers + `normalize()` (+ unit tests)
+- [x] `scripts/generate-f1.mjs` + `src/f1/data/snapshot.json` (offline floor; `npm run update-f1-data`)
+- [x] `F1DataProvider` (`src/f1/lib/data.jsx`): snapshot → cache → live; 6h poll + focus refresh; fail-soft
+- [x] `src/f1/lib/select.js` selectors + curated reference (constructors, circuits, flags by Jolpica id)
+- [x] All 8 F1 pages read live data; route slugs are Jolpica ids; logos keyed by `constructorId`
+- [x] Real F1 “Updated…” chip replaces the “Sample data” chip
+- [x] `npm test` + `npm run build` green; verified live data renders; commit + push
+
+## Phase 7b — Live race timing (OpenF1) — NEXT
+- [ ] `src/f1/lib/openf1.js` parsers (sessions, positions, intervals, drivers) + tests
+- [ ] Detect a live session; LIVE badge on the current round
+- [ ] Race running-order view (positions / intervals) updating during a session
+- [ ] Faster race-day polling in `F1DataProvider`; dormant otherwise
 - [ ] `npm test` + `npm run build`; commit on `development`
 
 ---

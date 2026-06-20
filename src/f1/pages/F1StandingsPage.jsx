@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
-import { driversByPoints, teamsByPoints, teamBySlug } from '../data'
+import { useF1Data } from '../lib/data.jsx'
+import { driversByPoints, constructorsByPoints, constructorById } from '../lib/select'
 
 export default function F1StandingsPage() {
-  const drivers = driversByPoints()
-  const teams = teamsByPoints()
+  const { model } = useF1Data()
+  const drivers = driversByPoints(model)
+  const teams = constructorsByPoints(model)
+  const colorOf = (cid) => constructorById(model, cid)?.color
+
   return (
     <div className="page">
-      <p className="hint">2026 World Championship standings. Tap a driver or team for details.</p>
+      <p className="hint">{model.season} World Championship standings. Tap a driver or team for details.</p>
 
       <section className="card">
         <h2>Drivers’ Championship</h2>
@@ -25,22 +29,19 @@ export default function F1StandingsPage() {
             </tr>
           </thead>
           <tbody>
-            {drivers.map((d, i) => {
-              const t = teamBySlug(d.team)
-              return (
-                <tr key={d.slug} className={i === 0 ? 'qualifying' : ''}>
-                  <td className="pos">{i + 1}</td>
-                  <td className="team-col">
-                    <Link to={`/f1/driver/${d.slug}`}>
-                      <span className="f1-swatch" style={{ background: t?.color }} /> {d.name}
-                    </Link>
-                    <div className="team-row-sub">{t?.short}</div>
-                  </td>
-                  <td>{d.wins}</td>
-                  <td className="pts">{d.points}</td>
-                </tr>
-              )
-            })}
+            {drivers.map((d, i) => (
+              <tr key={d.driverId} className={i === 0 ? 'qualifying' : ''}>
+                <td className="pos">{i + 1}</td>
+                <td className="team-col">
+                  <Link to={`/f1/driver/${d.driverId}`}>
+                    <span className="f1-swatch" style={{ background: colorOf(d.constructorId) }} /> {d.name}
+                  </Link>
+                  <div className="team-row-sub">{d.constructorName}</div>
+                </td>
+                <td>{d.wins}</td>
+                <td className="pts">{d.points}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
@@ -62,10 +63,10 @@ export default function F1StandingsPage() {
           </thead>
           <tbody>
             {teams.map((t, i) => (
-              <tr key={t.slug} className={i === 0 ? 'qualifying' : ''}>
+              <tr key={t.constructorId} className={i === 0 ? 'qualifying' : ''}>
                 <td className="pos">{i + 1}</td>
                 <td className="team-col">
-                  <Link to={`/f1/team/${t.slug}`}>
+                  <Link to={`/f1/team/${t.constructorId}`}>
                     <span className="f1-swatch" style={{ background: t.color }} /> {t.name}
                   </Link>
                 </td>
@@ -75,8 +76,6 @@ export default function F1StandingsPage() {
           </tbody>
         </table>
       </section>
-
-      <p className="f1-note">Sample placeholder data — not live results.</p>
     </div>
   )
 }

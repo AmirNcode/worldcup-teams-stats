@@ -1,35 +1,34 @@
 import { Link } from 'react-router-dom'
-import { driversByPoints, teamBySlug } from '../data'
+import { useF1Data } from '../lib/data.jsx'
+import { driversByPoints, constructorById } from '../lib/select'
 
 export default function F1DriversPage() {
-  const drivers = driversByPoints()
+  const { model } = useF1Data()
+  const drivers = driversByPoints(model)
+  const colorOf = (cid) => constructorById(model, cid)?.color
   return (
     <div className="page">
-      <p className="hint">Drivers in the 2026 championship. Tap a driver for results and stats.</p>
+      <p className="hint">Drivers in the {model.season} championship. Tap a driver for results and stats.</p>
       <div className="team-list">
-        {drivers.map((d) => {
-          const t = teamBySlug(d.team)
-          return (
-            <Link className="team-row" key={d.slug} to={`/f1/driver/${d.slug}`}>
-              <span className="driver-num">{d.number}</span>
-              <div className="team-row-main">
-                <div className="team-row-name">
-                  {d.flag} {d.name}
-                </div>
-                <div className="team-row-sub">
-                  {t?.name}
-                  {d.wins > 0 ? ` · ${d.wins} wins` : ''}
-                </div>
+        {drivers.map((d) => (
+          <Link className="team-row" key={d.driverId} to={`/f1/driver/${d.driverId}`}>
+            <span className="driver-num">{d.number ?? d.code ?? '–'}</span>
+            <div className="team-row-main">
+              <div className="team-row-name">
+                {d.flag} {d.name}
               </div>
-              <div className="team-row-tags">
-                <span className="f1-swatch" style={{ background: t?.color }} />
-                <span className="title-badge">{d.points} pts</span>
+              <div className="team-row-sub">
+                {d.constructorName}
+                {d.wins > 0 ? ` · ${d.wins} wins` : ''}
               </div>
-            </Link>
-          )
-        })}
+            </div>
+            <div className="team-row-tags">
+              <span className="f1-swatch" style={{ background: colorOf(d.constructorId) }} />
+              <span className="title-badge">{d.points} pts</span>
+            </div>
+          </Link>
+        ))}
       </div>
-      <p className="f1-note">Sample placeholder data.</p>
     </div>
   )
 }
