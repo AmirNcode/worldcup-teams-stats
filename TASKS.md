@@ -63,12 +63,14 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] Real F1 “Updated…” chip replaces the “Sample data” chip
 - [x] `npm test` + `npm run build` green; verified live data renders; commit + push
 
-## Phase 7b — Live race timing (OpenF1) — NEXT
-- [ ] `src/f1/lib/openf1.js` parsers (sessions, positions, intervals, drivers) + tests
-- [ ] Detect a live session; LIVE badge on the current round
-- [ ] Race running-order view (positions / intervals) updating during a session
-- [ ] Faster race-day polling in `F1DataProvider`; dormant otherwise
-- [ ] `npm test` + `npm run build`; commit on `development`
+## Phase 7b — OpenF1 race detail (free historical) — DONE
+Pivot: true live timing during a session is OpenF1's PAID tier (and would need a
+token-holding backend), so we used the FREE historical tier for post-session depth.
+- [x] `src/f1/lib/openf1.js` parsers (sessions, drivers, pit, stints) + number→driverId join + tests
+- [x] `F1RacePage` (`/f1/race/:round`): Jolpica classification + OpenF1 pit stops + tyre strategy
+- [x] Joined by date; lazy + sequential fetch (3 req/s limit); fail-soft to Jolpica-only
+- [x] Calendar: completed rounds → race detail; upcoming → circuit
+- [x] `npm test` + `npm run build` green; verified pit/tyre enrichment renders; commit + push
 
 ---
 

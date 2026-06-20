@@ -19,8 +19,9 @@ export default function F1CalendarPage() {
         {list.map((r) => {
           const c = circuitById(model, r.circuitId)
           const winner = r.winnerId ? driverById(model, r.winnerId) : null
+          const to = r.done ? `/f1/race/${r.round}` : `/f1/circuit/${r.circuitId}`
           return (
-            <Link className="team-row" key={r.round} to={`/f1/circuit/${r.circuitId}`}>
+            <Link className="team-row" key={r.round} to={to}>
               <span className="driver-num">{r.round}</span>
               <div className="team-row-main">
                 <div className="team-row-name">{r.name}</div>

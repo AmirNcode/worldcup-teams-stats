@@ -1499,3 +1499,43 @@ table.cmp-table td {
 .f1-logo-badge.big {
   font-size: 0.85rem;
 }
+
+/* tyre-compound chips on the race-detail page */
+.tyres {
+  display: inline-flex;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.tyre {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 0.58rem;
+  font-weight: 800;
+  border: 1px solid var(--line);
+}
+
+.tyre-S {
+  background: #e8002d;
+  color: #fff;
+}
+.tyre-M {
+  background: #ffd12e;
+  color: #111;
+}
+.tyre-H {
+  background: #f3f3f3;
+  color: #111;
+}
+.tyre-I {
+  background: #43b02a;
+  color: #fff;
+}
+.tyre-W {
+  background: #0067ad;
+  color: #fff;
+}

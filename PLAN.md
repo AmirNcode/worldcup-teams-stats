@@ -157,11 +157,14 @@ pure parsers/selectors in `src/f1/lib/{jolpica,select}.js` (unit-tested). Curate
 reference (team colors, circuit specs, flags) fills what Jolpica lacks, keyed by
 Jolpica id; route slugs are Jolpica ids.
 
-**Phase 7b — OpenF1 (NEXT):** a live overlay (positions / intervals) during a race
-session, shown as a LIVE badge on the Calendar's current round plus a race
-running-order view. `src/f1/lib/openf1.js` parsers + faster race-day polling in
-`F1DataProvider`; dormant outside session windows (data is live from 30 min
-before to 30 min after a session; historical is free).
+**Phase 7b — OpenF1 (DONE, scope revised):** true live timing turned out to be a
+**paid** OpenF1 tier (€9.90/mo) that would also need a token-holding backend, so —
+with the user — we pivoted to the **free historical** tier: a **race-detail page**
+(`/f1/race/:round`, `F1RacePage`) that enriches a completed round with **pit stops
++ tyre strategy** on top of Jolpica's classification. Pure parsers in
+`src/f1/lib/openf1.js`; joined to a round **by date**; fetched lazily and
+**sequentially** (3 req/s free-tier limit); **fail-soft** to a Jolpica-only
+classification. No live-during-session timing, no backend, no cost.
 
 ---
 

@@ -23,6 +23,7 @@ import F1DriversPage from './f1/pages/F1DriversPage'
 import F1DriverPage from './f1/pages/F1DriverPage'
 import F1CircuitsPage from './f1/pages/F1CircuitsPage'
 import F1CircuitPage from './f1/pages/F1CircuitPage'
+import F1RacePage from './f1/pages/F1RacePage'
 
 function UpdatedChip() {
   const { updatedAt, source, refresh } = useData()
@@ -116,6 +117,7 @@ export default function App() {
           <Route path="/f1/driver/:slug" element={<F1DriverPage />} />
           <Route path="/f1/circuits" element={<F1CircuitsPage />} />
           <Route path="/f1/circuit/:slug" element={<F1CircuitPage />} />
+          <Route path="/f1/race/:round" element={<F1RacePage />} />
           <Route path="*" element={<GroupsPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}

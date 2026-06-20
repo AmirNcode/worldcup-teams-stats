@@ -141,10 +141,10 @@ src/
     GroupsPage.jsx  SchedulePage.jsx  TeamsPage.jsx  TeamPage.jsx
     BracketPage.jsx  ScorersPage.jsx  ComparePage.jsx
   f1/                      # Formula 1 section (isolated)
-    lib/                   # jolpica.js (parsers), select.js (selectors), data.jsx (F1DataProvider)
+    lib/                   # jolpica.js, openf1.js (parsers), select.js, data.jsx (F1DataProvider)
     data/                  # snapshot.json (offline floor) + curated: constructors, circuits, flags
     components/            # F1TeamLogo (logo-or-fallback-badge)
-    pages/                 # F1Calendar/Standings/Teams/Team/Drivers/Driver/Circuits/Circuit
+    pages/                 # F1Calendar/Standings/Teams/Team/Drivers/Driver/Circuits/Circuit/Race
 public/f1/logos/           # drop <constructorId>.svg here to show real constructor logos
 ```
 
@@ -541,8 +541,18 @@ Ergast successor), layered exactly like the soccer side:
   `circuitId`), `src/f1/data/flags.js` (nationality/country → emoji).
 - **Ids are Jolpica ids** (`max_verstappen`, `red_bull`, `albert_park`), used as
   route slugs. Missing curated entries degrade gracefully (fields show “—”).
-- **Live race timing via OpenF1 is the next layer (not yet wired)** — see
-  PLAN.md §4.1.
+
+**Race detail (OpenF1, free historical):** `src/f1/lib/openf1.js` (pure parsers) +
+`src/f1/pages/F1RacePage.jsx` (`/f1/race/:round`) enrich a completed round with
+**pit stops + tyre strategy** on top of Jolpica's classification. Joined to a
+round **by date** (round numbering differs between feeds; OpenF1 keys data by
+`driver_number`, mapped to our driverId via the 3-letter code). Fetched lazily per
+race, **sequentially** (OpenF1's free tier is 3 req/s), and **fail-soft** — the
+page always shows Jolpica's classification even if OpenF1 is unavailable.
+Completed rounds on the Calendar link here; upcoming rounds link to the circuit.
+**Not used: OpenF1 live timing during a session** — that is a paid tier and would
+need a token-holding backend, so it is deliberately omitted (the app stays free
+and backend-less). See PLAN.md §4.1.
 **Future real data:** F1DB snapshot → **Jolpica-F1** (`api.jolpi.ca`, free,
 drop-in Ergast successor) overlay → **OpenF1** (`api.openf1.org`) live; Ergast is
 dead. Verify CORS + OpenF1 rate limits before wiring. (See `PLAN.md` §4.)

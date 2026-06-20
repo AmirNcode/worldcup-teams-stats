@@ -34,6 +34,14 @@ import {
   normalize,
 } from '../src/f1/lib/jolpica.js'
 import {
+  parseSessions,
+  raceSessionKeyForDate,
+  parseDrivers,
+  parsePits,
+  parseStints,
+  numberToDriverId,
+} from '../src/f1/lib/openf1.js'
+import {
   analyticsEnabled,
   normalizeRoute,
   track,
@@ -323,6 +331,37 @@ check('alias unknown', canonName('Narnia'), null)
   check('f1 parsers tolerate empty payload', [parseSchedule({}).length, parseDriverStandings({}).length], [0, 0])
 }
 
+// ---------- OpenF1 (race detail) parsing ----------
+{
+  const sessions = parseSessions([
+    { session_key: 11234, date_start: '2026-03-08T04:00:00+00:00', country_name: 'Australia', circuit_short_name: 'Melbourne' },
+    { session_key: 11245, date_start: '2026-03-15T07:00:00+00:00', country_name: 'China', circuit_short_name: 'Shanghai' },
+  ])
+  check('openf1 session by date', raceSessionKeyForDate(sessions, '2026-03-15'), 11245)
+  check('openf1 session missing date', raceSessionKeyForDate(sessions, '2099-01-01'), null)
+
+  const drivers = parseDrivers([
+    { driver_number: 4, full_name: 'Lando NORRIS', name_acronym: 'NOR', team_name: 'McLaren', team_colour: 'F47600' },
+    { driver_number: 16, full_name: 'Charles LECLERC', name_acronym: 'LEC', team_name: 'Ferrari', team_colour: 'ED1131' },
+  ])
+  check('openf1 driver colour hashed', drivers[0].colour, '#F47600')
+
+  const pits = parsePits([
+    { driver_number: 4, pit_duration: 23.1 }, { driver_number: 4, pit_duration: 22.4 }, { driver_number: 16, pit_duration: 24.0 },
+  ])
+  check('openf1 pit stops counted', [pits[4].stops, pits[4].best], [2, 22.4])
+
+  const tyres = parseStints([
+    { driver_number: 4, stint_number: 1, compound: 'MEDIUM' },
+    { driver_number: 4, stint_number: 2, compound: 'MEDIUM' },
+    { driver_number: 4, stint_number: 3, compound: 'HARD' },
+  ])
+  check('openf1 tyre stints merged', tyres[4], ['MEDIUM', 'HARD'])
+
+  const n2id = numberToDriverId(drivers, [{ driverId: 'norris', code: 'NOR' }, { driverId: 'leclerc', code: 'LEC' }])
+  check('openf1 number -> driverId via code', [n2id[4], n2id[16]], ['norris', 'leclerc'])
+}
+
 // ---------- SSR smoke: every route renders ----------
 {
   globalThis.matchMedia = () => ({ matches: false })
@@ -330,7 +369,8 @@ check('alias unknown', canonName('Narnia'), null)
     '/bracket', '/scorers', '/compare?a=brazil&b=argentina',
     '/f1', '/f1/standings', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
-    '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope']
+    '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
+    '/f1/race/1', '/f1/race/7', '/f1/race/999']
   for (const r of routes) {
     try {
       const html = renderToString(
@@ -362,6 +402,10 @@ check('alias unknown', canonName('Narnia'), null)
       }
       if (r === '/f1/driver/piastri') {
         check('f1 driver page renders results', html.includes('most recent first'), true)
+      }
+      if (r === '/f1/race/1') {
+        check('f1 race classification renders', html.includes('Classification'), true)
+        check('f1 race summary renders', html.includes('Race summary'), true)
       }
     } catch (e) {
       fails++
