@@ -100,9 +100,11 @@ button {
 }
 
 .topbar h1 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 /* sport switcher (the top-bar title is a dropdown to switch sports) */
@@ -189,6 +191,13 @@ button {
   display: flex;
   gap: 6px;
   align-items: center;
+  /* span the update chip's width so the two buttons below add up to it */
+  align-self: stretch;
+}
+
+.topbar-actions-row .chip {
+  flex: 1;
+  text-align: center;
 }
 
 .chip {
