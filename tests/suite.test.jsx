@@ -316,13 +316,14 @@ check('alias unknown', canonName('Narnia'), null)
 
   const res = parseResults({ MRData: { RaceTable: { Races: [
     { round: '1', Results: [
-      { position: '1', points: '25', grid: '1', status: 'Finished', Driver: { driverId: 'russell' }, Constructor: { constructorId: 'mercedes' }, FastestLap: { rank: '2' } },
+      { position: '1', points: '25', grid: '1', status: 'Finished', Driver: { driverId: 'russell' }, Constructor: { constructorId: 'mercedes' }, Time: { time: '1:23:06.801' }, FastestLap: { rank: '2', Time: { time: '1:22.670' } } },
       { position: '2', points: '18', grid: '3', status: 'Finished', Driver: { driverId: 'leclerc' }, Constructor: { constructorId: 'ferrari' }, FastestLap: { rank: '1' } },
       { position: '3', points: '15', grid: '2', status: 'Finished', Driver: { driverId: 'norris' }, Constructor: { constructorId: 'mclaren' } },
     ] },
   ] } } })
   check('f1 results winner/podium', [res[1].winnerId, res[1].podium], ['russell', ['russell', 'leclerc', 'norris']])
   check('f1 results pole + fastest lap', [res[1].poleId, res[1].fastestLapDriverId], ['russell', 'leclerc'])
+  check('f1 results time + best lap parsed', [res[1].results[0].time, res[1].results[0].fastestLap], ['1:23:06.801', '1:22.670'])
 
   const model = normalize({ season: '2026', schedule: sched, driverStandings: ds, constructorStandings: cs, results: res })
   check('f1 normalize merges round result', [model.rounds[0].done, model.rounds[0].winnerId], [true, 'russell'])

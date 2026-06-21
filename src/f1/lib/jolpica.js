@@ -81,6 +81,10 @@ export function parseResults(json) {
       points: num(res.points) ?? 0,
       grid: num(res.grid),
       status: res.status ?? null,
+      // total race time (winner) or gap to leader ("+5.123"); null for a DNF
+      time: res.Time?.time ?? null,
+      // the driver's own fastest lap in the race, e.g. "1:22.670"
+      fastestLap: res.FastestLap?.Time?.time ?? null,
     }))
     const pole = (r.Results ?? []).find((res) => num(res.grid) === 1)
     const fl = (r.Results ?? []).find((res) => res.FastestLap?.rank === '1')

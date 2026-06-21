@@ -143,6 +143,13 @@ export default function F1RacePage() {
                         <span className="f1-swatch" style={{ background: team?.color }} /> {team?.name ?? row.constructorId}
                         {dnf ? ` · ${row.status}` : ''}
                       </div>
+                      {(row.time || row.fastestLap) && (
+                        <div className="team-row-sub">
+                          {row.time ? `🏁 ${row.time}` : ''}
+                          {row.time && row.fastestLap ? ' · ' : ''}
+                          {row.fastestLap ? `⏱ ${row.fastestLap}` : ''}
+                        </div>
+                      )}
                       {(tyres || pit) && (
                         <div className="team-row-sub">
                           <Tyres compounds={tyres} />
