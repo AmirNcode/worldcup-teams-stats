@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { useData } from './lib/data.jsx'
 import { useTheme } from './lib/prefs'
 import { initAnalytics, trackPageview, track } from './lib/analytics'
@@ -15,7 +15,7 @@ import TeamPage from './pages/TeamPage'
 import BracketPage from './pages/BracketPage'
 import ScorersPage from './pages/ScorersPage'
 import ComparePage from './pages/ComparePage'
-import F1StandingsPage from './f1/pages/F1StandingsPage'
+import F1StatsPage from './f1/pages/F1StatsPage'
 import F1CalendarPage from './f1/pages/F1CalendarPage'
 import F1TeamsPage from './f1/pages/F1TeamsPage'
 import F1TeamPage from './f1/pages/F1TeamPage'
@@ -110,7 +110,7 @@ export default function App() {
           <Route path="/scorers" element={<ScorersPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/f1" element={<F1CalendarPage />} />
-          <Route path="/f1/standings" element={<F1StandingsPage />} />
+          <Route path="/f1/standings" element={<Navigate to="/f1/drivers" replace />} />
           <Route path="/f1/teams" element={<F1TeamsPage />} />
           <Route path="/f1/team/:slug" element={<F1TeamPage />} />
           <Route path="/f1/drivers" element={<F1DriversPage />} />
@@ -118,6 +118,7 @@ export default function App() {
           <Route path="/f1/circuits" element={<F1CircuitsPage />} />
           <Route path="/f1/circuit/:slug" element={<F1CircuitPage />} />
           <Route path="/f1/race/:round" element={<F1RacePage />} />
+          <Route path="/f1/stats" element={<F1StatsPage />} />
           <Route path="*" element={<GroupsPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}

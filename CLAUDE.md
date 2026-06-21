@@ -501,16 +501,21 @@ is just deleting those two blocks. **Status: F1 red is provisional** pending an
 in-app look; may revert to the default accent.
 
 ### 20.6 Formula 1 section (`src/f1/`)
-Tabs (L→R): **📅 Calendar** (`/f1`, home) · **🏆 Standings** (`/f1/standings`) ·
-**🏎️ Teams** (`/f1/teams`) · **🧑‍✈️ Drivers** (`/f1/drivers`) · **🏟️ Circuits**
-(`/f1/circuits`). Detail routes: `/f1/team/:slug`, `/f1/driver/:slug`,
-`/f1/circuit/:slug`. **Calendar is the section home** — selecting Grand Prix in
-the switcher lands there.
+Tabs (L→R): **📅 Calendar** (`/f1`, home) · **🧑‍✈️ Drivers** (`/f1/drivers`) ·
+**🏎️ Teams** (`/f1/teams`) · **🏟️ Circuits** (`/f1/circuits`) · **📊 Stats**
+(`/f1/stats`). Detail routes: `/f1/team/:slug`, `/f1/driver/:slug`,
+`/f1/circuit/:slug`, `/f1/race/:round`. **Calendar is the section home** —
+selecting Grand Prix in the switcher lands there.
+The **Drivers** tab IS the **Drivers' Championship** and **Teams** IS the
+**Constructors' Championship** (the standalone Standings tab was dropped as a
+redundant third copy; `/f1/standings` now redirects to `/f1/drivers`).
 - The **Calendar** lists each round with its **start time in the visitor's local
   zone** (each round has a `start` ISO carrying the circuit's UTC offset; rendered
   with the shared `fmtTime`/`fmtDate` from `src/lib/format.js`).
-- The **Standings** page opens each championship with a newcomer-friendly
-  explainer (how drivers/constructors score points).
+- The **Drivers** and **Teams** pages are the two championships (ranked by
+  points), each opening with a newcomer-friendly explainer; **Stats** shows season
+  records (`seasonStats` in `select.js`): most wins/poles/podiums/fastest laps,
+  biggest grid→finish climb, most DNFs, and the leaders.
 - The **Team page** shows a constructor **plus its drivers** (their stats/facts).
 - The **Driver page** shows bio + season stats + **per-GP results, most recent
   first** (the "Wins" surface).

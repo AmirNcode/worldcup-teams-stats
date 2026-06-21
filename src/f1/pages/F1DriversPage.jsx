@@ -8,7 +8,11 @@ export default function F1DriversPage() {
   const colorOf = (cid) => constructorById(model, cid)?.color
   return (
     <div className="page">
-      <p className="hint">Drivers in the {model.season} championship. Tap a driver for results and stats.</p>
+      <h2 className="section-title">Drivers’ Championship</h2>
+      <p className="hint">
+        Every driver ranked by total points this season — the top 10 in each Grand Prix score (25 for a
+        win down to 1 for tenth). Tap a driver for results and stats.
+      </p>
       <div className="team-list">
         {drivers.map((d) => (
           <Link className="team-row" key={d.driverId} to={`/f1/driver/${d.driverId}`}>

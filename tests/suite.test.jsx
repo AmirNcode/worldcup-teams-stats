@@ -41,6 +41,7 @@ import {
   parseStints,
   numberToDriverId,
 } from '../src/f1/lib/openf1.js'
+import { seasonStats } from '../src/f1/lib/select.js'
 import {
   analyticsEnabled,
   normalizeRoute,
@@ -363,12 +364,38 @@ check('alias unknown', canonName('Narnia'), null)
   check('openf1 number -> driverId via code', [n2id[4], n2id[16]], ['norris', 'leclerc'])
 }
 
+// ---------- season stats (records) ----------
+{
+  const model = {
+    rounds: [
+      {
+        round: 1, done: true, poleId: 'a', fastestLapDriverId: 'b',
+        results: [
+          { pos: 1, driverId: 'a', grid: 2, status: 'Finished' },
+          { pos: 2, driverId: 'b', grid: 1, status: 'Finished' },
+          { pos: 3, driverId: 'c', grid: 5, status: 'Finished' },
+          { pos: 20, driverId: 'd', grid: 4, status: 'Accident' },
+        ],
+      },
+      { round: 2, done: false },
+    ],
+    drivers: [{ driverId: 'a', name: 'A', wins: 1, points: 25 }, { driverId: 'b', name: 'B', wins: 0, points: 18 }],
+    constructors: [{ constructorId: 'x', name: 'X', points: 43 }],
+  }
+  const s = seasonStats(model)
+  check('stats races done/total', [s.racesDone, s.racesTotal], [1, 2])
+  check('stats most poles', s.mostPoles.id, 'a')
+  check('stats biggest climb (grid->finish)', [s.bestClimb.driverId, s.bestClimb.gained], ['c', 2])
+  check('stats most DNFs', s.mostDnfs.id, 'd')
+  check('stats leader + top constructor', [s.leader.driverId, s.topConstructor.constructorId], ['a', 'x'])
+}
+
 // ---------- SSR smoke: every route renders ----------
 {
   globalThis.matchMedia = () => ({ matches: false })
   const routes = ['/', '/schedule', '/teams', '/team/brazil', '/team/curacao', '/team/nope',
     '/bracket', '/scorers', '/compare?a=brazil&b=argentina',
-    '/f1', '/f1/standings', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
+    '/f1', '/f1/stats', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
     '/f1/race/1', '/f1/race/7', '/f1/race/999']
@@ -395,11 +422,16 @@ check('alias unknown', canonName('Narnia'), null)
       if (r === '/f1') {
         check('f1 section title shown', html.includes('Grand Prix 2026'), true)
         check('f1 calendar shows a round', html.includes('Australian Grand Prix'), true)
-        check('f1 tab Standings present', html.includes('Standings'), true)
+        check('f1 tab Stats present', html.includes('Stats'), true)
       }
-      if (r === '/f1/standings') {
-        check('f1 constructors table', html.includes('Constructors'), true)
-        check('f1 championship heading', html.includes('Championship'), true)
+      if (r === '/f1/drivers') {
+        check('f1 drivers championship title', html.includes('Drivers&#x2019; Championship') || html.includes('Championship'), true)
+      }
+      if (r === '/f1/teams') {
+        check('f1 constructors championship title', html.includes('Constructors'), true)
+      }
+      if (r === '/f1/stats') {
+        check('f1 stats records render', html.includes('Season records'), true)
       }
       if (r === '/f1/driver/piastri') {
         check('f1 driver page renders results', html.includes('most recent first'), true)

@@ -29,10 +29,10 @@ export const SECTIONS = [
     home: '/f1',
     tabs: [
       { to: '/f1', end: true, emoji: '📅', label: 'Calendar' },
-      { to: '/f1/standings', emoji: '🏆', label: 'Standings' },
-      { to: '/f1/teams', emoji: '🏎️', label: 'Teams' },
       { to: '/f1/drivers', emoji: '🧑‍✈️', label: 'Drivers' },
+      { to: '/f1/teams', emoji: '🏎️', label: 'Teams' },
       { to: '/f1/circuits', emoji: '🏟️', label: 'Circuits' },
+      { to: '/f1/stats', emoji: '📊', label: 'Stats' },
     ],
   },
 ]

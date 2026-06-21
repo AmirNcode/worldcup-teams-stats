@@ -8,7 +8,11 @@ export default function F1TeamsPage() {
   const teams = constructorsByPoints(model)
   return (
     <div className="page">
-      <p className="hint">Constructors in the {model.season} championship. Tap a team for its drivers and stats.</p>
+      <h2 className="section-title">Constructors’ Championship</h2>
+      <p className="hint">
+        Each team ranked by its two drivers’ combined points — the title that decides prize money. Tap a
+        team for its drivers and stats.
+      </p>
       <div className="team-list">
         {teams.map((t) => (
           <Link className="team-row" key={t.constructorId} to={`/f1/team/${t.constructorId}`}>

@@ -87,3 +87,50 @@ export const doneRoundAtCircuit = (model, circuitId) =>
   doneRounds(model)
     .reverse()
     .find((r) => r.circuitId === circuitId)
+
+const topOf = (counts) => {
+  let best = null
+  for (const [id, n] of Object.entries(counts)) if (!best || n > best.n) best = { id, n }
+  return best
+}
+
+// A "finished" classification (incl. lapped runners) vs a DNF/DNS retirement.
+const isFinish = (status) => status === 'Finished' || /^\+\d+\s+Lap/.test(status ?? '')
+
+// Season superlatives derived purely from completed rounds — the one view that
+// is NOT a re-cut of the standings. Returns leaders (with driverId/teamId + count)
+// for the Stats page to label.
+export function seasonStats(model) {
+  const done = doneRounds(model)
+  const poles = {}
+  const podiums = {}
+  const fastest = {}
+  const dnfs = {}
+  let bestClimb = null // { gained, driverId, round, name }
+  for (const r of done) {
+    if (r.poleId) poles[r.poleId] = (poles[r.poleId] ?? 0) + 1
+    if (r.fastestLapDriverId) fastest[r.fastestLapDriverId] = (fastest[r.fastestLapDriverId] ?? 0) + 1
+    for (const row of r.results ?? []) {
+      if (row.pos != null && row.pos <= 3) podiums[row.driverId] = (podiums[row.driverId] ?? 0) + 1
+      if (!isFinish(row.status)) dnfs[row.driverId] = (dnfs[row.driverId] ?? 0) + 1
+      if (row.grid != null && row.grid > 0 && row.pos != null) {
+        const gained = row.grid - row.pos
+        if (gained > 0 && (!bestClimb || gained > bestClimb.gained)) {
+          bestClimb = { gained, driverId: row.driverId, round: r.round, name: r.name }
+        }
+      }
+    }
+  }
+  return {
+    racesDone: done.length,
+    racesTotal: model.rounds.length,
+    leader: model.drivers[0] ?? null,
+    topConstructor: model.constructors[0] ?? null,
+    mostWins: [...model.drivers].sort((a, b) => b.wins - a.wins)[0] ?? null,
+    mostPoles: topOf(poles),
+    mostPodiums: topOf(podiums),
+    mostFastestLaps: topOf(fastest),
+    mostDnfs: topOf(dnfs),
+    bestClimb,
+  }
+}

@@ -72,6 +72,13 @@ token-holding backend), so we used the FREE historical tier for post-session dep
 - [x] Calendar: completed rounds → race detail; upcoming → circuit
 - [x] `npm test` + `npm run build` green; verified pit/tyre enrichment renders; commit + push
 
+## Phase 8 — Polish: race times, calendar fix, tab redesign — DONE
+- [x] Calendar: “Next” = soonest FUTURE round; a past round still missing its result shows “Result pending”
+- [x] Race page: per-driver total time / gap to leader + best lap (Jolpica Time/FastestLap; no extra API)
+- [x] Dropped the redundant Standings tab; Drivers tab = Drivers’ Championship, Teams tab = Constructors’ Championship
+- [x] New **Stats** tab: season records (most wins/poles/podiums/fastest laps, biggest grid→finish climb, most DNFs, leaders) via `seasonStats`
+- [x] `/f1/standings` → redirect to `/f1/drivers`; tests + docs updated; `npm test` + `npm run build` green; commit + push
+
 ---
 
 ## Future initiatives (backlog — see PLAN.md §1, §5)

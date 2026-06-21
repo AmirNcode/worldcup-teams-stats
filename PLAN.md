@@ -79,13 +79,17 @@ the current blue. This is a few CSS lines and is trivially reversible (drop the
 ### 3.1 Tabs (bottom bar, left → right)
 | Tab | Route | Emoji | Purpose |
 |-----|-------|-------|---------|
-| Calendar | `/f1` | 📅 | Season rounds with **local-time start**, circuit, country; completed rounds show the winner. **Section home** (selecting Grand Prix lands here). |
-| Standings | `/f1/standings` | 🏆 | Drivers' + Constructors' championship tables (cumulative points), each with a newcomer explainer. |
-| Teams | `/f1/teams` | 🏎️ | Browse constructors (with logos). → team page. |
-| Drivers | `/f1/drivers` | 🧑‍✈️ | Browse drivers. → driver page. |
+| Calendar | `/f1` | 📅 | Season rounds with **local-time start**; completed rounds show the winner and link to the race detail. **Section home**. |
+| Drivers | `/f1/drivers` | 🧑‍✈️ | The **Drivers' Championship** (ranked by points, newcomer explainer). → driver page. |
+| Teams | `/f1/teams` | 🏎️ | The **Constructors' Championship** (ranked, with logos). → team page. |
 | Circuits | `/f1/circuits` | 🏟️ | Browse circuits. → circuit page. |
+| Stats | `/f1/stats` | 📊 | **Season records**: most wins/poles/podiums/fastest laps, biggest grid→finish climb, most DNFs, leaders. |
 
-Non-tab (detail) routes: `/f1/team/:slug`, `/f1/driver/:slug`, `/f1/circuit/:slug`.
+The standalone **Standings** tab was dropped as redundant (it duplicated Drivers +
+Teams); `/f1/standings` redirects to `/f1/drivers`.
+
+Non-tab (detail) routes: `/f1/team/:slug`, `/f1/driver/:slug`, `/f1/circuit/:slug`,
+`/f1/race/:round` (race detail: classification + times + OpenF1 pit/tyres).
 
 **Team logos:** rendered by `F1TeamLogo` from `public/f1/logos/<slug>.svg`, with a
 color-badge fallback (team color + abbreviation) until a file is supplied. Logos
