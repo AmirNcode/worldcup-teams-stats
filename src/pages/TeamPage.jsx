@@ -7,6 +7,7 @@ import { goldenBoot } from '../lib/scorers'
 import { useFavorite } from '../lib/prefs'
 import { track } from '../lib/analytics'
 import MatchCard from '../components/MatchCard'
+import GroupTable from '../components/GroupTable'
 import Lineup from '../components/Lineup'
 
 function Stat({ label, value }) {
@@ -112,6 +113,13 @@ export default function TeamPage() {
           <MatchCard key={m.key} match={m} showDate />
         ))}
       </section>
+
+      {groupName && groupRows && (
+        <section className="card">
+          <h3>Group {groupName}</h3>
+          <GroupTable rows={groupRows} favorite={favorite} highlightTeam={name} />
+        </section>
+      )}
 
       <Lineup team={name} matches={teamMatches} />
 
