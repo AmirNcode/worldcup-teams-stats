@@ -6,6 +6,7 @@ import { useFavorite } from '../lib/prefs'
 import { dayKey, fmtDate, fmtTime } from '../lib/format'
 import teams from '../data/teams.json'
 import TeamTag from '../components/TeamTag'
+import GroupTable from '../components/GroupTable'
 import MatchCard from '../components/MatchCard'
 
 function FavoriteCard({ favorite, matches }) {
@@ -116,41 +117,7 @@ export default function GroupsPage() {
           .map((g) => (
             <section className="card" key={g}>
               <h2>Group {g}</h2>
-              <table className="standings">
-                <thead>
-                  <tr>
-                    <th className="pos">#</th>
-                    <th className="team-col">Team</th>
-                    <th>MP</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>Pts</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {groups[g].map((row, i) => (
-                    <tr key={row.team} className={i < 2 ? 'qualifying' : i === 2 ? 'maybe' : ''}>
-                      <td className="pos">{i + 1}</td>
-                      <td className="team-col">
-                        <TeamTag name={row.team} />
-                        {favorite === row.team && <span className="star inline">★</span>}
-                      </td>
-                      <td>{row.mp}</td>
-                      <td>{row.w}</td>
-                      <td>{row.d}</td>
-                      <td>{row.l}</td>
-                      <td>{row.gf}</td>
-                      <td>{row.ga}</td>
-                      <td>{row.gd > 0 ? `+${row.gd}` : row.gd}</td>
-                      <td className="pts">{row.pts}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <GroupTable rows={groups[g]} favorite={favorite} />
             </section>
           ))}
       </div>
