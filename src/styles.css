@@ -267,6 +267,15 @@ tr.maybe td:first-child {
   box-shadow: inset 3px 0 0 var(--star);
 }
 
+/* the team whose page you're on, within its group table */
+tr.is-team td {
+  background: var(--accent-soft);
+}
+
+tr.is-team .team-name {
+  font-weight: 700;
+}
+
 .team {
   display: inline-flex;
   align-items: center;
