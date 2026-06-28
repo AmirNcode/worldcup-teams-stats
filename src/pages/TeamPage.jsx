@@ -70,7 +70,7 @@ export default function TeamPage() {
             {groupName && (
               <>
                 {' · '}
-                <Link to="/">Group {groupName}</Link>
+                <Link to="/groups">Group {groupName}</Link>
               </>
             )}
           </div>

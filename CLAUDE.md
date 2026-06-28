@@ -27,7 +27,7 @@ on **Netlify**. Live data comes from free, keyless public APIs; a bundled JSON
 snapshot is the offline floor so the app always renders.
 
 ### Features (each maps to a page/component)
-- **Group leaderboard** (home `/`): all 12 group tables (points, W/D/L, GF, GA,
+- **Group leaderboard** (`/groups`): all 12 group tables (points, W/D/L, GF, GA,
   GD), a "Today's matches" strip, and a "3rd-place race" table (best 8 third
   finishers advance).
 - **Schedule** (`/schedule`): weekly calendar view + full list view, all
@@ -41,8 +41,13 @@ snapshot is the offline floor so the app always renders.
   coach, starting XI + reserves (live from ESPN), full World Cup history,
   titles, all-time top scorer, fun facts; star-to-favorite; deep-link to
   compare.
-- **Bracket** (`/bracket`): Round of 32 → Final; placeholder slots ("Winner
-  Group A", "Winner of Match 74") resolve as results come in.
+- **Bracket** (home `/`): a collapsible "Tournament rankings" power ranking of
+  all 48 teams (sorted by furthest round reached, then tournament pts/GD/GF, with
+  a cutoff line dividing the teams still in it from those out — the Round of 32
+  projection during the group stage, real elimination after), then the knockout
+  rounds Round of 32 → Final. Each round is collapsible and auto-collapses by
+  default once its last match is final. Placeholder slots ("Winner Group A",
+  "Winner of Match 74") resolve as results come in.
 - **Golden Boot** (`/scorers`): tournament top scorers (own goals excluded,
   penalties tracked), totals, goals/match.
 - **Compare** (`/compare?a=slug&b=slug`): head-to-head pedigree + 2026 form for
@@ -258,6 +263,13 @@ defensively; if the shape changes the app must degrade to openfootball-only.
   (best 8 advance).
 - `teamTournamentRecord(matches, team)` → `{mp,w,d,l,gf,ga}` across all stages
   (uses `et` over `ft` when present).
+- `tournamentRankings(matches)` → `{ranked, cutoff, dividerLabel}` for the
+  bracket page's whole-tournament power ranking. Every team gets a tournament
+  record (pts/GD/GF across all stages, `et` over `ft`, a penalty-shootout tie
+  counts as a draw) plus the furthest knockout stage it reached; rows sort by
+  stage → pts → GD → GF → name. `ranked` is the still-in teams followed by the
+  out teams, `cutoff` is the divider index (Round of 32 projection during the
+  group stage; real elimination once groups finish, set via `dividerLabel`).
 
 `src/lib/scorers.js`:
 - `goldenBoot(matches)` → `[{name,team,goals,pens}]` sorted by goals, then fewer
@@ -300,7 +312,8 @@ all hook instances** (same tab via a `prefs-sync` CustomEvent, other tabs via
 - `track(event, props)` for named events already wired:
   `team_viewed, match_facts_opened, favorite_set, favorite_cleared,
   schedule_view_changed, schedule_week_changed, schedule_today, teams_compared,
-  theme_toggled, feedback_opened, feedback_submitted, bracket_rankings_toggled`.
+  theme_toggled, feedback_opened, feedback_submitted, bracket_rankings_toggled,
+  bracket_round_toggled`.
 - Host defaults to `https://us.i.posthog.com`; override with `VITE_POSTHOG_HOST`.
 
 ---
