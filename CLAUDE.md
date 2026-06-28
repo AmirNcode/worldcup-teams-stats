@@ -300,7 +300,7 @@ all hook instances** (same tab via a `prefs-sync` CustomEvent, other tabs via
 - `track(event, props)` for named events already wired:
   `team_viewed, match_facts_opened, favorite_set, favorite_cleared,
   schedule_view_changed, schedule_week_changed, schedule_today, teams_compared,
-  theme_toggled, feedback_opened, feedback_submitted`.
+  theme_toggled, feedback_opened, feedback_submitted, bracket_rankings_toggled`.
 - Host defaults to `https://us.i.posthog.com`; override with `VITE_POSTHOG_HOST`.
 
 ---

@@ -56,6 +56,32 @@ export function thirdPlaceRace(groups) {
     )
 }
 
+// All teams ranked across groups by points, then goal difference, then goals
+// for, then name — split into the teams currently holding a Round of 32 spot
+// (top two of each group + the best 8 third-placed teams) and the rest. A live
+// projection during the group stage; reads the same standings as the group
+// tables, so an in-progress match (no score.ft) is not yet counted.
+export function bracketRankings(matches) {
+  const groups = computeGroups(matches)
+  const qualified = new Set()
+  for (const rows of Object.values(groups)) {
+    if (rows[0]) qualified.add(rows[0].team)
+    if (rows[1]) qualified.add(rows[1].team)
+  }
+  for (const r of thirdPlaceRace(groups).slice(0, 8)) qualified.add(r.team)
+
+  const byRank = (x, y) =>
+    y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || x.team.localeCompare(y.team)
+  const all = []
+  for (const [group, rows] of Object.entries(groups)) {
+    for (const r of rows) all.push({ ...r, group, qualified: qualified.has(r.team) })
+  }
+  return {
+    qualified: all.filter((r) => r.qualified).sort(byRank),
+    eliminated: all.filter((r) => !r.qualified).sort(byRank),
+  }
+}
+
 // One team's overall tournament record (group + knockout).
 export function teamTournamentRecord(matches, team) {
   const rec = { mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 }

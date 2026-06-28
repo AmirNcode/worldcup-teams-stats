@@ -5,7 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import schedule from '../src/data/schedule.json'
-import { computeGroups, thirdPlaceRace, teamTournamentRecord } from '../src/lib/standings.js'
+import { computeGroups, thirdPlaceRace, teamTournamentRecord, bracketRankings } from '../src/lib/standings.js'
 import { goldenBoot, tournamentTotals } from '../src/lib/scorers.js'
 import { placeholderLabel, scoreline, dayKey } from '../src/lib/format.js'
 import {
@@ -96,6 +96,14 @@ const check = (label, got, want) => {
   const race = thirdPlaceRace(computeGroups(fixtures))
   check('race has 12 teams', race.length, 12)
   check('race leader is A3 on pts', [race[0].team, race[0].pts], ['A3', 1])
+
+  // bracket rankings: 24 group top-two + best 8 thirds qualify; worst 4 thirds
+  // (by name once tied on pts/GD/GF) fall below the cutoff.
+  const ranking = bracketRankings(fixtures)
+  check('rankings qualified count', ranking.qualified.length, 32)
+  check('rankings eliminated count', ranking.eliminated.length, 4)
+  check('rankings leader by pts then name', [ranking.qualified[0].team, ranking.qualified[0].pts], ['A1', 6])
+  check('rankings eliminated are worst thirds', ranking.eliminated.map((r) => r.team), ['I3', 'J3', 'K3', 'L3'])
 }
 
 // ---------- ESPN parsing / merging ----------
