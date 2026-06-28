@@ -5,7 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import schedule from '../src/data/schedule.json'
-import { computeGroups, thirdPlaceRace, teamTournamentRecord } from '../src/lib/standings.js'
+import { computeGroups, thirdPlaceRace, teamTournamentRecord, tournamentRankings } from '../src/lib/standings.js'
 import { goldenBoot, tournamentTotals } from '../src/lib/scorers.js'
 import { placeholderLabel, scoreline, dayKey } from '../src/lib/format.js'
 import {
@@ -96,6 +96,28 @@ const check = (label, got, want) => {
   const race = thirdPlaceRace(computeGroups(fixtures))
   check('race has 12 teams', race.length, 12)
   check('race leader is A3 on pts', [race[0].team, race[0].pts], ['A3', 1])
+
+  // tournament rankings, group phase complete: 24 group top-two + best 8 thirds
+  // sit above the cutoff; the worst 4 thirds (tied on pts/GD/GF, by name) below.
+  const ranking = tournamentRankings(fixtures)
+  check('rankings cutoff count', ranking.cutoff, 32)
+  check('rankings total teams', ranking.ranked.length, 36)
+  check('rankings leader by pts then name', [ranking.ranked[0].team, ranking.ranked[0].pts], ['A1', 6])
+  check('rankings divider after groups', ranking.dividerLabel, 'Eliminated')
+  check('rankings worst thirds below line', ranking.ranked.slice(32).map((r) => r.team), ['I3', 'J3', 'K3', 'L3'])
+
+  // add a knockout result: A1 beat B1 in the Round of 32. A1 advances (ranked by
+  // furthest stage, so rises to the top); B1 drops below the cutoff as eliminated.
+  const withKo = [...fixtures, {
+    stage: 'r32', group: null, team1: 'A1', team2: 'B1',
+    score: { ft: [1, 0] }, kickoff: '2026-06-30T13:00:00Z',
+  }]
+  const ko = tournamentRankings(withKo)
+  check('knockout winner leads on stage', [ko.ranked[0].team, ko.ranked[0].stage], ['A1', 1])
+  check('knockout winner mp counts ko', ko.ranked[0].mp, 3)
+  check('knockout loser drops out', ko.ranked.find((r) => r.team === 'B1').out, true)
+  check('knockout cutoff shrinks by one', ko.cutoff, 31)
+  check('knockout loser tops the out group', ko.ranked[ko.cutoff].team, 'B1')
 }
 
 // ---------- ESPN parsing / merging ----------
@@ -281,8 +303,8 @@ check('alias unknown', canonName('Narnia'), null)
 // ---------- SSR smoke: every route renders ----------
 {
   globalThis.matchMedia = () => ({ matches: false })
-  const routes = ['/', '/schedule', '/teams', '/team/brazil', '/team/curacao', '/team/nope',
-    '/bracket', '/scorers', '/compare?a=brazil&b=argentina']
+  const routes = ['/', '/groups', '/schedule', '/teams', '/team/brazil', '/team/curacao',
+    '/team/nope', '/scorers', '/compare?a=brazil&b=argentina']
   for (const r of routes) {
     try {
       const html = renderToString(
@@ -292,10 +314,12 @@ check('alias unknown', canonName('Narnia'), null)
       )
       check(`route ${r} renders`, html.length > 700, true)
       if (r === '/') {
-        const groups = [...html.matchAll(/Group <!-- -->([A-L])</g)].map((m) => m[1]).join('')
-        check('all 12 groups render', groups, 'ABCDEFGHIJKL')
         check('feedback button present', html.includes('Send feedback'), true)
         check('home link present', html.includes('home-link'), true)
+      }
+      if (r === '/groups') {
+        const groups = [...html.matchAll(/Group <!-- -->([A-L])</g)].map((m) => m[1]).join('')
+        check('all 12 groups render', groups, 'ABCDEFGHIJKL')
       }
       if (r === '/team/brazil') {
         check('coach label shown', html.includes('Head coach'), true)

@@ -75,21 +75,21 @@ export default function App() {
       {feedbackOpen && <FeedbackForm onClose={() => setFeedbackOpen(false)} />}
       <main className="content">
         <Routes>
-          <Route path="/" element={<GroupsPage />} />
+          <Route path="/" element={<BracketPage />} />
+          <Route path="/groups" element={<GroupsPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/teams" element={<TeamsPage />} />
           <Route path="/team/:slug" element={<TeamPage />} />
-          <Route path="/bracket" element={<BracketPage />} />
           <Route path="/scorers" element={<ScorersPage />} />
           <Route path="/compare" element={<ComparePage />} />
-          <Route path="*" element={<GroupsPage />} />
+          <Route path="*" element={<BracketPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}
         <AdSlot key={location.pathname} />
       </main>
       <nav className="tabbar">
         <NavLink to="/" end>
-          <span>📊</span>Groups
+          <span>🏆</span>Bracket
         </NavLink>
         <NavLink to="/schedule">
           <span>📅</span>Schedule
@@ -97,8 +97,8 @@ export default function App() {
         <NavLink to="/teams">
           <span>🔎</span>Teams
         </NavLink>
-        <NavLink to="/bracket">
-          <span>🏆</span>Bracket
+        <NavLink to="/groups">
+          <span>📊</span>Groups
         </NavLink>
         <NavLink to="/scorers">
           <span>👟</span>Boot

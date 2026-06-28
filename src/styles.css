@@ -975,6 +975,65 @@ table.history-table .year {
   margin: 18px 2px 4px;
 }
 
+/* ---------- collapsible section header ---------- */
+.collapse-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.collapse-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.collapse-head .chevron {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- bracket rankings ---------- */
+.rankings {
+  padding: 0;
+  overflow: hidden;
+}
+
+.rankings .collapse-head {
+  padding: 12px 14px;
+}
+
+.rankings-body {
+  padding: 0 14px 12px;
+}
+
+.rounds-title {
+  margin-top: 18px;
+}
+
+.bracket-round .round-head {
+  margin: 14px 2px 4px;
+}
+
+tr.cutoff td {
+  text-align: center;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--good);
+  padding: 6px 2px;
+  border-top: 2px dashed var(--good);
+  background: var(--good-soft);
+}
+
 /* ---------- golden boot ---------- */
 table.boot-table {
   width: 100%;
