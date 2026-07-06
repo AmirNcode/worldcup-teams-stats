@@ -14,8 +14,34 @@ const BASE = 'https://api.jolpi.ca/ergast/f1'
 export const scheduleUrl = (season = 'current') => `${BASE}/${season}.json`
 export const driverStandingsUrl = (season = 'current') => `${BASE}/${season}/driverStandings.json`
 export const constructorStandingsUrl = (season = 'current') => `${BASE}/${season}/constructorStandings.json`
-// limit covers a full season's classified finishers (~24 races × ~20) in one call
-export const resultsUrl = (season = 'current') => `${BASE}/${season}/results.json?limit=500`
+// Jolpica caps `limit` at 100 result rows (~4.5 races), so a season's results
+// span several pages — request page-by-page via `offset`.
+export const resultsUrl = (season = 'current', offset = 0) =>
+  `${BASE}/${season}/results.json?limit=100&offset=${offset}`
+
+// Fetch every results page and stitch them into one byRound map (parseResults
+// shape). A race can be split across a page boundary, so rows are merged per
+// round before deriving winner/podium. Pages are fetched sequentially —
+// Jolpica rate-limits bursts. `getJson` is injected so this works from both
+// the browser provider and the Node snapshot generator.
+export async function fetchAllResults(getJson, season = 'current') {
+  const MAX_PAGES = 12 // safety bound; a full season is ~500 rows (5 pages)
+  const races = []
+  let offset = 0
+  let total = Infinity
+  for (let page = 0; page < MAX_PAGES && offset < total; page++) {
+    const mr = (await getJson(resultsUrl(season, offset)))?.MRData
+    if (!mr) break
+    total = Number(mr.total ?? 0)
+    for (const race of mr.RaceTable?.Races ?? []) {
+      const prev = races.find((x) => x.round === race.round)
+      if (prev) prev.Results = [...(prev.Results ?? []), ...(race.Results ?? [])]
+      else races.push({ ...race, Results: [...(race.Results ?? [])] })
+    }
+    offset += Number(mr.limit ?? 0) || 100
+  }
+  return parseResults({ MRData: { RaceTable: { Races: races } } })
+}
 
 const num = (v) => (v == null || v === '' ? null : Number(v))
 

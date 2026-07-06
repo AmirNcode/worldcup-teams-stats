@@ -10,11 +10,10 @@ import {
   scheduleUrl,
   driverStandingsUrl,
   constructorStandingsUrl,
-  resultsUrl,
   parseSchedule,
   parseDriverStandings,
   parseConstructorStandings,
-  parseResults,
+  fetchAllResults,
   normalize,
 } from '../src/f1/lib/jolpica.js'
 
@@ -27,11 +26,11 @@ async function getJson(url) {
 }
 
 async function main() {
-  const [sch, ds, cs, rs] = await Promise.all([
+  const [sch, ds, cs, results] = await Promise.all([
     getJson(scheduleUrl(SEASON)),
     getJson(driverStandingsUrl(SEASON)),
     getJson(constructorStandingsUrl(SEASON)),
-    getJson(resultsUrl(SEASON)),
+    fetchAllResults(getJson, SEASON),
   ])
   const season = sch?.MRData?.RaceTable?.season ?? null
   const model = normalize({
@@ -39,7 +38,7 @@ async function main() {
     schedule: parseSchedule(sch),
     driverStandings: parseDriverStandings(ds),
     constructorStandings: parseConstructorStandings(cs),
-    results: parseResults(rs),
+    results,
   })
   const out = { generatedAt: new Date().toISOString(), source: 'jolpica', ...model }
   const path = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'f1', 'data', 'snapshot.json')

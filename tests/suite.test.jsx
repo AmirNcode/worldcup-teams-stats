@@ -31,6 +31,7 @@ import {
   parseDriverStandings,
   parseConstructorStandings,
   parseResults,
+  fetchAllResults,
   normalize,
 } from '../src/f1/lib/jolpica.js'
 import {
@@ -353,6 +354,36 @@ check('alias unknown', canonName('Narnia'), null)
   check('f1 normalize sorts drivers by position', model.drivers[0].driverId, 'antonelli')
   // bad/empty payloads never throw — parsers return empty, normalize stays safe
   check('f1 parsers tolerate empty payload', [parseSchedule({}).length, parseDriverStandings({}).length], [0, 0])
+
+  // Jolpica caps `limit` at 100 rows, so results are paged and a race can be
+  // split across a page boundary; fetchAllResults must stitch pages back together.
+  {
+    const row = (pos, driverId) => ({
+      position: String(pos), points: '0', grid: String(pos), status: 'Finished',
+      Driver: { driverId }, Constructor: { constructorId: 'x' },
+    })
+    const pages = {
+      0: { MRData: { total: '5', limit: '3', offset: '0', RaceTable: { Races: [
+        { round: '1', Results: [row(1, 'a'), row(2, 'b')] },
+        { round: '2', Results: [row(1, 'c')] },
+      ] } } },
+      3: { MRData: { total: '5', limit: '3', offset: '3', RaceTable: { Races: [
+        { round: '2', Results: [row(2, 'd')] },
+        { round: '3', Results: [row(1, 'e')] },
+      ] } } },
+    }
+    const urls = []
+    const getJson = async (url) => {
+      urls.push(url)
+      const offset = Number(new URL(url).searchParams.get('offset') ?? 0)
+      return pages[offset]
+    }
+    const all = await fetchAllResults(getJson, '2026')
+    check('f1 paged results fetch every page', urls.length, 2)
+    check('f1 split round stitched across pages', all[2].results.map((x) => x.driverId), ['c', 'd'])
+    check('f1 split round keeps winner from first page', all[2].winnerId, 'c')
+    check('f1 all rounds present after paging', [all[1].winnerId, all[3].winnerId], ['a', 'e'])
+  }
 }
 
 // ---------- OpenF1 (race detail) parsing ----------
