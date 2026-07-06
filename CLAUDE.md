@@ -4,6 +4,13 @@ Project guide for any AI coding assistant. This file is the single source of
 truth: read it and you should understand the whole app and be able to extend,
 debug, or rebuild it identically.
 
+**Companion docs & memory policy:** `PLAN.md` is the blueprint for the current
+initiative and `TASKS.md` its phased checklist. **This file (`CLAUDE.md`) is the
+durable memory** — all work done, decisions, rules, policies, tools, and design
+guides across every initiative; keep it updated as new information lands. The app
+is becoming **multi-sport**: see §20 for the shared shell (sections registry,
+sport switcher, per-sport theming) and the new **Formula 1** section.
+
 ---
 
 ## 0. Talk style — CAVEMAN SPEAK (chat only)
@@ -25,6 +32,11 @@ A static, mobile-first single-page web app for the **2026 FIFA World Cup**
 build secrets. Everything runs in the browser and is deployed as static files
 on **Netlify**. Live data comes from free, keyless public APIs; a bundled JSON
 snapshot is the offline floor so the app always renders.
+
+The app now hosts **multiple sports as sections** under one shared shell
+(World Cup soccer + Formula 1). Everything in §§1–19 describes the **soccer**
+section unless noted; **§20** covers the shared shell and the **Formula 1**
+section.
 
 ### Features (each maps to a page/component)
 - **Group leaderboard** (`/groups`): all 12 group tables (points, W/D/L, GF, GA,
@@ -83,6 +95,7 @@ snapshot is the offline floor so the app always renders.
 - `npm test` — `node scripts/run-tests.mjs` (logic tests + SSR-render every
   route; no browser needed).
 - `npm run update-data` — regenerate `src/data/schedule.json` from openfootball.
+- `npm run update-f1-data` — regenerate `src/f1/data/snapshot.json` from Jolpica.
 - `npm run update-icons` — regenerate PWA icons.
 
 **Always run `npm test` and `npm run build` before committing.**
@@ -95,16 +108,19 @@ snapshot is the offline floor so the app always renders.
 index.html                 # app shell + PWA meta + hidden Netlify <form> for detection
 vite.config.js             # base './', loadEnv, ads.txt emitter plugin
 package.json
+PLAN.md                    # blueprint for the current initiative (multi-sport / F1)
+TASKS.md                   # phased checklist for the current initiative
 .env.example               # documents every VITE_* env var (all optional)
 public/                    # manifest.webmanifest, icon-192/512.png, apple-touch-icon.png
 scripts/
   generate-schedule.mjs    # openfootball -> src/data/schedule.json
+  generate-f1.mjs          # Jolpica -> src/f1/data/snapshot.json (offline floor)
   generate-icons.mjs       # dependency-free PNG icon generator
   run-tests.mjs            # esbuild-bundles tests/suite.test.jsx then runs it
 tests/suite.test.jsx       # the whole test suite (logic + SSR smoke)
 src/
   main.jsx                 # ReactDOM root: HashRouter > DataProvider > App
-  App.jsx                  # header (title link, feedback, refresh chip, theme), tab bar, routes, AdSlot, analytics
+  App.jsx                  # shell: sport switcher, feedback/refresh/theme, section-aware tab bar, routes, AdSlot, analytics
   styles.css               # all styling (CSS variables, themes, components)
   data/
     schedule.json          # bundled 104-match schedule (generated; offline floor)
@@ -117,6 +133,7 @@ src/
     format.js              # time/date formatting, STADIUMS, placeholderLabel, scoreline, liveLabel
     prefs.js               # useTheme, useFavorite (localStorage-backed, cross-component sync)
     analytics.js           # env-gated PostHog (init/track/trackPageview/normalizeRoute)
+    sections.js            # SECTIONS registry + sectionForPath (multi-sport shell)
   components/
     TeamTag.jsx            # flag + name link (or muted placeholder for "1A"/"W74")
     MatchCard.jsx          # one match: live/HT/FT score, badges, opens MatchFacts
@@ -124,9 +141,16 @@ src/
     Lineup.jsx             # coach + starting XI (grouped) + reserves, from ESPN
     AdSlot.jsx             # env-gated AdSense / sponsor / dev placeholder
     FeedbackForm.jsx       # Netlify-Forms bottom sheet
-  pages/
+    SportSwitcher.jsx      # top-bar sport dropdown (multi-sport shell)
+  pages/                   # soccer pages
     GroupsPage.jsx  SchedulePage.jsx  TeamsPage.jsx  TeamPage.jsx
     BracketPage.jsx  ScorersPage.jsx  ComparePage.jsx
+  f1/                      # Formula 1 section (isolated)
+    lib/                   # jolpica.js, openf1.js (parsers), select.js, data.jsx (F1DataProvider)
+    data/                  # snapshot.json (offline floor) + curated: constructors, circuits, flags
+    components/            # F1TeamLogo (logo-or-fallback-badge)
+    pages/                 # F1Calendar/Standings/Teams/Team/Drivers/Driver/Circuits/Circuit/Race
+public/f1/logos/           # drop <constructorId>.svg here to show real constructor logos
 ```
 
 ---
@@ -447,3 +471,114 @@ browser-free.
 3. Wire route in `App.jsx` if it's a page; add a tab if top-level.
 4. Add a `track('event_name', {...})` call for meaningful interactions.
 5. `npm test` + `npm run build`, then commit on the feature branch.
+
+---
+
+## 20. Multi-sport architecture (sections)
+The app hosts several **sports** under one shell. Soccer (World Cup) is the
+default section; **Formula 1** is the second. Adding a sport is meant to be
+**additive** — a config entry plus that sport's pages/data — with no rework of
+existing sports. See `PLAN.md` for the full blueprint and `TASKS.md` for status.
+
+### 20.1 Section registry (`src/lib/sections.js`)
+`SECTIONS` is an ordered array; each entry:
+`{ id, sport, emoji, title, home, tabs:[{ to, end?, emoji, label }] }`.
+- `id` is stable and doubles as the `data-section` theming hook.
+- `home` is the landing route (`'/'` for soccer, `'/f1'` for F1).
+- `tabs` defines the bottom tab bar verbatim.
+`sectionForPath(pathname)` returns the active section by URL prefix
+(`pathname === home || pathname.startsWith(home + '/')`), else `SECTIONS[0]`.
+**The URL is the single source of truth for the active sport** — no global
+state — so deep links/reloads preserve it (fits `HashRouter`).
+
+### 20.2 Shell wiring (`App.jsx`)
+`App` calls `sectionForPath(location.pathname)` once and uses it to: set
+`data-section={section.id}` on `.app`, render `section.title` in the top bar,
+and render `section.tabs` as the tab bar. Routes for all sports are registered
+in the one `<Routes>`; each sport's routes live under its `home` prefix.
+
+### 20.3 Sport switcher (`src/components/SportSwitcher.jsx`)
+The top-bar title is a dropdown button (replaces the old "title → home" link).
+It lists every `SECTIONS` entry; selecting navigates to that section's `home`.
+A `▾`/`▴` caret signals it; the active sport is checked; closes on select,
+outside-click, or Esc; `aria-haspopup`/`aria-expanded`/`menuitemradio`.
+
+### 20.4 Top-bar layout
+Right side is two rows: row 1 the update/live chip (soccer) or a **"Sample
+data"** chip (F1 while mocked); row 2 feedback ✉️ + dark-mode 🌙.
+
+### 20.5 Per-sport accent
+`[data-section='<id>']` in `styles.css` overrides `--accent`/`--accent-soft`.
+F1 → red (`#e10600` light, `#ff5a52` dark). Soccer keeps blue. Reverting F1 red
+is just deleting those two blocks. **Status: F1 red is provisional** pending an
+in-app look; may revert to the default accent.
+
+### 20.6 Formula 1 section (`src/f1/`)
+Tabs (L→R): **📅 Calendar** (`/f1`, home) · **🧑‍✈️ Drivers** (`/f1/drivers`) ·
+**🏎️ Teams** (`/f1/teams`) · **🏟️ Circuits** (`/f1/circuits`) · **📊 Stats**
+(`/f1/stats`). Detail routes: `/f1/team/:slug`, `/f1/driver/:slug`,
+`/f1/circuit/:slug`, `/f1/race/:round`. **Calendar is the section home** —
+selecting Grand Prix in the switcher lands there.
+The **Drivers** tab IS the **Drivers' Championship** and **Teams** IS the
+**Constructors' Championship** (the standalone Standings tab was dropped as a
+redundant third copy; `/f1/standings` now redirects to `/f1/drivers`).
+- The **Calendar** lists each round with its **start time in the visitor's local
+  zone** (each round has a `start` ISO carrying the circuit's UTC offset; rendered
+  with the shared `fmtTime`/`fmtDate` from `src/lib/format.js`).
+- The **Drivers** and **Teams** pages are the two championships (ranked by
+  points), each opening with a newcomer-friendly explainer; **Stats** shows season
+  records (`seasonStats` in `select.js`): most wins/poles/podiums/fastest laps,
+  biggest grid→finish climb, most DNFs, and the leaders.
+- The **Team page** shows a constructor **plus its drivers** (their stats/facts).
+- The **Driver page** shows bio + season stats + **per-GP results, most recent
+  first** (the "Wins" surface).
+- The **Circuit page** shows track facts + **fastest-lap record**.
+
+**Team logos:** `src/f1/components/F1TeamLogo.jsx` renders
+`public/f1/logos/<constructorId>.svg`, falling back to a color badge (team color +
+`abbr`) when the file is absent. Drop logo files into `public/f1/logos/` to light
+them up (convention in that folder's README). Logos are user-supplied
+(trademarks) — none are committed.
+
+**Data is LIVE — Jolpica-F1** (`api.jolpi.ca`, the free, keyless, CORS-enabled
+Ergast successor), layered exactly like the soccer side:
+- `src/f1/data/snapshot.json` — bundled **offline floor**, generated by
+  `npm run update-f1-data` (`scripts/generate-f1.mjs`). The app always renders.
+- `src/f1/lib/jolpica.js` — pure parsers (`parseSchedule`,
+  `parseDriverStandings`, `parseConstructorStandings`, `parseResults`) +
+  `normalize()` → app model `{ season, rounds, drivers, constructors }`. Shared by
+  the generator and the live provider, so snapshot and live data share one shape.
+- `src/f1/lib/data.jsx` — `F1DataProvider` (mounted globally in `main.jsx`):
+  snapshot → localStorage cache (`f1.jolpica.v1`) → live fetch; gentle 6h poll +
+  refresh on tab focus; **fail-soft** (a bad payload keeps prior state).
+  `useF1Data()` → `{ model, updatedAt, source, refresh }`.
+- `src/f1/lib/select.js` — pure selectors over the model, merged with curated
+  reference Jolpica does not carry: `src/f1/data/constructors.js` (color, abbr,
+  base, power unit, titles, facts — keyed by `constructorId`),
+  `src/f1/data/circuits.js` (length, laps, lap record, facts — keyed by
+  `circuitId`), `src/f1/data/flags.js` (nationality/country → emoji).
+- **Ids are Jolpica ids** (`max_verstappen`, `red_bull`, `albert_park`), used as
+  route slugs. Missing curated entries degrade gracefully (fields show “—”).
+
+**Race detail (OpenF1, free historical):** `src/f1/lib/openf1.js` (pure parsers) +
+`src/f1/pages/F1RacePage.jsx` (`/f1/race/:round`) enrich a completed round with
+**pit stops + tyre strategy** on top of Jolpica's classification. Joined to a
+round **by date** (round numbering differs between feeds; OpenF1 keys data by
+`driver_number`, mapped to our driverId via the 3-letter code). Fetched lazily per
+race, **sequentially** (OpenF1's free tier is 3 req/s), and **fail-soft** — the
+page always shows Jolpica's classification even if OpenF1 is unavailable.
+Completed rounds on the Calendar link here; upcoming rounds link to the circuit.
+**Not used: OpenF1 live timing during a session** — that is a paid tier and would
+need a token-holding backend, so it is deliberately omitted (the app stays free
+and backend-less). See PLAN.md §4.1.
+**Future real data:** F1DB snapshot → **Jolpica-F1** (`api.jolpi.ca`, free,
+drop-in Ergast successor) overlay → **OpenF1** (`api.openf1.org`) live; Ergast is
+dead. Verify CORS + OpenF1 rate limits before wiring. (See `PLAN.md` §4.)
+
+### 20.7 Recipe: add a sport
+1. Add a `SECTIONS` entry (`src/lib/sections.js`).
+2. Create `src/<sport>/pages/*` and `src/<sport>/data/*`.
+3. Register its routes in `App.jsx` under the section's `home` prefix.
+4. Optional `[data-section='<id>']` accent block in `styles.css`.
+5. Add the new routes to the SSR smoke test in `tests/suite.test.jsx`.
+6. `npm test` + `npm run build`; commit on `development`.

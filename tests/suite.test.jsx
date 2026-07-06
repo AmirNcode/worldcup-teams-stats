@@ -25,6 +25,23 @@ import {
 } from '../src/lib/data.jsx'
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
+import { F1DataProvider } from '../src/f1/lib/data.jsx'
+import {
+  parseSchedule,
+  parseDriverStandings,
+  parseConstructorStandings,
+  parseResults,
+  normalize,
+} from '../src/f1/lib/jolpica.js'
+import {
+  parseSessions,
+  raceSessionKeyForDate,
+  parseDrivers,
+  parsePits,
+  parseStints,
+  numberToDriverId,
+} from '../src/f1/lib/openf1.js'
+import { seasonStats } from '../src/f1/lib/select.js'
 import {
   analyticsEnabled,
   normalizeRoute,
@@ -300,22 +317,123 @@ check('alias unknown', canonName('Narnia'), null)
   check('live poll is fast', nextRefreshDelay(matches, new Date('2026-06-11T19:30Z')) <= 30000, true)
 }
 
+// ---------- Jolpica (F1) parsing / normalize ----------
+{
+  const sched = parseSchedule({ MRData: { RaceTable: { Races: [
+    { round: '1', raceName: 'Australian Grand Prix', date: '2026-03-08', time: '04:00:00Z',
+      Circuit: { circuitId: 'albert_park', circuitName: 'Albert Park', Location: { locality: 'Melbourne', country: 'Australia' } } },
+  ] } } })
+  check('f1 schedule parsed', [sched[0].round, sched[0].circuitId, sched[0].start],
+    [1, 'albert_park', '2026-03-08T04:00:00Z'])
+
+  const ds = parseDriverStandings({ MRData: { StandingsTable: { StandingsLists: [{ DriverStandings: [
+    { position: '1', points: '156', wins: '5', Driver: { driverId: 'antonelli', code: 'ANT', permanentNumber: '12', givenName: 'Andrea Kimi', familyName: 'Antonelli', nationality: 'Italian' }, Constructors: [{ constructorId: 'mercedes', name: 'Mercedes' }] },
+  ] }] } } })
+  check('f1 driver standings parsed', [ds[0].driverId, ds[0].points, ds[0].wins, ds[0].constructorId, ds[0].name],
+    ['antonelli', 156, 5, 'mercedes', 'Andrea Kimi Antonelli'])
+
+  const cs = parseConstructorStandings({ MRData: { StandingsTable: { StandingsLists: [{ ConstructorStandings: [
+    { position: '1', points: '262', wins: '5', Constructor: { constructorId: 'mercedes', name: 'Mercedes' } },
+  ] }] } } })
+  check('f1 constructor standings parsed', [cs[0].constructorId, cs[0].points], ['mercedes', 262])
+
+  const res = parseResults({ MRData: { RaceTable: { Races: [
+    { round: '1', Results: [
+      { position: '1', points: '25', grid: '1', status: 'Finished', Driver: { driverId: 'russell' }, Constructor: { constructorId: 'mercedes' }, Time: { time: '1:23:06.801' }, FastestLap: { rank: '2', Time: { time: '1:22.670' } } },
+      { position: '2', points: '18', grid: '3', status: 'Finished', Driver: { driverId: 'leclerc' }, Constructor: { constructorId: 'ferrari' }, FastestLap: { rank: '1' } },
+      { position: '3', points: '15', grid: '2', status: 'Finished', Driver: { driverId: 'norris' }, Constructor: { constructorId: 'mclaren' } },
+    ] },
+  ] } } })
+  check('f1 results winner/podium', [res[1].winnerId, res[1].podium], ['russell', ['russell', 'leclerc', 'norris']])
+  check('f1 results pole + fastest lap', [res[1].poleId, res[1].fastestLapDriverId], ['russell', 'leclerc'])
+  check('f1 results time + best lap parsed', [res[1].results[0].time, res[1].results[0].fastestLap], ['1:23:06.801', '1:22.670'])
+
+  const model = normalize({ season: '2026', schedule: sched, driverStandings: ds, constructorStandings: cs, results: res })
+  check('f1 normalize merges round result', [model.rounds[0].done, model.rounds[0].winnerId], [true, 'russell'])
+  check('f1 normalize sorts drivers by position', model.drivers[0].driverId, 'antonelli')
+  // bad/empty payloads never throw — parsers return empty, normalize stays safe
+  check('f1 parsers tolerate empty payload', [parseSchedule({}).length, parseDriverStandings({}).length], [0, 0])
+}
+
+// ---------- OpenF1 (race detail) parsing ----------
+{
+  const sessions = parseSessions([
+    { session_key: 11234, date_start: '2026-03-08T04:00:00+00:00', country_name: 'Australia', circuit_short_name: 'Melbourne' },
+    { session_key: 11245, date_start: '2026-03-15T07:00:00+00:00', country_name: 'China', circuit_short_name: 'Shanghai' },
+  ])
+  check('openf1 session by date', raceSessionKeyForDate(sessions, '2026-03-15'), 11245)
+  check('openf1 session missing date', raceSessionKeyForDate(sessions, '2099-01-01'), null)
+
+  const drivers = parseDrivers([
+    { driver_number: 4, full_name: 'Lando NORRIS', name_acronym: 'NOR', team_name: 'McLaren', team_colour: 'F47600' },
+    { driver_number: 16, full_name: 'Charles LECLERC', name_acronym: 'LEC', team_name: 'Ferrari', team_colour: 'ED1131' },
+  ])
+  check('openf1 driver colour hashed', drivers[0].colour, '#F47600')
+
+  const pits = parsePits([
+    { driver_number: 4, pit_duration: 23.1 }, { driver_number: 4, pit_duration: 22.4 }, { driver_number: 16, pit_duration: 24.0 },
+  ])
+  check('openf1 pit stops counted', [pits[4].stops, pits[4].best], [2, 22.4])
+
+  const tyres = parseStints([
+    { driver_number: 4, stint_number: 1, compound: 'MEDIUM' },
+    { driver_number: 4, stint_number: 2, compound: 'MEDIUM' },
+    { driver_number: 4, stint_number: 3, compound: 'HARD' },
+  ])
+  check('openf1 tyre stints merged', tyres[4], ['MEDIUM', 'HARD'])
+
+  const n2id = numberToDriverId(drivers, [{ driverId: 'norris', code: 'NOR' }, { driverId: 'leclerc', code: 'LEC' }])
+  check('openf1 number -> driverId via code', [n2id[4], n2id[16]], ['norris', 'leclerc'])
+}
+
+// ---------- season stats (records) ----------
+{
+  const model = {
+    rounds: [
+      {
+        round: 1, done: true, poleId: 'a', fastestLapDriverId: 'b',
+        results: [
+          { pos: 1, driverId: 'a', grid: 2, status: 'Finished' },
+          { pos: 2, driverId: 'b', grid: 1, status: 'Finished' },
+          { pos: 3, driverId: 'c', grid: 5, status: 'Finished' },
+          { pos: 20, driverId: 'd', grid: 4, status: 'Accident' },
+        ],
+      },
+      { round: 2, done: false },
+    ],
+    drivers: [{ driverId: 'a', name: 'A', wins: 1, points: 25 }, { driverId: 'b', name: 'B', wins: 0, points: 18 }],
+    constructors: [{ constructorId: 'x', name: 'X', points: 43 }],
+  }
+  const s = seasonStats(model)
+  check('stats races done/total', [s.racesDone, s.racesTotal], [1, 2])
+  check('stats most poles', s.mostPoles.id, 'a')
+  check('stats biggest climb (grid->finish)', [s.bestClimb.driverId, s.bestClimb.gained], ['c', 2])
+  check('stats most DNFs', s.mostDnfs.id, 'd')
+  check('stats leader + top constructor', [s.leader.driverId, s.topConstructor.constructorId], ['a', 'x'])
+}
+
 // ---------- SSR smoke: every route renders ----------
 {
   globalThis.matchMedia = () => ({ matches: false })
   const routes = ['/', '/groups', '/schedule', '/teams', '/team/brazil', '/team/curacao',
-    '/team/nope', '/scorers', '/compare?a=brazil&b=argentina']
+    '/team/nope', '/scorers', '/compare?a=brazil&b=argentina',
+    '/f1', '/f1/stats', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
+    '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
+    '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
+    '/f1/race/1', '/f1/race/7', '/f1/race/999']
   for (const r of routes) {
     try {
       const html = renderToString(
         <MemoryRouter initialEntries={[r]}>
-          <DataProvider><App /></DataProvider>
+          <DataProvider>
+            <F1DataProvider><App /></F1DataProvider>
+          </DataProvider>
         </MemoryRouter>,
       )
       check(`route ${r} renders`, html.length > 700, true)
       if (r === '/') {
         check('feedback button present', html.includes('Send feedback'), true)
-        check('home link present', html.includes('home-link'), true)
+        check('sport switcher present', html.includes('sport-switcher'), true)
       }
       if (r === '/groups') {
         const groups = [...html.matchAll(/Group <!-- -->([A-L])</g)].map((m) => m[1]).join('')
@@ -324,6 +442,27 @@ check('alias unknown', canonName('Narnia'), null)
       if (r === '/team/brazil') {
         check('coach label shown', html.includes('Head coach'), true)
         check('coach name shown', html.includes('Carlo Ancelotti'), true)
+      }
+      if (r === '/f1') {
+        check('f1 section title shown', html.includes('Grand Prix 2026'), true)
+        check('f1 calendar shows a round', html.includes('Australian Grand Prix'), true)
+        check('f1 tab Stats present', html.includes('Stats'), true)
+      }
+      if (r === '/f1/drivers') {
+        check('f1 drivers championship title', html.includes('Drivers&#x2019; Championship') || html.includes('Championship'), true)
+      }
+      if (r === '/f1/teams') {
+        check('f1 constructors championship title', html.includes('Constructors'), true)
+      }
+      if (r === '/f1/stats') {
+        check('f1 stats records render', html.includes('Season records'), true)
+      }
+      if (r === '/f1/driver/piastri') {
+        check('f1 driver page renders results', html.includes('most recent first'), true)
+      }
+      if (r === '/f1/race/1') {
+        check('f1 race classification renders', html.includes('Classification'), true)
+        check('f1 race summary renders', html.includes('Race summary'), true)
       }
     } catch (e) {
       fails++

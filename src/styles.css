@@ -36,6 +36,20 @@
   --tabbar: #101828;
 }
 
+/* Per-section accent (multi-sport). F1 → red; soccer keeps the default blue.
+   Provisional: delete these two blocks to revert F1 to the default accent.
+   data-section lives on .app; data-theme lives on <html>, hence the descendant
+   selector for the dark variant. */
+[data-section='f1'] {
+  --accent: #e10600;
+  --accent-soft: #ffe1de;
+}
+
+[data-theme='dark'] [data-section='f1'] {
+  --accent: #ff5a52;
+  --accent-soft: #3a1614;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -86,19 +100,104 @@ button {
 }
 
 .topbar h1 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
-.home-link {
+/* sport switcher (the top-bar title is a dropdown to switch sports) */
+.sport-switcher {
+  position: relative;
+}
+
+.sport-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px;
 }
 
+.sport-caret {
+  font-size: 0.7em;
+  color: var(--muted);
+}
+
+.sport-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  min-width: 220px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.sport-option {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'main check' 'sub check';
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  gap: 0 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.sport-option:hover,
+.sport-option.on {
+  background: var(--accent-soft);
+}
+
+.sport-option-main {
+  grid-area: main;
+  font-weight: 600;
+}
+
+.sport-option-sub {
+  grid-area: sub;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.sport-check {
+  grid-area: check;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* right side of the top bar: update chip on top, feedback + theme below it */
 .topbar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.topbar-actions-row {
   display: flex;
   gap: 6px;
   align-items: center;
+  /* span the update chip's width so the two buttons below add up to it */
+  align-self: stretch;
+}
+
+.topbar-actions-row .chip {
+  flex: 1;
+  text-align: center;
 }
 
 .chip {
@@ -1401,4 +1500,119 @@ table.cmp-table td {
   border-top: 1px solid var(--line);
   text-align: center;
   font-weight: 600;
+}
+
+/* ---------- Formula 1 ---------- */
+/* constructor color: a vertical bar in a row, or a small dot inline */
+.f1-bar {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 4px;
+  flex: none;
+}
+
+.f1-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+
+/* driver car number badge */
+.driver-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2em;
+  height: 2em;
+  border-radius: 8px;
+  background: var(--bg);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+/* a win (P1) finish, highlighted in results tables */
+.f1-win {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.f1-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 10px 2px 0;
+}
+
+/* constructor logo (image from public/f1/logos/<slug>.svg) or fallback badge */
+.f1-logo {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.f1-logo.big {
+  width: 52px;
+  height: 52px;
+}
+
+/* fallback when no logo file exists: color tile with the team abbreviation */
+.f1-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.f1-logo-badge.big {
+  font-size: 0.85rem;
+}
+
+/* tyre-compound chips on the race-detail page */
+.tyres {
+  display: inline-flex;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.tyre {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 0.58rem;
+  font-weight: 800;
+  border: 1px solid var(--line);
+}
+
+.tyre-S {
+  background: #e8002d;
+  color: #fff;
+}
+.tyre-M {
+  background: #ffd12e;
+  color: #111;
+}
+.tyre-H {
+  background: #f3f3f3;
+  color: #111;
+}
+.tyre-I {
+  background: #43b02a;
+  color: #fff;
+}
+.tyre-W {
+  background: #0067ad;
+  color: #fff;
 }
