@@ -14,10 +14,10 @@ export const SECTIONS = [
     title: 'World Cup 2026',
     home: '/',
     tabs: [
-      { to: '/', end: true, emoji: '📊', label: 'Groups' },
+      { to: '/', end: true, emoji: '🏆', label: 'Bracket' },
       { to: '/schedule', emoji: '📅', label: 'Schedule' },
       { to: '/teams', emoji: '🔎', label: 'Teams' },
-      { to: '/bracket', emoji: '🏆', label: 'Bracket' },
+      { to: '/groups', emoji: '📊', label: 'Groups' },
       { to: '/scorers', emoji: '👟', label: 'Boot' },
     ],
   },

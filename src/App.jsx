@@ -102,11 +102,11 @@ export default function App() {
       {feedbackOpen && <FeedbackForm onClose={() => setFeedbackOpen(false)} />}
       <main className="content">
         <Routes>
-          <Route path="/" element={<GroupsPage />} />
+          <Route path="/" element={<BracketPage />} />
+          <Route path="/groups" element={<GroupsPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/teams" element={<TeamsPage />} />
           <Route path="/team/:slug" element={<TeamPage />} />
-          <Route path="/bracket" element={<BracketPage />} />
           <Route path="/scorers" element={<ScorersPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/f1" element={<F1CalendarPage />} />
@@ -119,7 +119,7 @@ export default function App() {
           <Route path="/f1/circuit/:slug" element={<F1CircuitPage />} />
           <Route path="/f1/race/:round" element={<F1RacePage />} />
           <Route path="/f1/stats" element={<F1StatsPage />} />
-          <Route path="*" element={<GroupsPage />} />
+          <Route path="*" element={<BracketPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}
         <AdSlot key={location.pathname} />
