@@ -14,8 +14,8 @@ export const SECTIONS = [
     title: 'World Cup 2026',
     home: '/',
     tabs: [
-      { to: '/', end: true, emoji: '🏆', label: 'Bracket' },
       { to: '/schedule', emoji: '📅', label: 'Schedule' },
+      { to: '/', end: true, emoji: '🏆', label: 'Bracket' },
       { to: '/teams', emoji: '🔎', label: 'Teams' },
       { to: '/groups', emoji: '📊', label: 'Groups' },
       { to: '/scorers', emoji: '👟', label: 'Boot' },
