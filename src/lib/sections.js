@@ -22,6 +22,19 @@ export const SECTIONS = [
     ],
   },
   {
+    id: 'leagues',
+    sport: 'Leagues',
+    emoji: '⚽',
+    title: 'Top Leagues',
+    home: '/leagues',
+    // tab `to` values name the default league; App.jsx substitutes the active
+    // league slug from the URL so the tabs follow the league being viewed
+    tabs: [
+      { to: '/leagues/epl', end: true, emoji: '📊', label: 'Table' },
+      { to: '/leagues/epl/fixtures', emoji: '📅', label: 'Fixtures' },
+    ],
+  },
+  {
     id: 'f1',
     sport: 'Formula 1',
     emoji: '🏁',

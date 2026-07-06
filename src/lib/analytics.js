@@ -43,6 +43,8 @@ export function initAnalytics() {
 // ids so reports group cleanly (every team page under /team/:slug).
 export function normalizeRoute(pathname) {
   if (/^\/team\//.test(pathname)) return '/team/:slug'
+  if (/^\/leagues\/[^/]+\/fixtures$/.test(pathname)) return '/leagues/:league/fixtures'
+  if (/^\/leagues\/[^/]+$/.test(pathname)) return '/leagues/:league'
   return pathname || '/'
 }
 

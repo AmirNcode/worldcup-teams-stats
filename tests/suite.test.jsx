@@ -26,6 +26,7 @@ import {
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
 import { F1DataProvider } from '../src/f1/lib/data.jsx'
+import { LeaguesDataProvider } from '../src/leagues/lib/data.jsx'
 import {
   parseSchedule,
   parseDriverStandings,
@@ -532,13 +533,14 @@ check('alias unknown', canonName('Narnia'), null)
     '/f1', '/f1/stats', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
-    '/f1/race/1', '/f1/race/7', '/f1/race/999']
+    '/f1/race/1', '/f1/race/7', '/f1/race/999',
+    '/leagues', '/leagues/epl', '/leagues/laliga', '/leagues/bundesliga/fixtures', '/leagues/nope']
   for (const r of routes) {
     try {
       const html = renderToString(
         <MemoryRouter initialEntries={[r]}>
           <DataProvider>
-            <F1DataProvider><App /></F1DataProvider>
+            <F1DataProvider><LeaguesDataProvider><App /></LeaguesDataProvider></F1DataProvider>
           </DataProvider>
         </MemoryRouter>,
       )

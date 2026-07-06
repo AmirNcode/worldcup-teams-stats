@@ -96,6 +96,7 @@ section.
   route; no browser needed).
 - `npm run update-data` — regenerate `src/data/schedule.json` from openfootball.
 - `npm run update-f1-data` — regenerate `src/f1/data/snapshot.json` from Jolpica.
+- `npm run update-leagues-data` — regenerate `src/leagues/data/snapshot.json` from ESPN.
 - `npm run update-icons` — regenerate PWA icons.
 
 **Always run `npm test` and `npm run build` before committing.**
@@ -582,3 +583,55 @@ dead. Verify CORS + OpenF1 rate limits before wiring. (See `PLAN.md` §4.)
 4. Optional `[data-section='<id>']` accent block in `styles.css`.
 5. Add the new routes to the SSR smoke test in `tests/suite.test.jsx`.
 6. `npm test` + `npm run build`; commit on `development`.
+
+---
+
+## 21. Leagues section (top-5 European leagues) — `src/leagues/`
+
+One **Leagues** section (⚽ "Top Leagues", home `/leagues`, pitch-green accent)
+hosts the five major European leagues — Premier League, La Liga, Serie A,
+Bundesliga, Ligue 1 — as **pure config**: one parameterized set of pages serves
+all five. Design spec: `docs/superpowers/specs/2026-07-06-league-soccer-design.md`.
+
+- **Registry** (`src/leagues/lib/leagues.js`): `LEAGUES` entries
+  `{ id, espn, name, country, flag }`; `id` (`epl`, `laliga`, `seriea`,
+  `bundesliga`, `ligue1`) is the URL slug and model key; `espn` is the ESPN
+  league code (`eng.1`, `esp.1`, `ita.1`, `ger.1`, `fra.1`) and never leaks
+  outside the data layer. `DEFAULT_LEAGUE = 'epl'`. **Adding a league is one
+  registry line.**
+- **Routes:** `/leagues` → redirect `/leagues/epl`; `/leagues/:league` = table
+  (section home content); `/leagues/:league/fixtures`; unknown slug redirects
+  to the default league. Tabs: 📊 Table · 📅 Fixtures. The `SECTIONS` tab `to`
+  values name the default league; `App.jsx` substitutes the active `:league`
+  slug so the tab bar follows the league being viewed.
+- **UI:** `LeaguePicker` chip row (flag + name, active highlighted) switches
+  leagues while preserving the page kind; standings reuse `table.standings`
+  styles with zone shading from ESPN's rank `note` (green = Champions League,
+  neutral `maybe` = other European spots, red `relegated` = relegation).
+  Fixtures page groups matches by local day: Upcoming (soonest first, local
+  kickoff times) then Results (newest first), with a friendly empty state
+  while a schedule is unpublished.
+- **Data — ESPN league API** (same keyless host as WC live scores, different
+  shapes; parsers in `src/leagues/lib/espn.js`, all defensive):
+  - standings `apis/v2/sports/soccer/<code>/standings[?season=YYYY]`,
+    scoreboard `apis/site/v2/sports/soccer/<code>/scoreboard?dates=A-B&limit=100`.
+  - `fetchLeagueStandings(getJson, code)` — **season fallback:** ESPN flips its
+    default season to the upcoming one during the summer break (all-zero
+    alphabetical table); when every row has `played === 0`, refetch
+    `season = year - 1` so the final table of the finished season shows. Rolls
+    forward automatically once the new season kicks off.
+  - `fetchLeagueMatches(getJson, code, now)` — ±3-week scoreboard windows,
+    each widened once when empty (past → 90d for summer break, future → 120d
+    until fixtures publish), capped to ~2 matchweeks each way (20 + 20),
+    deduped by event id. `getJson` is injected (same pattern as F1's
+    `fetchAllResults`) so the provider and generator share these helpers.
+- **Provider** (`src/leagues/lib/data.jsx`, mounted globally in `main.jsx`):
+  model `{ [leagueId]: { standings, matches, fetchedAt, source } }`; layering
+  snapshot → localStorage (`leagues.espn.v1`) → live. **Lazy per league:**
+  a league fetches the first time a page views it (`useLeagueData(leagueId)`),
+  then refreshes on tab focus + a 6h tick — only the viewed league polls.
+  Fail-soft everywhere; only live-sourced entries are cached.
+- **Snapshot:** `src/leagues/data/snapshot.json` (all five leagues), generated
+  by `npm run update-leagues-data` (`scripts/generate-leagues.mjs`).
+- **Analytics:** `track('league_viewed', { league })` on picker switch;
+  `normalizeRoute` collapses `/leagues/<x>` and `/leagues/<x>/fixtures`.
