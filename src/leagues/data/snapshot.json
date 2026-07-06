@@ -1,0 +1,5888 @@
+{
+  "generatedAt": "2026-07-06T15:53:56.413Z",
+  "source": "espn",
+  "leagues": {
+    "epl": {
+      "standings": {
+        "season": "2025-26 English Premier League",
+        "seasonYear": 2025,
+        "rows": [
+          {
+            "rank": 1,
+            "teamId": "359",
+            "name": "Arsenal",
+            "abbrev": "ARS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "played": 38,
+            "w": 26,
+            "d": 7,
+            "l": 5,
+            "gf": 71,
+            "ga": 27,
+            "gd": 44,
+            "pts": 85,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 2,
+            "teamId": "382",
+            "name": "Manchester City",
+            "abbrev": "MNC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "played": 38,
+            "w": 23,
+            "d": 9,
+            "l": 6,
+            "gf": 77,
+            "ga": 35,
+            "gd": 42,
+            "pts": 78,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 3,
+            "teamId": "360",
+            "name": "Manchester United",
+            "abbrev": "MAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "played": 38,
+            "w": 20,
+            "d": 11,
+            "l": 7,
+            "gf": 69,
+            "ga": 50,
+            "gd": 19,
+            "pts": 71,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 4,
+            "teamId": "362",
+            "name": "Aston Villa",
+            "abbrev": "AVL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "played": 38,
+            "w": 19,
+            "d": 8,
+            "l": 11,
+            "gf": 56,
+            "ga": 49,
+            "gd": 7,
+            "pts": 65,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 5,
+            "teamId": "364",
+            "name": "Liverpool",
+            "abbrev": "LIV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "played": 38,
+            "w": 17,
+            "d": 9,
+            "l": 12,
+            "gf": 63,
+            "ga": 53,
+            "gd": 10,
+            "pts": 60,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 6,
+            "teamId": "349",
+            "name": "AFC Bournemouth",
+            "abbrev": "BOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "played": 38,
+            "w": 13,
+            "d": 18,
+            "l": 7,
+            "gf": 58,
+            "ga": 54,
+            "gd": 4,
+            "pts": 57,
+            "note": "Europa League",
+            "noteColor": "#B5E7CE"
+          },
+          {
+            "rank": 7,
+            "teamId": "366",
+            "name": "Sunderland",
+            "abbrev": "SUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "played": 38,
+            "w": 14,
+            "d": 12,
+            "l": 12,
+            "gf": 42,
+            "ga": 48,
+            "gd": -6,
+            "pts": 54,
+            "note": "Europa League",
+            "noteColor": "#B5E7CE"
+          },
+          {
+            "rank": 8,
+            "teamId": "331",
+            "name": "Brighton & Hove Albion",
+            "abbrev": "BHA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "played": 38,
+            "w": 14,
+            "d": 11,
+            "l": 13,
+            "gf": 52,
+            "ga": 46,
+            "gd": 6,
+            "pts": 53,
+            "note": "Conference League Playoff Round",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 9,
+            "teamId": "337",
+            "name": "Brentford",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "played": 38,
+            "w": 14,
+            "d": 11,
+            "l": 13,
+            "gf": 55,
+            "ga": 52,
+            "gd": 3,
+            "pts": 53,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 10,
+            "teamId": "363",
+            "name": "Chelsea",
+            "abbrev": "CHE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "played": 38,
+            "w": 14,
+            "d": 10,
+            "l": 14,
+            "gf": 58,
+            "ga": 52,
+            "gd": 6,
+            "pts": 52,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 11,
+            "teamId": "370",
+            "name": "Fulham",
+            "abbrev": "FUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+            "played": 38,
+            "w": 15,
+            "d": 7,
+            "l": 16,
+            "gf": 47,
+            "ga": 51,
+            "gd": -4,
+            "pts": 52,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 12,
+            "teamId": "361",
+            "name": "Newcastle United",
+            "abbrev": "NEW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "played": 38,
+            "w": 14,
+            "d": 7,
+            "l": 17,
+            "gf": 53,
+            "ga": 55,
+            "gd": -2,
+            "pts": 49,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 13,
+            "teamId": "368",
+            "name": "Everton",
+            "abbrev": "EVE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "played": 38,
+            "w": 13,
+            "d": 10,
+            "l": 15,
+            "gf": 47,
+            "ga": 50,
+            "gd": -3,
+            "pts": 49,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 14,
+            "teamId": "357",
+            "name": "Leeds United",
+            "abbrev": "LEE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "played": 38,
+            "w": 11,
+            "d": 14,
+            "l": 13,
+            "gf": 49,
+            "ga": 56,
+            "gd": -7,
+            "pts": 47,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 15,
+            "teamId": "384",
+            "name": "Crystal Palace",
+            "abbrev": "CRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+            "played": 38,
+            "w": 11,
+            "d": 12,
+            "l": 15,
+            "gf": 41,
+            "ga": 51,
+            "gd": -10,
+            "pts": 45,
+            "note": "Europa League",
+            "noteColor": "#B5E7CE"
+          },
+          {
+            "rank": 16,
+            "teamId": "393",
+            "name": "Nottingham Forest",
+            "abbrev": "NFO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "played": 38,
+            "w": 11,
+            "d": 11,
+            "l": 16,
+            "gf": 48,
+            "ga": 51,
+            "gd": -3,
+            "pts": 44,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 17,
+            "teamId": "367",
+            "name": "Tottenham Hotspur",
+            "abbrev": "TOT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "played": 38,
+            "w": 10,
+            "d": 11,
+            "l": 17,
+            "gf": 48,
+            "ga": 57,
+            "gd": -9,
+            "pts": 41,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 18,
+            "teamId": "371",
+            "name": "West Ham United",
+            "abbrev": "WHU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/371.png",
+            "played": 38,
+            "w": 10,
+            "d": 9,
+            "l": 19,
+            "gf": 46,
+            "ga": 65,
+            "gd": -19,
+            "pts": 39,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 19,
+            "teamId": "379",
+            "name": "Burnley",
+            "abbrev": "BUR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/379.png",
+            "played": 38,
+            "w": 4,
+            "d": 10,
+            "l": 24,
+            "gf": 38,
+            "ga": 75,
+            "gd": -37,
+            "pts": 22,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 20,
+            "teamId": "380",
+            "name": "Wolverhampton Wanderers",
+            "abbrev": "WOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/380.png",
+            "played": 38,
+            "w": 3,
+            "d": 11,
+            "l": 24,
+            "gf": 27,
+            "ga": 68,
+            "gd": -41,
+            "pts": 20,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          }
+        ]
+      },
+      "matches": [
+        {
+          "id": "740957",
+          "date": "2026-05-15T19:00Z",
+          "name": "Liverpool at Aston Villa",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "362",
+            "name": "Aston Villa",
+            "abbrev": "AVL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "score": 4
+          },
+          "away": {
+            "id": "364",
+            "name": "Liverpool",
+            "abbrev": "LIV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "740963",
+          "date": "2026-05-17T11:30Z",
+          "name": "Nottingham Forest at Manchester United",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "360",
+            "name": "Manchester United",
+            "abbrev": "MAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "score": 3
+          },
+          "away": {
+            "id": "393",
+            "name": "Nottingham Forest",
+            "abbrev": "NFO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "740959",
+          "date": "2026-05-17T14:00Z",
+          "name": "Crystal Palace at Brentford",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "337",
+            "name": "Brentford",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "score": 2
+          },
+          "away": {
+            "id": "384",
+            "name": "Crystal Palace",
+            "abbrev": "CRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "740961",
+          "date": "2026-05-17T14:00Z",
+          "name": "Sunderland at Everton",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "368",
+            "name": "Everton",
+            "abbrev": "EVE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "score": 1
+          },
+          "away": {
+            "id": "366",
+            "name": "Sunderland",
+            "abbrev": "SUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "740962",
+          "date": "2026-05-17T14:00Z",
+          "name": "Brighton & Hove Albion at Leeds United",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "357",
+            "name": "Leeds United",
+            "abbrev": "LEE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "score": 1
+          },
+          "away": {
+            "id": "331",
+            "name": "Brighton & Hove Albion",
+            "abbrev": "BHA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "740965",
+          "date": "2026-05-17T14:00Z",
+          "name": "Fulham at Wolverhampton Wanderers",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "380",
+            "name": "Wolverhampton Wanderers",
+            "abbrev": "WOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/380.png",
+            "score": 1
+          },
+          "away": {
+            "id": "370",
+            "name": "Fulham",
+            "abbrev": "FUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740964",
+          "date": "2026-05-17T16:30Z",
+          "name": "West Ham United at Newcastle United",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "361",
+            "name": "Newcastle United",
+            "abbrev": "NEW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "score": 3
+          },
+          "away": {
+            "id": "371",
+            "name": "West Ham United",
+            "abbrev": "WHU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/371.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740956",
+          "date": "2026-05-18T19:00Z",
+          "name": "Burnley at Arsenal",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "359",
+            "name": "Arsenal",
+            "abbrev": "ARS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "score": 1
+          },
+          "away": {
+            "id": "379",
+            "name": "Burnley",
+            "abbrev": "BUR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/379.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "740958",
+          "date": "2026-05-19T18:30Z",
+          "name": "Manchester City at AFC Bournemouth",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "349",
+            "name": "AFC Bournemouth",
+            "abbrev": "BOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "score": 1
+          },
+          "away": {
+            "id": "382",
+            "name": "Manchester City",
+            "abbrev": "MNC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740960",
+          "date": "2026-05-19T19:15Z",
+          "name": "Tottenham Hotspur at Chelsea",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "363",
+            "name": "Chelsea",
+            "abbrev": "CHE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "score": 2
+          },
+          "away": {
+            "id": "367",
+            "name": "Tottenham Hotspur",
+            "abbrev": "TOT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740966",
+          "date": "2026-05-24T15:00Z",
+          "name": "Manchester United at Brighton & Hove Albion",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "331",
+            "name": "Brighton & Hove Albion",
+            "abbrev": "BHA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "score": 0
+          },
+          "away": {
+            "id": "360",
+            "name": "Manchester United",
+            "abbrev": "MAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "740967",
+          "date": "2026-05-24T15:00Z",
+          "name": "Wolverhampton Wanderers at Burnley",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "379",
+            "name": "Burnley",
+            "abbrev": "BUR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/379.png",
+            "score": 1
+          },
+          "away": {
+            "id": "380",
+            "name": "Wolverhampton Wanderers",
+            "abbrev": "WOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/380.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740968",
+          "date": "2026-05-24T15:00Z",
+          "name": "Arsenal at Crystal Palace",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "384",
+            "name": "Crystal Palace",
+            "abbrev": "CRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+            "score": 1
+          },
+          "away": {
+            "id": "359",
+            "name": "Arsenal",
+            "abbrev": "ARS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "740969",
+          "date": "2026-05-24T15:00Z",
+          "name": "Newcastle United at Fulham",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "370",
+            "name": "Fulham",
+            "abbrev": "FUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+            "score": 2
+          },
+          "away": {
+            "id": "361",
+            "name": "Newcastle United",
+            "abbrev": "NEW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "740975",
+          "date": "2026-05-24T15:00Z",
+          "name": "Brentford at Liverpool",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "364",
+            "name": "Liverpool",
+            "abbrev": "LIV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "score": 1
+          },
+          "away": {
+            "id": "337",
+            "name": "Brentford",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740970",
+          "date": "2026-05-24T15:00Z",
+          "name": "Aston Villa at Manchester City",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "382",
+            "name": "Manchester City",
+            "abbrev": "MNC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "score": 1
+          },
+          "away": {
+            "id": "362",
+            "name": "Aston Villa",
+            "abbrev": "AVL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "740972",
+          "date": "2026-05-24T15:00Z",
+          "name": "AFC Bournemouth at Nottingham Forest",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "393",
+            "name": "Nottingham Forest",
+            "abbrev": "NFO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "score": 1
+          },
+          "away": {
+            "id": "349",
+            "name": "AFC Bournemouth",
+            "abbrev": "BOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740973",
+          "date": "2026-05-24T15:00Z",
+          "name": "Chelsea at Sunderland",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "366",
+            "name": "Sunderland",
+            "abbrev": "SUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "score": 2
+          },
+          "away": {
+            "id": "363",
+            "name": "Chelsea",
+            "abbrev": "CHE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "740974",
+          "date": "2026-05-24T15:00Z",
+          "name": "Everton at Tottenham Hotspur",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "367",
+            "name": "Tottenham Hotspur",
+            "abbrev": "TOT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "score": 1
+          },
+          "away": {
+            "id": "368",
+            "name": "Everton",
+            "abbrev": "EVE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "740971",
+          "date": "2026-05-24T15:00Z",
+          "name": "Leeds United at West Ham United",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "371",
+            "name": "West Ham United",
+            "abbrev": "WHU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/371.png",
+            "score": 3
+          },
+          "away": {
+            "id": "357",
+            "name": "Leeds United",
+            "abbrev": "LEE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "401879301",
+          "date": "2026-08-21T19:00Z",
+          "name": "Coventry City at Arsenal",
+          "state": "pre",
+          "detail": "Fri, August 21st at 3:00 PM EDT",
+          "home": {
+            "id": "359",
+            "name": "Arsenal",
+            "abbrev": "ARS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "score": null
+          },
+          "away": {
+            "id": "388",
+            "name": "Coventry City",
+            "abbrev": "COV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879322",
+          "date": "2026-08-22T11:30Z",
+          "name": "Manchester United at Hull City",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 7:30 AM EDT",
+          "home": {
+            "id": "306",
+            "name": "Hull City",
+            "abbrev": "HUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "score": null
+          },
+          "away": {
+            "id": "360",
+            "name": "Manchester United",
+            "abbrev": "MAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879300",
+          "date": "2026-08-22T14:00Z",
+          "name": "Crystal Palace at Everton",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 10:00 AM EDT",
+          "home": {
+            "id": "368",
+            "name": "Everton",
+            "abbrev": "EVE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "score": null
+          },
+          "away": {
+            "id": "384",
+            "name": "Crystal Palace",
+            "abbrev": "CRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879299",
+          "date": "2026-08-22T14:00Z",
+          "name": "Sunderland at Ipswich Town",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 10:00 AM EDT",
+          "home": {
+            "id": "373",
+            "name": "Ipswich Town",
+            "abbrev": "IPS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+            "score": null
+          },
+          "away": {
+            "id": "366",
+            "name": "Sunderland",
+            "abbrev": "SUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879298",
+          "date": "2026-08-22T14:00Z",
+          "name": "Leeds United at Nottingham Forest",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 10:00 AM EDT",
+          "home": {
+            "id": "393",
+            "name": "Nottingham Forest",
+            "abbrev": "NFO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "score": null
+          },
+          "away": {
+            "id": "357",
+            "name": "Leeds United",
+            "abbrev": "LEE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879321",
+          "date": "2026-08-22T16:30Z",
+          "name": "Tottenham Hotspur at Brentford",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 12:30 PM EDT",
+          "home": {
+            "id": "337",
+            "name": "Brentford",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "score": null
+          },
+          "away": {
+            "id": "367",
+            "name": "Tottenham Hotspur",
+            "abbrev": "TOT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879297",
+          "date": "2026-08-23T13:00Z",
+          "name": "Aston Villa at Brighton & Hove Albion",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 9:00 AM EDT",
+          "home": {
+            "id": "331",
+            "name": "Brighton & Hove Albion",
+            "abbrev": "BHA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "score": null
+          },
+          "away": {
+            "id": "362",
+            "name": "Aston Villa",
+            "abbrev": "AVL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879320",
+          "date": "2026-08-23T13:00Z",
+          "name": "AFC Bournemouth at Manchester City",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 9:00 AM EDT",
+          "home": {
+            "id": "382",
+            "name": "Manchester City",
+            "abbrev": "MNC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "score": null
+          },
+          "away": {
+            "id": "349",
+            "name": "AFC Bournemouth",
+            "abbrev": "BOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879319",
+          "date": "2026-08-23T15:30Z",
+          "name": "Liverpool at Newcastle United",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 11:30 AM EDT",
+          "home": {
+            "id": "361",
+            "name": "Newcastle United",
+            "abbrev": "NEW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "score": null
+          },
+          "away": {
+            "id": "364",
+            "name": "Liverpool",
+            "abbrev": "LIV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879318",
+          "date": "2026-08-24T19:00Z",
+          "name": "Chelsea at Fulham",
+          "state": "pre",
+          "detail": "Mon, August 24th at 3:00 PM EDT",
+          "home": {
+            "id": "370",
+            "name": "Fulham",
+            "abbrev": "FUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+            "score": null
+          },
+          "away": {
+            "id": "363",
+            "name": "Chelsea",
+            "abbrev": "CHE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879296",
+          "date": "2026-08-29T14:00Z",
+          "name": "Everton at AFC Bournemouth",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "349",
+            "name": "AFC Bournemouth",
+            "abbrev": "BOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+            "score": null
+          },
+          "away": {
+            "id": "368",
+            "name": "Everton",
+            "abbrev": "EVE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879295",
+          "date": "2026-08-29T14:00Z",
+          "name": "Arsenal at Aston Villa",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "362",
+            "name": "Aston Villa",
+            "abbrev": "AVL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+            "score": null
+          },
+          "away": {
+            "id": "359",
+            "name": "Arsenal",
+            "abbrev": "ARS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879317",
+          "date": "2026-08-29T14:00Z",
+          "name": "Brighton & Hove Albion at Chelsea",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "363",
+            "name": "Chelsea",
+            "abbrev": "CHE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "score": null
+          },
+          "away": {
+            "id": "331",
+            "name": "Brighton & Hove Albion",
+            "abbrev": "BHA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879316",
+          "date": "2026-08-29T14:00Z",
+          "name": "Hull City at Coventry City",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "388",
+            "name": "Coventry City",
+            "abbrev": "COV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+            "score": null
+          },
+          "away": {
+            "id": "306",
+            "name": "Hull City",
+            "abbrev": "HUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879294",
+          "date": "2026-08-29T14:00Z",
+          "name": "Manchester City at Crystal Palace",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "384",
+            "name": "Crystal Palace",
+            "abbrev": "CRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+            "score": null
+          },
+          "away": {
+            "id": "382",
+            "name": "Manchester City",
+            "abbrev": "MNC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879315",
+          "date": "2026-08-29T14:00Z",
+          "name": "Brentford at Leeds United",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "357",
+            "name": "Leeds United",
+            "abbrev": "LEE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+            "score": null
+          },
+          "away": {
+            "id": "337",
+            "name": "Brentford",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879314",
+          "date": "2026-08-29T14:00Z",
+          "name": "Nottingham Forest at Liverpool",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "364",
+            "name": "Liverpool",
+            "abbrev": "LIV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "score": null
+          },
+          "away": {
+            "id": "393",
+            "name": "Nottingham Forest",
+            "abbrev": "NFO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879293",
+          "date": "2026-08-29T14:00Z",
+          "name": "Ipswich Town at Manchester United",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "360",
+            "name": "Manchester United",
+            "abbrev": "MAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "score": null
+          },
+          "away": {
+            "id": "373",
+            "name": "Ipswich Town",
+            "abbrev": "IPS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879313",
+          "date": "2026-08-29T14:00Z",
+          "name": "Fulham at Sunderland",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "366",
+            "name": "Sunderland",
+            "abbrev": "SUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+            "score": null
+          },
+          "away": {
+            "id": "370",
+            "name": "Fulham",
+            "abbrev": "FUL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401879312",
+          "date": "2026-08-29T14:00Z",
+          "name": "Newcastle United at Tottenham Hotspur",
+          "state": "pre",
+          "detail": "Sat, August 29th at 10:00 AM EDT",
+          "home": {
+            "id": "367",
+            "name": "Tottenham Hotspur",
+            "abbrev": "TOT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+            "score": null
+          },
+          "away": {
+            "id": "361",
+            "name": "Newcastle United",
+            "abbrev": "NEW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+            "score": null
+          }
+        }
+      ]
+    },
+    "laliga": {
+      "standings": {
+        "season": "2025-26 Spanish LALIGA",
+        "seasonYear": 2025,
+        "rows": [
+          {
+            "rank": 1,
+            "teamId": "83",
+            "name": "Barcelona",
+            "abbrev": "BAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "played": 38,
+            "w": 31,
+            "d": 1,
+            "l": 6,
+            "gf": 95,
+            "ga": 36,
+            "gd": 59,
+            "pts": 94,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 2,
+            "teamId": "86",
+            "name": "Real Madrid",
+            "abbrev": "RMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "played": 38,
+            "w": 27,
+            "d": 5,
+            "l": 6,
+            "gf": 77,
+            "ga": 35,
+            "gd": 42,
+            "pts": 86,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 3,
+            "teamId": "102",
+            "name": "Villarreal",
+            "abbrev": "VIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "played": 38,
+            "w": 22,
+            "d": 6,
+            "l": 10,
+            "gf": 72,
+            "ga": 46,
+            "gd": 26,
+            "pts": 72,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 4,
+            "teamId": "1068",
+            "name": "Atlético Madrid",
+            "abbrev": "ATM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "played": 38,
+            "w": 21,
+            "d": 6,
+            "l": 11,
+            "gf": 62,
+            "ga": 44,
+            "gd": 18,
+            "pts": 69,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 5,
+            "teamId": "244",
+            "name": "Real Betis",
+            "abbrev": "BET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "played": 38,
+            "w": 15,
+            "d": 15,
+            "l": 8,
+            "gf": 59,
+            "ga": 48,
+            "gd": 11,
+            "pts": 60,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 6,
+            "teamId": "85",
+            "name": "Celta Vigo",
+            "abbrev": "CEL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "played": 38,
+            "w": 14,
+            "d": 12,
+            "l": 12,
+            "gf": 53,
+            "ga": 48,
+            "gd": 5,
+            "pts": 54,
+            "note": "Europa League",
+            "noteColor": "#c6d1e0"
+          },
+          {
+            "rank": 7,
+            "teamId": "2922",
+            "name": "Getafe",
+            "abbrev": "GET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+            "played": 38,
+            "w": 15,
+            "d": 6,
+            "l": 17,
+            "gf": 32,
+            "ga": 38,
+            "gd": -6,
+            "pts": 51,
+            "note": "Conference League qualifying",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 8,
+            "teamId": "101",
+            "name": "Rayo Vallecano",
+            "abbrev": "RAY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+            "played": 38,
+            "w": 12,
+            "d": 14,
+            "l": 12,
+            "gf": 41,
+            "ga": 44,
+            "gd": -3,
+            "pts": 50,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 9,
+            "teamId": "94",
+            "name": "Valencia",
+            "abbrev": "VAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+            "played": 38,
+            "w": 13,
+            "d": 10,
+            "l": 15,
+            "gf": 46,
+            "ga": 55,
+            "gd": -9,
+            "pts": 49,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 10,
+            "teamId": "89",
+            "name": "Real Sociedad",
+            "abbrev": "RSO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "played": 38,
+            "w": 11,
+            "d": 13,
+            "l": 14,
+            "gf": 59,
+            "ga": 61,
+            "gd": -2,
+            "pts": 46,
+            "note": "Europa League",
+            "noteColor": "##c6d1e0"
+          },
+          {
+            "rank": 11,
+            "teamId": "88",
+            "name": "Espanyol",
+            "abbrev": "ESP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+            "played": 38,
+            "w": 12,
+            "d": 10,
+            "l": 16,
+            "gf": 43,
+            "ga": 55,
+            "gd": -12,
+            "pts": 46,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 12,
+            "teamId": "93",
+            "name": "Athletic Club",
+            "abbrev": "ATH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+            "played": 38,
+            "w": 13,
+            "d": 6,
+            "l": 19,
+            "gf": 43,
+            "ga": 58,
+            "gd": -15,
+            "pts": 45,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 13,
+            "teamId": "243",
+            "name": "Sevilla",
+            "abbrev": "SEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+            "played": 38,
+            "w": 12,
+            "d": 7,
+            "l": 19,
+            "gf": 46,
+            "ga": 60,
+            "gd": -14,
+            "pts": 43,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 14,
+            "teamId": "96",
+            "name": "Alavés",
+            "abbrev": "ALA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+            "played": 38,
+            "w": 11,
+            "d": 10,
+            "l": 17,
+            "gf": 44,
+            "ga": 56,
+            "gd": -12,
+            "pts": 43,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 15,
+            "teamId": "3751",
+            "name": "Elche",
+            "abbrev": "ELC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+            "played": 38,
+            "w": 10,
+            "d": 13,
+            "l": 15,
+            "gf": 49,
+            "ga": 57,
+            "gd": -8,
+            "pts": 43,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 16,
+            "teamId": "1538",
+            "name": "Levante",
+            "abbrev": "LEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+            "played": 38,
+            "w": 11,
+            "d": 9,
+            "l": 18,
+            "gf": 47,
+            "ga": 61,
+            "gd": -14,
+            "pts": 42,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 17,
+            "teamId": "97",
+            "name": "Osasuna",
+            "abbrev": "OSA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+            "played": 38,
+            "w": 11,
+            "d": 9,
+            "l": 18,
+            "gf": 44,
+            "ga": 50,
+            "gd": -6,
+            "pts": 42,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 18,
+            "teamId": "84",
+            "name": "Mallorca",
+            "abbrev": "MLL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/84.png",
+            "played": 38,
+            "w": 11,
+            "d": 9,
+            "l": 18,
+            "gf": 47,
+            "ga": 57,
+            "gd": -10,
+            "pts": 42,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 19,
+            "teamId": "9812",
+            "name": "Girona",
+            "abbrev": "GIR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9812.png",
+            "played": 38,
+            "w": 9,
+            "d": 14,
+            "l": 15,
+            "gf": 39,
+            "ga": 55,
+            "gd": -16,
+            "pts": 41,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 20,
+            "teamId": "92",
+            "name": "Real Oviedo",
+            "abbrev": "OVI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/92.png",
+            "played": 38,
+            "w": 6,
+            "d": 11,
+            "l": 21,
+            "gf": 26,
+            "ga": 60,
+            "gd": -34,
+            "pts": 29,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          }
+        ]
+      },
+      "matches": [
+        {
+          "id": "748506",
+          "date": "2026-05-17T17:00Z",
+          "name": "Celta Vigo at Athletic Club",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "93",
+            "name": "Athletic Club",
+            "abbrev": "ATH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+            "score": 1
+          },
+          "away": {
+            "id": "85",
+            "name": "Celta Vigo",
+            "abbrev": "CEL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748509",
+          "date": "2026-05-17T17:00Z",
+          "name": "Girona at Atlético Madrid",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "1068",
+            "name": "Atlético Madrid",
+            "abbrev": "ATM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "score": 1
+          },
+          "away": {
+            "id": "9812",
+            "name": "Girona",
+            "abbrev": "GIR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9812.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748507",
+          "date": "2026-05-17T17:00Z",
+          "name": "Getafe at Elche",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3751",
+            "name": "Elche",
+            "abbrev": "ELC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+            "score": 1
+          },
+          "away": {
+            "id": "2922",
+            "name": "Getafe",
+            "abbrev": "GET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748510",
+          "date": "2026-05-17T17:00Z",
+          "name": "Mallorca at Levante",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "1538",
+            "name": "Levante",
+            "abbrev": "LEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+            "score": 2
+          },
+          "away": {
+            "id": "84",
+            "name": "Mallorca",
+            "abbrev": "MLL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/84.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748511",
+          "date": "2026-05-17T17:00Z",
+          "name": "Espanyol at Osasuna",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "97",
+            "name": "Osasuna",
+            "abbrev": "OSA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+            "score": 1
+          },
+          "away": {
+            "id": "88",
+            "name": "Espanyol",
+            "abbrev": "ESP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "748512",
+          "date": "2026-05-17T17:00Z",
+          "name": "Villarreal at Rayo Vallecano",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "101",
+            "name": "Rayo Vallecano",
+            "abbrev": "RAY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+            "score": 2
+          },
+          "away": {
+            "id": "102",
+            "name": "Villarreal",
+            "abbrev": "VIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748513",
+          "date": "2026-05-17T17:00Z",
+          "name": "Alavés at Real Oviedo",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "92",
+            "name": "Real Oviedo",
+            "abbrev": "OVI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/92.png",
+            "score": 0
+          },
+          "away": {
+            "id": "96",
+            "name": "Alavés",
+            "abbrev": "ALA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748505",
+          "date": "2026-05-17T17:00Z",
+          "name": "Valencia at Real Sociedad",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "89",
+            "name": "Real Sociedad",
+            "abbrev": "RSO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "score": 3
+          },
+          "away": {
+            "id": "94",
+            "name": "Valencia",
+            "abbrev": "VAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+            "score": 4
+          }
+        },
+        {
+          "id": "748504",
+          "date": "2026-05-17T17:00Z",
+          "name": "Real Madrid at Sevilla",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "243",
+            "name": "Sevilla",
+            "abbrev": "SEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+            "score": 0
+          },
+          "away": {
+            "id": "86",
+            "name": "Real Madrid",
+            "abbrev": "RMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748508",
+          "date": "2026-05-17T19:15Z",
+          "name": "Real Betis at Barcelona",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "83",
+            "name": "Barcelona",
+            "abbrev": "BAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "score": 3
+          },
+          "away": {
+            "id": "244",
+            "name": "Real Betis",
+            "abbrev": "BET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748523",
+          "date": "2026-05-23T19:00Z",
+          "name": "Rayo Vallecano at Alavés",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "96",
+            "name": "Alavés",
+            "abbrev": "ALA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+            "score": 1
+          },
+          "away": {
+            "id": "101",
+            "name": "Rayo Vallecano",
+            "abbrev": "RAY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "748517",
+          "date": "2026-05-23T19:00Z",
+          "name": "Sevilla at Celta Vigo",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "85",
+            "name": "Celta Vigo",
+            "abbrev": "CEL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "score": 1
+          },
+          "away": {
+            "id": "243",
+            "name": "Sevilla",
+            "abbrev": "SEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748516",
+          "date": "2026-05-23T19:00Z",
+          "name": "Real Sociedad at Espanyol",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "88",
+            "name": "Espanyol",
+            "abbrev": "ESP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+            "score": 1
+          },
+          "away": {
+            "id": "89",
+            "name": "Real Sociedad",
+            "abbrev": "RSO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748518",
+          "date": "2026-05-23T19:00Z",
+          "name": "Osasuna at Getafe",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "2922",
+            "name": "Getafe",
+            "abbrev": "GET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+            "score": 1
+          },
+          "away": {
+            "id": "97",
+            "name": "Osasuna",
+            "abbrev": "OSA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748520",
+          "date": "2026-05-23T19:00Z",
+          "name": "Elche at Girona",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "9812",
+            "name": "Girona",
+            "abbrev": "GIR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9812.png",
+            "score": 1
+          },
+          "away": {
+            "id": "3751",
+            "name": "Elche",
+            "abbrev": "ELC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748521",
+          "date": "2026-05-23T19:00Z",
+          "name": "Real Oviedo at Mallorca",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "84",
+            "name": "Mallorca",
+            "abbrev": "MLL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/84.png",
+            "score": 3
+          },
+          "away": {
+            "id": "92",
+            "name": "Real Oviedo",
+            "abbrev": "OVI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/92.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "748522",
+          "date": "2026-05-23T19:00Z",
+          "name": "Levante at Real Betis",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "244",
+            "name": "Real Betis",
+            "abbrev": "BET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "score": 2
+          },
+          "away": {
+            "id": "1538",
+            "name": "Levante",
+            "abbrev": "LEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748514",
+          "date": "2026-05-23T19:00Z",
+          "name": "Athletic Club at Real Madrid",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "86",
+            "name": "Real Madrid",
+            "abbrev": "RMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "score": 4
+          },
+          "away": {
+            "id": "93",
+            "name": "Athletic Club",
+            "abbrev": "ATH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "748519",
+          "date": "2026-05-23T19:00Z",
+          "name": "Barcelona at Valencia",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "94",
+            "name": "Valencia",
+            "abbrev": "VAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+            "score": 3
+          },
+          "away": {
+            "id": "83",
+            "name": "Barcelona",
+            "abbrev": "BAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "748515",
+          "date": "2026-05-24T19:00Z",
+          "name": "Atlético Madrid at Villarreal",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "102",
+            "name": "Villarreal",
+            "abbrev": "VIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "score": 5
+          },
+          "away": {
+            "id": "1068",
+            "name": "Atlético Madrid",
+            "abbrev": "ATM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "401882926",
+          "date": "2026-08-16T18:00Z",
+          "name": "Getafe at Alavés",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "96",
+            "name": "Alavés",
+            "abbrev": "ALA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+            "score": null
+          },
+          "away": {
+            "id": "2922",
+            "name": "Getafe",
+            "abbrev": "GET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882925",
+          "date": "2026-08-16T18:00Z",
+          "name": "Málaga at Atlético Madrid",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "1068",
+            "name": "Atlético Madrid",
+            "abbrev": "ATM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "score": null
+          },
+          "away": {
+            "id": "99",
+            "name": "Málaga",
+            "abbrev": "MCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/99.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882921",
+          "date": "2026-08-16T18:00Z",
+          "name": "Athletic Club at Barcelona",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "83",
+            "name": "Barcelona",
+            "abbrev": "BAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "score": null
+          },
+          "away": {
+            "id": "93",
+            "name": "Athletic Club",
+            "abbrev": "ATH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882924",
+          "date": "2026-08-16T18:00Z",
+          "name": "Osasuna at Celta Vigo",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "85",
+            "name": "Celta Vigo",
+            "abbrev": "CEL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "score": null
+          },
+          "away": {
+            "id": "97",
+            "name": "Osasuna",
+            "abbrev": "OSA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882923",
+          "date": "2026-08-16T18:00Z",
+          "name": "Elche at Deportivo La Coruña",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "90",
+            "name": "Deportivo La Coruña",
+            "abbrev": "DEP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/90.png",
+            "score": null
+          },
+          "away": {
+            "id": "3751",
+            "name": "Elche",
+            "abbrev": "ELC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882922",
+          "date": "2026-08-16T18:00Z",
+          "name": "Levante at Espanyol",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "88",
+            "name": "Espanyol",
+            "abbrev": "ESP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+            "score": null
+          },
+          "away": {
+            "id": "1538",
+            "name": "Levante",
+            "abbrev": "LEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882920",
+          "date": "2026-08-16T18:00Z",
+          "name": "Villarreal at Racing Santander",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "87",
+            "name": "Racing Santander",
+            "abbrev": "RAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/87.png",
+            "score": null
+          },
+          "away": {
+            "id": "102",
+            "name": "Villarreal",
+            "abbrev": "VIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882919",
+          "date": "2026-08-16T18:00Z",
+          "name": "Real Sociedad at Real Madrid",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "86",
+            "name": "Real Madrid",
+            "abbrev": "RMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "score": null
+          },
+          "away": {
+            "id": "89",
+            "name": "Real Sociedad",
+            "abbrev": "RSO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882918",
+          "date": "2026-08-16T18:00Z",
+          "name": "Rayo Vallecano at Sevilla",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "243",
+            "name": "Sevilla",
+            "abbrev": "SEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+            "score": null
+          },
+          "away": {
+            "id": "101",
+            "name": "Rayo Vallecano",
+            "abbrev": "RAY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882917",
+          "date": "2026-08-16T18:00Z",
+          "name": "Real Betis at Valencia",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "94",
+            "name": "Valencia",
+            "abbrev": "VAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+            "score": null
+          },
+          "away": {
+            "id": "244",
+            "name": "Real Betis",
+            "abbrev": "BET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882916",
+          "date": "2026-08-23T18:00Z",
+          "name": "Sevilla at Athletic Club",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "93",
+            "name": "Athletic Club",
+            "abbrev": "ATH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+            "score": null
+          },
+          "away": {
+            "id": "243",
+            "name": "Sevilla",
+            "abbrev": "SEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882915",
+          "date": "2026-08-23T18:00Z",
+          "name": "Villarreal at Atlético Madrid",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "1068",
+            "name": "Atlético Madrid",
+            "abbrev": "ATM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "score": null
+          },
+          "away": {
+            "id": "102",
+            "name": "Villarreal",
+            "abbrev": "VIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882913",
+          "date": "2026-08-23T18:00Z",
+          "name": "Barcelona at Elche",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "3751",
+            "name": "Elche",
+            "abbrev": "ELC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+            "score": null
+          },
+          "away": {
+            "id": "83",
+            "name": "Barcelona",
+            "abbrev": "BAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882912",
+          "date": "2026-08-23T18:00Z",
+          "name": "Real Madrid at Espanyol",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "88",
+            "name": "Espanyol",
+            "abbrev": "ESP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+            "score": null
+          },
+          "away": {
+            "id": "86",
+            "name": "Real Madrid",
+            "abbrev": "RMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882911",
+          "date": "2026-08-23T18:00Z",
+          "name": "Racing Santander at Getafe",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "2922",
+            "name": "Getafe",
+            "abbrev": "GET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+            "score": null
+          },
+          "away": {
+            "id": "87",
+            "name": "Racing Santander",
+            "abbrev": "RAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/87.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882910",
+          "date": "2026-08-23T18:00Z",
+          "name": "Deportivo La Coruña at Málaga",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "99",
+            "name": "Málaga",
+            "abbrev": "MCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/99.png",
+            "score": null
+          },
+          "away": {
+            "id": "90",
+            "name": "Deportivo La Coruña",
+            "abbrev": "DEP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/90.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882909",
+          "date": "2026-08-23T18:00Z",
+          "name": "Levante at Osasuna",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "97",
+            "name": "Osasuna",
+            "abbrev": "OSA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+            "score": null
+          },
+          "away": {
+            "id": "1538",
+            "name": "Levante",
+            "abbrev": "LEV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882908",
+          "date": "2026-08-23T18:00Z",
+          "name": "Alavés at Rayo Vallecano",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "101",
+            "name": "Rayo Vallecano",
+            "abbrev": "RAY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+            "score": null
+          },
+          "away": {
+            "id": "96",
+            "name": "Alavés",
+            "abbrev": "ALA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882914",
+          "date": "2026-08-23T18:00Z",
+          "name": "Real Sociedad at Real Betis",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "244",
+            "name": "Real Betis",
+            "abbrev": "BET",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+            "score": null
+          },
+          "away": {
+            "id": "89",
+            "name": "Real Sociedad",
+            "abbrev": "RSO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401882907",
+          "date": "2026-08-23T18:00Z",
+          "name": "Celta Vigo at Valencia",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "94",
+            "name": "Valencia",
+            "abbrev": "VAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+            "score": null
+          },
+          "away": {
+            "id": "85",
+            "name": "Celta Vigo",
+            "abbrev": "CEL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+            "score": null
+          }
+        }
+      ]
+    },
+    "seriea": {
+      "standings": {
+        "season": "2025-26 Italian Serie A",
+        "seasonYear": 2025,
+        "rows": [
+          {
+            "rank": 1,
+            "teamId": "110",
+            "name": "Internazionale",
+            "abbrev": "INT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "played": 38,
+            "w": 27,
+            "d": 6,
+            "l": 5,
+            "gf": 89,
+            "ga": 35,
+            "gd": 54,
+            "pts": 87,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 2,
+            "teamId": "114",
+            "name": "Napoli",
+            "abbrev": "NAP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "played": 38,
+            "w": 23,
+            "d": 7,
+            "l": 8,
+            "gf": 58,
+            "ga": 36,
+            "gd": 22,
+            "pts": 76,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 3,
+            "teamId": "104",
+            "name": "AS Roma",
+            "abbrev": "ROMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "played": 38,
+            "w": 23,
+            "d": 4,
+            "l": 11,
+            "gf": 59,
+            "ga": 31,
+            "gd": 28,
+            "pts": 73,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 4,
+            "teamId": "2572",
+            "name": "Como",
+            "abbrev": "COMO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "played": 38,
+            "w": 20,
+            "d": 11,
+            "l": 7,
+            "gf": 65,
+            "ga": 29,
+            "gd": 36,
+            "pts": 71,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 5,
+            "teamId": "103",
+            "name": "AC Milan",
+            "abbrev": "MIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "played": 38,
+            "w": 20,
+            "d": 10,
+            "l": 8,
+            "gf": 53,
+            "ga": 35,
+            "gd": 18,
+            "pts": 70,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 6,
+            "teamId": "111",
+            "name": "Juventus",
+            "abbrev": "JUV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "played": 38,
+            "w": 19,
+            "d": 12,
+            "l": 7,
+            "gf": 61,
+            "ga": 34,
+            "gd": 27,
+            "pts": 69,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 7,
+            "teamId": "105",
+            "name": "Atalanta",
+            "abbrev": "ATA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+            "played": 38,
+            "w": 15,
+            "d": 14,
+            "l": 9,
+            "gf": 51,
+            "ga": 36,
+            "gd": 15,
+            "pts": 59,
+            "note": "Conference League qualifying",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 8,
+            "teamId": "107",
+            "name": "Bologna",
+            "abbrev": "BOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+            "played": 38,
+            "w": 16,
+            "d": 8,
+            "l": 14,
+            "gf": 49,
+            "ga": 46,
+            "gd": 3,
+            "pts": 56,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 9,
+            "teamId": "112",
+            "name": "Lazio",
+            "abbrev": "LAZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+            "played": 38,
+            "w": 14,
+            "d": 12,
+            "l": 12,
+            "gf": 41,
+            "ga": 40,
+            "gd": 1,
+            "pts": 54,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 10,
+            "teamId": "118",
+            "name": "Udinese",
+            "abbrev": "UDI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+            "played": 38,
+            "w": 14,
+            "d": 8,
+            "l": 16,
+            "gf": 45,
+            "ga": 48,
+            "gd": -3,
+            "pts": 50,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 11,
+            "teamId": "3997",
+            "name": "Sassuolo",
+            "abbrev": "SAS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+            "played": 38,
+            "w": 14,
+            "d": 7,
+            "l": 17,
+            "gf": 46,
+            "ga": 50,
+            "gd": -4,
+            "pts": 49,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 12,
+            "teamId": "239",
+            "name": "Torino",
+            "abbrev": "TOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+            "played": 38,
+            "w": 12,
+            "d": 9,
+            "l": 17,
+            "gf": 44,
+            "ga": 63,
+            "gd": -19,
+            "pts": 45,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 13,
+            "teamId": "115",
+            "name": "Parma",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+            "played": 38,
+            "w": 11,
+            "d": 12,
+            "l": 15,
+            "gf": 28,
+            "ga": 46,
+            "gd": -18,
+            "pts": 45,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 14,
+            "teamId": "2925",
+            "name": "Cagliari",
+            "abbrev": "CAG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+            "played": 38,
+            "w": 11,
+            "d": 10,
+            "l": 17,
+            "gf": 40,
+            "ga": 53,
+            "gd": -13,
+            "pts": 43,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 15,
+            "teamId": "109",
+            "name": "Fiorentina",
+            "abbrev": "FIO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+            "played": 38,
+            "w": 9,
+            "d": 15,
+            "l": 14,
+            "gf": 41,
+            "ga": 50,
+            "gd": -9,
+            "pts": 42,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 16,
+            "teamId": "3263",
+            "name": "Genoa",
+            "abbrev": "GEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+            "played": 38,
+            "w": 10,
+            "d": 11,
+            "l": 17,
+            "gf": 41,
+            "ga": 51,
+            "gd": -10,
+            "pts": 41,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 17,
+            "teamId": "113",
+            "name": "Lecce",
+            "abbrev": "LEC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+            "played": 38,
+            "w": 10,
+            "d": 8,
+            "l": 20,
+            "gf": 28,
+            "ga": 50,
+            "gd": -22,
+            "pts": 38,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 18,
+            "teamId": "4050",
+            "name": "Cremonese",
+            "abbrev": "CRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4050.png",
+            "played": 38,
+            "w": 8,
+            "d": 10,
+            "l": 20,
+            "gf": 32,
+            "ga": 57,
+            "gd": -25,
+            "pts": 34,
+            "note": "Relegated",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 19,
+            "teamId": "119",
+            "name": "Hellas Verona",
+            "abbrev": "VER",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/119.png",
+            "played": 38,
+            "w": 3,
+            "d": 12,
+            "l": 23,
+            "gf": 25,
+            "ga": 61,
+            "gd": -36,
+            "pts": 21,
+            "note": "Relegated",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 20,
+            "teamId": "3956",
+            "name": "Pisa",
+            "abbrev": "PIS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3956.png",
+            "played": 38,
+            "w": 2,
+            "d": 12,
+            "l": 24,
+            "gf": 26,
+            "ga": 71,
+            "gd": -45,
+            "pts": 18,
+            "note": "Relegated",
+            "noteColor": "#FF7F84"
+          }
+        ]
+      },
+      "matches": [
+        {
+          "id": "737148",
+          "date": "2026-05-17T10:00Z",
+          "name": "Lazio at AS Roma",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "104",
+            "name": "AS Roma",
+            "abbrev": "ROMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "score": 2
+          },
+          "away": {
+            "id": "112",
+            "name": "Lazio",
+            "abbrev": "LAZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "737153",
+          "date": "2026-05-17T10:00Z",
+          "name": "Parma at Como",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "2572",
+            "name": "Como",
+            "abbrev": "COMO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "score": 1
+          },
+          "away": {
+            "id": "115",
+            "name": "Parma",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "737152",
+          "date": "2026-05-17T10:00Z",
+          "name": "AC Milan at Genoa",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3263",
+            "name": "Genoa",
+            "abbrev": "GEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+            "score": 1
+          },
+          "away": {
+            "id": "103",
+            "name": "AC Milan",
+            "abbrev": "MIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "737150",
+          "date": "2026-05-17T10:00Z",
+          "name": "Fiorentina at Juventus",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "111",
+            "name": "Juventus",
+            "abbrev": "JUV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "score": 0
+          },
+          "away": {
+            "id": "109",
+            "name": "Fiorentina",
+            "abbrev": "FIO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "737149",
+          "date": "2026-05-17T10:00Z",
+          "name": "Napoli at Pisa",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3956",
+            "name": "Pisa",
+            "abbrev": "PIS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3956.png",
+            "score": 0
+          },
+          "away": {
+            "id": "114",
+            "name": "Napoli",
+            "abbrev": "NAP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "737151",
+          "date": "2026-05-17T13:00Z",
+          "name": "Hellas Verona at Internazionale",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "110",
+            "name": "Internazionale",
+            "abbrev": "INT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "score": 1
+          },
+          "away": {
+            "id": "119",
+            "name": "Hellas Verona",
+            "abbrev": "VER",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/119.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737144",
+          "date": "2026-05-17T16:00Z",
+          "name": "Bologna at Atalanta",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "105",
+            "name": "Atalanta",
+            "abbrev": "ATA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+            "score": 0
+          },
+          "away": {
+            "id": "107",
+            "name": "Bologna",
+            "abbrev": "BOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737145",
+          "date": "2026-05-17T18:45Z",
+          "name": "Torino at Cagliari",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "2925",
+            "name": "Cagliari",
+            "abbrev": "CAG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+            "score": 2
+          },
+          "away": {
+            "id": "239",
+            "name": "Torino",
+            "abbrev": "TOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737147",
+          "date": "2026-05-17T18:45Z",
+          "name": "Lecce at Sassuolo",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3997",
+            "name": "Sassuolo",
+            "abbrev": "SAS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+            "score": 2
+          },
+          "away": {
+            "id": "113",
+            "name": "Lecce",
+            "abbrev": "LEC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "737146",
+          "date": "2026-05-17T18:45Z",
+          "name": "Cremonese at Udinese",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "118",
+            "name": "Udinese",
+            "abbrev": "UDI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+            "score": 0
+          },
+          "away": {
+            "id": "4050",
+            "name": "Cremonese",
+            "abbrev": "CRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4050.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737161",
+          "date": "2026-05-22T18:45Z",
+          "name": "Atalanta at Fiorentina",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "109",
+            "name": "Fiorentina",
+            "abbrev": "FIO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+            "score": 1
+          },
+          "away": {
+            "id": "105",
+            "name": "Atalanta",
+            "abbrev": "ATA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737154",
+          "date": "2026-05-23T16:00Z",
+          "name": "Internazionale at Bologna",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "107",
+            "name": "Bologna",
+            "abbrev": "BOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+            "score": 3
+          },
+          "away": {
+            "id": "110",
+            "name": "Internazionale",
+            "abbrev": "INT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "737159",
+          "date": "2026-05-23T18:45Z",
+          "name": "Pisa at Lazio",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "112",
+            "name": "Lazio",
+            "abbrev": "LAZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+            "score": 2
+          },
+          "away": {
+            "id": "3956",
+            "name": "Pisa",
+            "abbrev": "PIS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3956.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "737155",
+          "date": "2026-05-24T13:00Z",
+          "name": "Sassuolo at Parma",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "115",
+            "name": "Parma",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+            "score": 1
+          },
+          "away": {
+            "id": "3997",
+            "name": "Sassuolo",
+            "abbrev": "SAS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "737156",
+          "date": "2026-05-24T16:00Z",
+          "name": "Udinese at Napoli",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "114",
+            "name": "Napoli",
+            "abbrev": "NAP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "score": 1
+          },
+          "away": {
+            "id": "118",
+            "name": "Udinese",
+            "abbrev": "UDI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "737157",
+          "date": "2026-05-24T18:45Z",
+          "name": "Cagliari at AC Milan",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "103",
+            "name": "AC Milan",
+            "abbrev": "MIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "score": 1
+          },
+          "away": {
+            "id": "2925",
+            "name": "Cagliari",
+            "abbrev": "CAG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "737162",
+          "date": "2026-05-24T18:45Z",
+          "name": "Como at Cremonese",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "4050",
+            "name": "Cremonese",
+            "abbrev": "CRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4050.png",
+            "score": 1
+          },
+          "away": {
+            "id": "2572",
+            "name": "Como",
+            "abbrev": "COMO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "score": 4
+          }
+        },
+        {
+          "id": "737160",
+          "date": "2026-05-24T18:45Z",
+          "name": "AS Roma at Hellas Verona",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "119",
+            "name": "Hellas Verona",
+            "abbrev": "VER",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/119.png",
+            "score": 0
+          },
+          "away": {
+            "id": "104",
+            "name": "AS Roma",
+            "abbrev": "ROMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "737163",
+          "date": "2026-05-24T18:45Z",
+          "name": "Genoa at Lecce",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "113",
+            "name": "Lecce",
+            "abbrev": "LEC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+            "score": 1
+          },
+          "away": {
+            "id": "3263",
+            "name": "Genoa",
+            "abbrev": "GEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "737158",
+          "date": "2026-05-24T19:45Z",
+          "name": "Juventus at Torino",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "239",
+            "name": "Torino",
+            "abbrev": "TOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+            "score": 2
+          },
+          "away": {
+            "id": "111",
+            "name": "Juventus",
+            "abbrev": "JUV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "401874931",
+          "date": "2026-08-22T16:30Z",
+          "name": "Monza at Internazionale",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 12:30 PM EDT",
+          "home": {
+            "id": "110",
+            "name": "Internazionale",
+            "abbrev": "INT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "score": null
+          },
+          "away": {
+            "id": "4007",
+            "name": "Monza",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4007.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874745",
+          "date": "2026-08-22T16:30Z",
+          "name": "Como at Udinese",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 12:30 PM EDT",
+          "home": {
+            "id": "118",
+            "name": "Udinese",
+            "abbrev": "UDI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+            "score": null
+          },
+          "away": {
+            "id": "2572",
+            "name": "Como",
+            "abbrev": "COMO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874929",
+          "date": "2026-08-22T18:45Z",
+          "name": "Napoli at Genoa",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 2:45 PM EDT",
+          "home": {
+            "id": "3263",
+            "name": "Genoa",
+            "abbrev": "GEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+            "score": null
+          },
+          "away": {
+            "id": "114",
+            "name": "Napoli",
+            "abbrev": "NAP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874747",
+          "date": "2026-08-22T18:45Z",
+          "name": "Cagliari at Parma",
+          "state": "pre",
+          "detail": "Sat, August 22nd at 2:45 PM EDT",
+          "home": {
+            "id": "115",
+            "name": "Parma",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+            "score": null
+          },
+          "away": {
+            "id": "2925",
+            "name": "Cagliari",
+            "abbrev": "CAG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874930",
+          "date": "2026-08-23T16:30Z",
+          "name": "Juventus at Frosinone",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 12:30 PM EDT",
+          "home": {
+            "id": "4057",
+            "name": "Frosinone",
+            "abbrev": "FRO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4057.png",
+            "score": null
+          },
+          "away": {
+            "id": "111",
+            "name": "Juventus",
+            "abbrev": "JUV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874946",
+          "date": "2026-08-23T16:30Z",
+          "name": "Lecce at Venezia",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 12:30 PM EDT",
+          "home": {
+            "id": "17530",
+            "name": "Venezia",
+            "abbrev": "VEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17530.png",
+            "score": null
+          },
+          "away": {
+            "id": "113",
+            "name": "Lecce",
+            "abbrev": "LEC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874748",
+          "date": "2026-08-23T18:45Z",
+          "name": "Sassuolo at Atalanta",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 2:45 PM EDT",
+          "home": {
+            "id": "105",
+            "name": "Atalanta",
+            "abbrev": "ATA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+            "score": null
+          },
+          "away": {
+            "id": "3997",
+            "name": "Sassuolo",
+            "abbrev": "SAS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874932",
+          "date": "2026-08-23T18:45Z",
+          "name": "AC Milan at Torino",
+          "state": "pre",
+          "detail": "Sun, August 23rd at 2:45 PM EDT",
+          "home": {
+            "id": "239",
+            "name": "Torino",
+            "abbrev": "TOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+            "score": null
+          },
+          "away": {
+            "id": "103",
+            "name": "AC Milan",
+            "abbrev": "MIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874927",
+          "date": "2026-08-24T16:30Z",
+          "name": "Lazio at Bologna",
+          "state": "pre",
+          "detail": "Mon, August 24th at 12:30 PM EDT",
+          "home": {
+            "id": "107",
+            "name": "Bologna",
+            "abbrev": "BOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+            "score": null
+          },
+          "away": {
+            "id": "112",
+            "name": "Lazio",
+            "abbrev": "LAZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874928",
+          "date": "2026-08-24T18:45Z",
+          "name": "Fiorentina at AS Roma",
+          "state": "pre",
+          "detail": "Mon, August 24th at 2:45 PM EDT",
+          "home": {
+            "id": "104",
+            "name": "AS Roma",
+            "abbrev": "ROMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "score": null
+          },
+          "away": {
+            "id": "109",
+            "name": "Fiorentina",
+            "abbrev": "FIO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874758",
+          "date": "2026-08-28T18:45Z",
+          "name": "Venezia at AC Milan",
+          "state": "pre",
+          "detail": "Fri, August 28th at 2:45 PM EDT",
+          "home": {
+            "id": "103",
+            "name": "AC Milan",
+            "abbrev": "MIL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "score": null
+          },
+          "away": {
+            "id": "17530",
+            "name": "Venezia",
+            "abbrev": "VEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17530.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874942",
+          "date": "2026-08-29T16:30Z",
+          "name": "Frosinone at Fiorentina",
+          "state": "pre",
+          "detail": "Sat, August 29th at 12:30 PM EDT",
+          "home": {
+            "id": "109",
+            "name": "Fiorentina",
+            "abbrev": "FIO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+            "score": null
+          },
+          "away": {
+            "id": "4057",
+            "name": "Frosinone",
+            "abbrev": "FRO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4057.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874749",
+          "date": "2026-08-29T16:30Z",
+          "name": "Udinese at Monza",
+          "state": "pre",
+          "detail": "Sat, August 29th at 12:30 PM EDT",
+          "home": {
+            "id": "4007",
+            "name": "Monza",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4007.png",
+            "score": null
+          },
+          "away": {
+            "id": "118",
+            "name": "Udinese",
+            "abbrev": "UDI",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874743",
+          "date": "2026-08-29T16:30Z",
+          "name": "Torino at Sassuolo",
+          "state": "pre",
+          "detail": "Sat, August 29th at 12:30 PM EDT",
+          "home": {
+            "id": "3997",
+            "name": "Sassuolo",
+            "abbrev": "SAS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+            "score": null
+          },
+          "away": {
+            "id": "239",
+            "name": "Torino",
+            "abbrev": "TOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874746",
+          "date": "2026-08-29T18:45Z",
+          "name": "Parma at Juventus",
+          "state": "pre",
+          "detail": "Sat, August 29th at 2:45 PM EDT",
+          "home": {
+            "id": "111",
+            "name": "Juventus",
+            "abbrev": "JUV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "score": null
+          },
+          "away": {
+            "id": "115",
+            "name": "Parma",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874755",
+          "date": "2026-08-30T16:30Z",
+          "name": "Como at Napoli",
+          "state": "pre",
+          "detail": "Sun, August 30th at 12:30 PM EDT",
+          "home": {
+            "id": "114",
+            "name": "Napoli",
+            "abbrev": "NAP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "score": null
+          },
+          "away": {
+            "id": "2572",
+            "name": "Como",
+            "abbrev": "COMO",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874938",
+          "date": "2026-08-30T18:45Z",
+          "name": "Internazionale at Cagliari",
+          "state": "pre",
+          "detail": "Sun, August 30th at 2:45 PM EDT",
+          "home": {
+            "id": "2925",
+            "name": "Cagliari",
+            "abbrev": "CAG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+            "score": null
+          },
+          "away": {
+            "id": "110",
+            "name": "Internazionale",
+            "abbrev": "INT",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874742",
+          "date": "2026-08-30T18:45Z",
+          "name": "Genoa at Lazio",
+          "state": "pre",
+          "detail": "Sun, August 30th at 2:45 PM EDT",
+          "home": {
+            "id": "112",
+            "name": "Lazio",
+            "abbrev": "LAZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+            "score": null
+          },
+          "away": {
+            "id": "3263",
+            "name": "Genoa",
+            "abbrev": "GEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874945",
+          "date": "2026-08-31T16:30Z",
+          "name": "AS Roma at Lecce",
+          "state": "pre",
+          "detail": "Mon, August 31st at 12:30 PM EDT",
+          "home": {
+            "id": "113",
+            "name": "Lecce",
+            "abbrev": "LEC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+            "score": null
+          },
+          "away": {
+            "id": "104",
+            "name": "AS Roma",
+            "abbrev": "ROMA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401874970",
+          "date": "2026-08-31T18:45Z",
+          "name": "Bologna at Atalanta",
+          "state": "pre",
+          "detail": "Mon, August 31st at 2:45 PM EDT",
+          "home": {
+            "id": "105",
+            "name": "Atalanta",
+            "abbrev": "ATA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+            "score": null
+          },
+          "away": {
+            "id": "107",
+            "name": "Bologna",
+            "abbrev": "BOL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+            "score": null
+          }
+        }
+      ]
+    },
+    "bundesliga": {
+      "standings": {
+        "season": "2025-26 German Bundesliga",
+        "seasonYear": 2025,
+        "rows": [
+          {
+            "rank": 1,
+            "teamId": "132",
+            "name": "Bayern Munich",
+            "abbrev": "MUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "played": 34,
+            "w": 28,
+            "d": 5,
+            "l": 1,
+            "gf": 122,
+            "ga": 36,
+            "gd": 86,
+            "pts": 89,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 2,
+            "teamId": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "played": 34,
+            "w": 22,
+            "d": 7,
+            "l": 5,
+            "gf": 70,
+            "ga": 34,
+            "gd": 36,
+            "pts": 73,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 3,
+            "teamId": "11420",
+            "name": "RB Leipzig",
+            "abbrev": "RBL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "played": 34,
+            "w": 20,
+            "d": 5,
+            "l": 9,
+            "gf": 66,
+            "ga": 47,
+            "gd": 19,
+            "pts": 65,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 4,
+            "teamId": "134",
+            "name": "VfB Stuttgart",
+            "abbrev": "VFB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "played": 34,
+            "w": 18,
+            "d": 8,
+            "l": 8,
+            "gf": 71,
+            "ga": 49,
+            "gd": 22,
+            "pts": 62,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 5,
+            "teamId": "7911",
+            "name": "TSG Hoffenheim",
+            "abbrev": "TSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+            "played": 34,
+            "w": 18,
+            "d": 7,
+            "l": 9,
+            "gf": 65,
+            "ga": 52,
+            "gd": 13,
+            "pts": 61,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 6,
+            "teamId": "131",
+            "name": "Bayer Leverkusen",
+            "abbrev": "B04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "played": 34,
+            "w": 17,
+            "d": 8,
+            "l": 9,
+            "gf": 68,
+            "ga": 47,
+            "gd": 21,
+            "pts": 59,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 7,
+            "teamId": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "played": 34,
+            "w": 13,
+            "d": 8,
+            "l": 13,
+            "gf": 51,
+            "ga": 57,
+            "gd": -6,
+            "pts": 47,
+            "note": "Conference League qualifying",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 8,
+            "teamId": "125",
+            "name": "Eintracht Frankfurt",
+            "abbrev": "SGE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+            "played": 34,
+            "w": 11,
+            "d": 11,
+            "l": 12,
+            "gf": 61,
+            "ga": 65,
+            "gd": -4,
+            "pts": 44,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 9,
+            "teamId": "3841",
+            "name": "FC Augsburg",
+            "abbrev": "FCA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+            "played": 34,
+            "w": 12,
+            "d": 7,
+            "l": 15,
+            "gf": 45,
+            "ga": 61,
+            "gd": -16,
+            "pts": 43,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 10,
+            "teamId": "2950",
+            "name": "Mainz",
+            "abbrev": "M05",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+            "played": 34,
+            "w": 10,
+            "d": 10,
+            "l": 14,
+            "gf": 44,
+            "ga": 53,
+            "gd": -9,
+            "pts": 40,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 11,
+            "teamId": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "played": 34,
+            "w": 10,
+            "d": 9,
+            "l": 15,
+            "gf": 44,
+            "ga": 58,
+            "gd": -14,
+            "pts": 39,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 12,
+            "teamId": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "played": 34,
+            "w": 9,
+            "d": 11,
+            "l": 14,
+            "gf": 42,
+            "ga": 53,
+            "gd": -11,
+            "pts": 38,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 13,
+            "teamId": "127",
+            "name": "Hamburg SV",
+            "abbrev": "HSV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+            "played": 34,
+            "w": 9,
+            "d": 11,
+            "l": 14,
+            "gf": 40,
+            "ga": 54,
+            "gd": -14,
+            "pts": 38,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 14,
+            "teamId": "122",
+            "name": "FC Cologne",
+            "abbrev": "KOE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+            "played": 34,
+            "w": 7,
+            "d": 11,
+            "l": 16,
+            "gf": 49,
+            "ga": 63,
+            "gd": -14,
+            "pts": 32,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 15,
+            "teamId": "137",
+            "name": "Werder Bremen",
+            "abbrev": "SVW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+            "played": 34,
+            "w": 8,
+            "d": 8,
+            "l": 18,
+            "gf": 37,
+            "ga": 60,
+            "gd": -23,
+            "pts": 32,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 16,
+            "teamId": "138",
+            "name": "VfL Wolfsburg",
+            "abbrev": "WOB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/138.png",
+            "played": 34,
+            "w": 7,
+            "d": 8,
+            "l": 19,
+            "gf": 45,
+            "ga": 69,
+            "gd": -24,
+            "pts": 29,
+            "note": "Relegation playoff",
+            "noteColor": "#FEB4B5"
+          },
+          {
+            "rank": 17,
+            "teamId": "6418",
+            "name": "1. FC Heidenheim 1846",
+            "abbrev": "HDH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6418.png",
+            "played": 34,
+            "w": 6,
+            "d": 8,
+            "l": 20,
+            "gf": 41,
+            "ga": 72,
+            "gd": -31,
+            "pts": 26,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 18,
+            "teamId": "270",
+            "name": "St. Pauli",
+            "abbrev": "STP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/270.png",
+            "played": 34,
+            "w": 6,
+            "d": 8,
+            "l": 20,
+            "gf": 29,
+            "ga": 60,
+            "gd": -31,
+            "pts": 26,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          }
+        ]
+      },
+      "matches": [
+        {
+          "id": "746999",
+          "date": "2026-05-03T15:30Z",
+          "name": "Borussia Dortmund at Borussia Mönchengladbach",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "score": 1
+          },
+          "away": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "747003",
+          "date": "2026-05-03T17:30Z",
+          "name": "VfL Wolfsburg at SC Freiburg",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "score": 1
+          },
+          "away": {
+            "id": "138",
+            "name": "VfL Wolfsburg",
+            "abbrev": "WOB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/138.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747008",
+          "date": "2026-05-08T18:30Z",
+          "name": "Eintracht Frankfurt at Borussia Dortmund",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": 3
+          },
+          "away": {
+            "id": "125",
+            "name": "Eintracht Frankfurt",
+            "abbrev": "SGE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "747009",
+          "date": "2026-05-09T13:30Z",
+          "name": "Borussia Mönchengladbach at FC Augsburg",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3841",
+            "name": "FC Augsburg",
+            "abbrev": "FCA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+            "score": 3
+          },
+          "away": {
+            "id": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747011",
+          "date": "2026-05-09T13:30Z",
+          "name": "St. Pauli at RB Leipzig",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "11420",
+            "name": "RB Leipzig",
+            "abbrev": "RBL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "score": 2
+          },
+          "away": {
+            "id": "270",
+            "name": "St. Pauli",
+            "abbrev": "STP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/270.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747012",
+          "date": "2026-05-09T13:30Z",
+          "name": "Werder Bremen at TSG Hoffenheim",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "7911",
+            "name": "TSG Hoffenheim",
+            "abbrev": "TSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+            "score": 1
+          },
+          "away": {
+            "id": "137",
+            "name": "Werder Bremen",
+            "abbrev": "SVW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "747013",
+          "date": "2026-05-09T13:30Z",
+          "name": "Bayer Leverkusen at VfB Stuttgart",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "134",
+            "name": "VfB Stuttgart",
+            "abbrev": "VFB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "score": 3
+          },
+          "away": {
+            "id": "131",
+            "name": "Bayer Leverkusen",
+            "abbrev": "B04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747014",
+          "date": "2026-05-09T16:30Z",
+          "name": "Bayern Munich at VfL Wolfsburg",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "138",
+            "name": "VfL Wolfsburg",
+            "abbrev": "WOB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/138.png",
+            "score": 0
+          },
+          "away": {
+            "id": "132",
+            "name": "Bayern Munich",
+            "abbrev": "MUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747010",
+          "date": "2026-05-10T13:30Z",
+          "name": "SC Freiburg at Hamburg SV",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "127",
+            "name": "Hamburg SV",
+            "abbrev": "HSV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+            "score": 3
+          },
+          "away": {
+            "id": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "747006",
+          "date": "2026-05-10T15:30Z",
+          "name": "1. FC Heidenheim 1846 at FC Cologne",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "122",
+            "name": "FC Cologne",
+            "abbrev": "KOE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+            "score": 1
+          },
+          "away": {
+            "id": "6418",
+            "name": "1. FC Heidenheim 1846",
+            "abbrev": "HDH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6418.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "747007",
+          "date": "2026-05-10T17:30Z",
+          "name": "1. FC Union Berlin at Mainz",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "2950",
+            "name": "Mainz",
+            "abbrev": "M05",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+            "score": 1
+          },
+          "away": {
+            "id": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "747015",
+          "date": "2026-05-16T13:30Z",
+          "name": "Mainz at 1. FC Heidenheim 1846",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "6418",
+            "name": "1. FC Heidenheim 1846",
+            "abbrev": "HDH",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6418.png",
+            "score": 0
+          },
+          "away": {
+            "id": "2950",
+            "name": "Mainz",
+            "abbrev": "M05",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "747016",
+          "date": "2026-05-16T13:30Z",
+          "name": "FC Augsburg at 1. FC Union Berlin",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "score": 4
+          },
+          "away": {
+            "id": "3841",
+            "name": "FC Augsburg",
+            "abbrev": "FCA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "747017",
+          "date": "2026-05-16T13:30Z",
+          "name": "Hamburg SV at Bayer Leverkusen",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "131",
+            "name": "Bayer Leverkusen",
+            "abbrev": "B04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "score": 1
+          },
+          "away": {
+            "id": "127",
+            "name": "Hamburg SV",
+            "abbrev": "HSV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747020",
+          "date": "2026-05-16T13:30Z",
+          "name": "FC Cologne at Bayern Munich",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "132",
+            "name": "Bayern Munich",
+            "abbrev": "MUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "score": 5
+          },
+          "away": {
+            "id": "122",
+            "name": "FC Cologne",
+            "abbrev": "KOE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747018",
+          "date": "2026-05-16T13:30Z",
+          "name": "TSG Hoffenheim at Borussia Mönchengladbach",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "score": 4
+          },
+          "away": {
+            "id": "7911",
+            "name": "TSG Hoffenheim",
+            "abbrev": "TSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "747023",
+          "date": "2026-05-16T13:30Z",
+          "name": "VfB Stuttgart at Eintracht Frankfurt",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "125",
+            "name": "Eintracht Frankfurt",
+            "abbrev": "SGE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+            "score": 2
+          },
+          "away": {
+            "id": "134",
+            "name": "VfB Stuttgart",
+            "abbrev": "VFB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "747019",
+          "date": "2026-05-16T13:30Z",
+          "name": "RB Leipzig at SC Freiburg",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "score": 4
+          },
+          "away": {
+            "id": "11420",
+            "name": "RB Leipzig",
+            "abbrev": "RBL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "747021",
+          "date": "2026-05-16T13:30Z",
+          "name": "VfL Wolfsburg at St. Pauli",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "270",
+            "name": "St. Pauli",
+            "abbrev": "STP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/270.png",
+            "score": 1
+          },
+          "away": {
+            "id": "138",
+            "name": "VfL Wolfsburg",
+            "abbrev": "WOB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/138.png",
+            "score": 3
+          }
+        },
+        {
+          "id": "747022",
+          "date": "2026-05-16T13:30Z",
+          "name": "Borussia Dortmund at Werder Bremen",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "137",
+            "name": "Werder Bremen",
+            "abbrev": "SVW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+            "score": 0
+          },
+          "away": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "401884817",
+          "date": "2026-08-28T18:30Z",
+          "name": "VfB Stuttgart at Bayern Munich",
+          "state": "pre",
+          "detail": "Fri, August 28th at 2:30 PM EDT",
+          "home": {
+            "id": "132",
+            "name": "Bayern Munich",
+            "abbrev": "MUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "score": null
+          },
+          "away": {
+            "id": "134",
+            "name": "VfB Stuttgart",
+            "abbrev": "VFB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884811",
+          "date": "2026-08-29T18:00Z",
+          "name": "Eintracht Frankfurt at 1. FC Union Berlin",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "score": null
+          },
+          "away": {
+            "id": "125",
+            "name": "Eintracht Frankfurt",
+            "abbrev": "SGE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884816",
+          "date": "2026-08-29T18:00Z",
+          "name": "Hamburg SV at Borussia Dortmund",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": null
+          },
+          "away": {
+            "id": "127",
+            "name": "Hamburg SV",
+            "abbrev": "HSV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884813",
+          "date": "2026-08-29T18:00Z",
+          "name": "Schalke 04 at FC Augsburg",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "3841",
+            "name": "FC Augsburg",
+            "abbrev": "FCA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+            "score": null
+          },
+          "away": {
+            "id": "133",
+            "name": "Schalke 04",
+            "abbrev": "S04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/133.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884810",
+          "date": "2026-08-29T18:00Z",
+          "name": "TSG Hoffenheim at FC Cologne",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "122",
+            "name": "FC Cologne",
+            "abbrev": "KOE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+            "score": null
+          },
+          "away": {
+            "id": "7911",
+            "name": "TSG Hoffenheim",
+            "abbrev": "TSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884812",
+          "date": "2026-08-29T18:00Z",
+          "name": "SC Paderborn 07 at Mainz",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "2950",
+            "name": "Mainz",
+            "abbrev": "M05",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+            "score": null
+          },
+          "away": {
+            "id": "3307",
+            "name": "SC Paderborn 07",
+            "abbrev": "SCP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3307.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884815",
+          "date": "2026-08-29T18:00Z",
+          "name": "Borussia Mönchengladbach at RB Leipzig",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "11420",
+            "name": "RB Leipzig",
+            "abbrev": "RBL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "score": null
+          },
+          "away": {
+            "id": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884814",
+          "date": "2026-08-29T18:00Z",
+          "name": "Werder Bremen at SC Freiburg",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "score": null
+          },
+          "away": {
+            "id": "137",
+            "name": "Werder Bremen",
+            "abbrev": "SVW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884809",
+          "date": "2026-08-29T18:00Z",
+          "name": "Bayer Leverkusen at SV Elversberg",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "10388",
+            "name": "SV Elversberg",
+            "abbrev": "ELV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10388.png",
+            "score": null
+          },
+          "away": {
+            "id": "131",
+            "name": "Bayer Leverkusen",
+            "abbrev": "B04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884806",
+          "date": "2026-09-05T18:00Z",
+          "name": "1. FC Union Berlin at Bayer Leverkusen",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "131",
+            "name": "Bayer Leverkusen",
+            "abbrev": "B04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+            "score": null
+          },
+          "away": {
+            "id": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884804",
+          "date": "2026-09-05T18:00Z",
+          "name": "SV Elversberg at Borussia Mönchengladbach",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "268",
+            "name": "Borussia Mönchengladbach",
+            "abbrev": "BMG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+            "score": null
+          },
+          "away": {
+            "id": "10388",
+            "name": "SV Elversberg",
+            "abbrev": "ELV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10388.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884805",
+          "date": "2026-09-05T18:00Z",
+          "name": "FC Augsburg at Eintracht Frankfurt",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "125",
+            "name": "Eintracht Frankfurt",
+            "abbrev": "SGE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+            "score": null
+          },
+          "away": {
+            "id": "3841",
+            "name": "FC Augsburg",
+            "abbrev": "FCA",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884803",
+          "date": "2026-09-05T18:00Z",
+          "name": "Mainz at Hamburg SV",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "127",
+            "name": "Hamburg SV",
+            "abbrev": "HSV",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+            "score": null
+          },
+          "away": {
+            "id": "2950",
+            "name": "Mainz",
+            "abbrev": "M05",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884800",
+          "date": "2026-09-05T18:00Z",
+          "name": "SC Freiburg at SC Paderborn 07",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "3307",
+            "name": "SC Paderborn 07",
+            "abbrev": "SCP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3307.png",
+            "score": null
+          },
+          "away": {
+            "id": "126",
+            "name": "SC Freiburg",
+            "abbrev": "SCF",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884801",
+          "date": "2026-09-05T18:00Z",
+          "name": "Bayern Munich at Schalke 04",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "133",
+            "name": "Schalke 04",
+            "abbrev": "S04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/133.png",
+            "score": null
+          },
+          "away": {
+            "id": "132",
+            "name": "Bayern Munich",
+            "abbrev": "MUN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884807",
+          "date": "2026-09-05T18:00Z",
+          "name": "Borussia Dortmund at TSG Hoffenheim",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "7911",
+            "name": "TSG Hoffenheim",
+            "abbrev": "TSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+            "score": null
+          },
+          "away": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884808",
+          "date": "2026-09-05T18:00Z",
+          "name": "FC Cologne at VfB Stuttgart",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "134",
+            "name": "VfB Stuttgart",
+            "abbrev": "VFB",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+            "score": null
+          },
+          "away": {
+            "id": "122",
+            "name": "FC Cologne",
+            "abbrev": "KOE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884802",
+          "date": "2026-09-05T18:00Z",
+          "name": "RB Leipzig at Werder Bremen",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "137",
+            "name": "Werder Bremen",
+            "abbrev": "SVW",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+            "score": null
+          },
+          "away": {
+            "id": "11420",
+            "name": "RB Leipzig",
+            "abbrev": "RBL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884793",
+          "date": "2026-09-12T18:00Z",
+          "name": "Schalke 04 at 1. FC Union Berlin",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "598",
+            "name": "1. FC Union Berlin",
+            "abbrev": "FCU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+            "score": null
+          },
+          "away": {
+            "id": "133",
+            "name": "Schalke 04",
+            "abbrev": "S04",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/133.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401884799",
+          "date": "2026-09-12T18:00Z",
+          "name": "SC Paderborn 07 at Borussia Dortmund",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "124",
+            "name": "Borussia Dortmund",
+            "abbrev": "DOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "score": null
+          },
+          "away": {
+            "id": "3307",
+            "name": "SC Paderborn 07",
+            "abbrev": "SCP",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3307.png",
+            "score": null
+          }
+        }
+      ]
+    },
+    "ligue1": {
+      "standings": {
+        "season": "2025-26 French Ligue 1",
+        "seasonYear": 2025,
+        "rows": [
+          {
+            "rank": 1,
+            "teamId": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "played": 34,
+            "w": 24,
+            "d": 4,
+            "l": 6,
+            "gf": 74,
+            "ga": 29,
+            "gd": 45,
+            "pts": 76,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 2,
+            "teamId": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "played": 34,
+            "w": 22,
+            "d": 4,
+            "l": 8,
+            "gf": 66,
+            "ga": 35,
+            "gd": 31,
+            "pts": 70,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 3,
+            "teamId": "166",
+            "name": "Lille",
+            "abbrev": "LILL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "played": 34,
+            "w": 18,
+            "d": 7,
+            "l": 9,
+            "gf": 52,
+            "ga": 37,
+            "gd": 15,
+            "pts": 61,
+            "note": "Champions League",
+            "noteColor": "#81D6AC"
+          },
+          {
+            "rank": 4,
+            "teamId": "167",
+            "name": "Lyon",
+            "abbrev": "LYON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+            "played": 34,
+            "w": 18,
+            "d": 6,
+            "l": 10,
+            "gf": 53,
+            "ga": 40,
+            "gd": 13,
+            "pts": 60,
+            "note": "Champions League qualifying",
+            "noteColor": "#B5E7CE"
+          },
+          {
+            "rank": 5,
+            "teamId": "176",
+            "name": "Marseille",
+            "abbrev": "OLM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "played": 34,
+            "w": 18,
+            "d": 5,
+            "l": 11,
+            "gf": 63,
+            "ga": 45,
+            "gd": 18,
+            "pts": 59,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 6,
+            "teamId": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "played": 34,
+            "w": 17,
+            "d": 8,
+            "l": 9,
+            "gf": 59,
+            "ga": 50,
+            "gd": 9,
+            "pts": 59,
+            "note": "Europa League",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 7,
+            "teamId": "174",
+            "name": "AS Monaco",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+            "played": 34,
+            "w": 16,
+            "d": 6,
+            "l": 12,
+            "gf": 60,
+            "ga": 54,
+            "gd": 6,
+            "pts": 54,
+            "note": "Conference League qualifying",
+            "noteColor": "#B2BFD0"
+          },
+          {
+            "rank": 8,
+            "teamId": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "played": 34,
+            "w": 15,
+            "d": 8,
+            "l": 11,
+            "gf": 58,
+            "ga": 47,
+            "gd": 11,
+            "pts": 53,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 9,
+            "teamId": "273",
+            "name": "Lorient",
+            "abbrev": "LOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+            "played": 34,
+            "w": 11,
+            "d": 12,
+            "l": 11,
+            "gf": 48,
+            "ga": 51,
+            "gd": -3,
+            "pts": 45,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 10,
+            "teamId": "179",
+            "name": "Toulouse",
+            "abbrev": "TOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+            "played": 33,
+            "w": 12,
+            "d": 8,
+            "l": 13,
+            "gf": 47,
+            "ga": 46,
+            "gd": 1,
+            "pts": 44,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 11,
+            "teamId": "6851",
+            "name": "Paris FC",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+            "played": 34,
+            "w": 11,
+            "d": 11,
+            "l": 12,
+            "gf": 47,
+            "ga": 50,
+            "gd": -3,
+            "pts": 44,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 12,
+            "teamId": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "played": 34,
+            "w": 10,
+            "d": 9,
+            "l": 15,
+            "gf": 43,
+            "ga": 55,
+            "gd": -12,
+            "pts": 39,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 13,
+            "teamId": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "played": 34,
+            "w": 9,
+            "d": 9,
+            "l": 16,
+            "gf": 29,
+            "ga": 48,
+            "gd": -19,
+            "pts": 36,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 14,
+            "teamId": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "played": 34,
+            "w": 7,
+            "d": 14,
+            "l": 13,
+            "gf": 32,
+            "ga": 44,
+            "gd": -12,
+            "pts": 35,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 15,
+            "teamId": "172",
+            "name": "AJ Auxerre",
+            "abbrev": "AUX",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+            "played": 34,
+            "w": 8,
+            "d": 10,
+            "l": 16,
+            "gf": 34,
+            "ga": 44,
+            "gd": -10,
+            "pts": 34,
+            "note": null,
+            "noteColor": null
+          },
+          {
+            "rank": 16,
+            "teamId": "2502",
+            "name": "Nice",
+            "abbrev": "NICE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+            "played": 34,
+            "w": 7,
+            "d": 11,
+            "l": 16,
+            "gf": 37,
+            "ga": 60,
+            "gd": -23,
+            "pts": 32,
+            "note": "Relegation playoff",
+            "noteColor": "#FEB4B5"
+          },
+          {
+            "rank": 17,
+            "teamId": "165",
+            "name": "Nantes",
+            "abbrev": "NAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/165.png",
+            "played": 33,
+            "w": 5,
+            "d": 8,
+            "l": 20,
+            "gf": 29,
+            "ga": 52,
+            "gd": -23,
+            "pts": 23,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          },
+          {
+            "rank": 18,
+            "teamId": "177",
+            "name": "Metz",
+            "abbrev": "METZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/177.png",
+            "played": 34,
+            "w": 3,
+            "d": 8,
+            "l": 23,
+            "gf": 32,
+            "ga": 76,
+            "gd": -44,
+            "pts": 17,
+            "note": "Relegation",
+            "noteColor": "#FF7F84"
+          }
+        ]
+      },
+      "matches": [
+        {
+          "id": "746702",
+          "date": "2026-05-08T18:45Z",
+          "name": "Nantes at Lens",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "score": 1
+          },
+          "away": {
+            "id": "165",
+            "name": "Nantes",
+            "abbrev": "NAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/165.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "746700",
+          "date": "2026-05-10T19:00Z",
+          "name": "Nice at AJ Auxerre",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "172",
+            "name": "AJ Auxerre",
+            "abbrev": "AUX",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+            "score": 2
+          },
+          "away": {
+            "id": "2502",
+            "name": "Nice",
+            "abbrev": "NICE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746704",
+          "date": "2026-05-10T19:00Z",
+          "name": "Strasbourg at Angers",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "score": 1
+          },
+          "away": {
+            "id": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746703",
+          "date": "2026-05-10T19:00Z",
+          "name": "Lille at AS Monaco",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "174",
+            "name": "AS Monaco",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+            "score": 0
+          },
+          "away": {
+            "id": "166",
+            "name": "Lille",
+            "abbrev": "LILL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746701",
+          "date": "2026-05-10T19:00Z",
+          "name": "Marseille at Le Havre AC",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "score": 0
+          },
+          "away": {
+            "id": "176",
+            "name": "Marseille",
+            "abbrev": "OLM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746708",
+          "date": "2026-05-10T19:00Z",
+          "name": "Lorient at Metz",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "177",
+            "name": "Metz",
+            "abbrev": "METZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/177.png",
+            "score": 0
+          },
+          "away": {
+            "id": "273",
+            "name": "Lorient",
+            "abbrev": "LOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+            "score": 4
+          }
+        },
+        {
+          "id": "746705",
+          "date": "2026-05-10T19:00Z",
+          "name": "Brest at Paris Saint-Germain",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "score": 1
+          },
+          "away": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "746706",
+          "date": "2026-05-10T19:00Z",
+          "name": "Paris FC at Stade Rennais",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "score": 2
+          },
+          "away": {
+            "id": "6851",
+            "name": "Paris FC",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746707",
+          "date": "2026-05-10T19:00Z",
+          "name": "Lyon at Toulouse",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "179",
+            "name": "Toulouse",
+            "abbrev": "TOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+            "score": 2
+          },
+          "away": {
+            "id": "167",
+            "name": "Lyon",
+            "abbrev": "LYON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746665",
+          "date": "2026-05-13T17:00Z",
+          "name": "Strasbourg at Brest",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": 1
+          },
+          "away": {
+            "id": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "746666",
+          "date": "2026-05-13T19:00Z",
+          "name": "Paris Saint-Germain at Lens",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "score": 0
+          },
+          "away": {
+            "id": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "746709",
+          "date": "2026-05-17T19:00Z",
+          "name": "Angers at Brest",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": 1
+          },
+          "away": {
+            "id": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746710",
+          "date": "2026-05-17T19:00Z",
+          "name": "AJ Auxerre at Lille",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "166",
+            "name": "Lille",
+            "abbrev": "LILL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "score": 0
+          },
+          "away": {
+            "id": "172",
+            "name": "AJ Auxerre",
+            "abbrev": "AUX",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "746711",
+          "date": "2026-05-17T19:00Z",
+          "name": "Le Havre AC at Lorient",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "273",
+            "name": "Lorient",
+            "abbrev": "LOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+            "score": 0
+          },
+          "away": {
+            "id": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "score": 2
+          }
+        },
+        {
+          "id": "746712",
+          "date": "2026-05-17T19:00Z",
+          "name": "Lens at Lyon",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "167",
+            "name": "Lyon",
+            "abbrev": "LYON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+            "score": 0
+          },
+          "away": {
+            "id": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "score": 4
+          }
+        },
+        {
+          "id": "746717",
+          "date": "2026-05-17T19:00Z",
+          "name": "Stade Rennais at Marseille",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "176",
+            "name": "Marseille",
+            "abbrev": "OLM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "score": 3
+          },
+          "away": {
+            "id": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746714",
+          "date": "2026-05-17T19:00Z",
+          "name": "Toulouse at Nantes",
+          "state": "post",
+          "detail": "Abandoned",
+          "home": {
+            "id": "165",
+            "name": "Nantes",
+            "abbrev": "NAN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/165.png",
+            "score": 0
+          },
+          "away": {
+            "id": "179",
+            "name": "Toulouse",
+            "abbrev": "TOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "746715",
+          "date": "2026-05-17T19:00Z",
+          "name": "Metz at Nice",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "2502",
+            "name": "Nice",
+            "abbrev": "NICE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+            "score": 0
+          },
+          "away": {
+            "id": "177",
+            "name": "Metz",
+            "abbrev": "METZ",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/177.png",
+            "score": 0
+          }
+        },
+        {
+          "id": "746713",
+          "date": "2026-05-17T19:00Z",
+          "name": "Paris Saint-Germain at Paris FC",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "6851",
+            "name": "Paris FC",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+            "score": 2
+          },
+          "away": {
+            "id": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "score": 1
+          }
+        },
+        {
+          "id": "746716",
+          "date": "2026-05-17T19:00Z",
+          "name": "AS Monaco at Strasbourg",
+          "state": "post",
+          "detail": "FT",
+          "home": {
+            "id": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "score": 5
+          },
+          "away": {
+            "id": "174",
+            "name": "AS Monaco",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+            "score": 4
+          }
+        },
+        {
+          "id": "401876493",
+          "date": "2026-08-22T18:00Z",
+          "name": "Lille at Angers",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "score": null
+          },
+          "away": {
+            "id": "166",
+            "name": "Lille",
+            "abbrev": "LILL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876492",
+          "date": "2026-08-22T18:00Z",
+          "name": "AS Monaco at Le Havre AC",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "score": null
+          },
+          "away": {
+            "id": "174",
+            "name": "AS Monaco",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876491",
+          "date": "2026-08-22T18:00Z",
+          "name": "Brest at Le Mans",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "2697",
+            "name": "Le Mans",
+            "abbrev": "MNS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2697.png",
+            "score": null
+          },
+          "away": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876490",
+          "date": "2026-08-22T18:00Z",
+          "name": "AJ Auxerre at Lens",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "score": null
+          },
+          "away": {
+            "id": "172",
+            "name": "AJ Auxerre",
+            "abbrev": "AUX",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876489",
+          "date": "2026-08-22T18:00Z",
+          "name": "Strasbourg at Marseille",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "176",
+            "name": "Marseille",
+            "abbrev": "OLM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "score": null
+          },
+          "away": {
+            "id": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876488",
+          "date": "2026-08-22T18:00Z",
+          "name": "Lorient at Nice",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "2502",
+            "name": "Nice",
+            "abbrev": "NICE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+            "score": null
+          },
+          "away": {
+            "id": "273",
+            "name": "Lorient",
+            "abbrev": "LOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876487",
+          "date": "2026-08-22T18:00Z",
+          "name": "Stade Rennais at Paris Saint-Germain",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "score": null
+          },
+          "away": {
+            "id": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876486",
+          "date": "2026-08-22T18:00Z",
+          "name": "Lyon at Toulouse",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "179",
+            "name": "Toulouse",
+            "abbrev": "TOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+            "score": null
+          },
+          "away": {
+            "id": "167",
+            "name": "Lyon",
+            "abbrev": "LYON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876485",
+          "date": "2026-08-22T18:00Z",
+          "name": "Paris FC at Troyes",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "170",
+            "name": "Troyes",
+            "abbrev": "TRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/170.png",
+            "score": null
+          },
+          "away": {
+            "id": "6851",
+            "name": "Paris FC",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876484",
+          "date": "2026-08-29T18:00Z",
+          "name": "Angers at AJ Auxerre",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "172",
+            "name": "AJ Auxerre",
+            "abbrev": "AUX",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+            "score": null
+          },
+          "away": {
+            "id": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876480",
+          "date": "2026-08-29T18:00Z",
+          "name": "Marseille at AS Monaco",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "174",
+            "name": "AS Monaco",
+            "abbrev": "MON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+            "score": null
+          },
+          "away": {
+            "id": "176",
+            "name": "Marseille",
+            "abbrev": "OLM",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876483",
+          "date": "2026-08-29T18:00Z",
+          "name": "Toulouse at Brest",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": null
+          },
+          "away": {
+            "id": "179",
+            "name": "Toulouse",
+            "abbrev": "TOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876482",
+          "date": "2026-08-29T18:00Z",
+          "name": "Troyes at Lorient",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "273",
+            "name": "Lorient",
+            "abbrev": "LOR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+            "score": null
+          },
+          "away": {
+            "id": "170",
+            "name": "Troyes",
+            "abbrev": "TRY",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/170.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876481",
+          "date": "2026-08-29T18:00Z",
+          "name": "Le Havre AC at Lyon",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "167",
+            "name": "Lyon",
+            "abbrev": "LYON",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+            "score": null
+          },
+          "away": {
+            "id": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876479",
+          "date": "2026-08-29T18:00Z",
+          "name": "Nice at Paris FC",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "6851",
+            "name": "Paris FC",
+            "abbrev": "PAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+            "score": null
+          },
+          "away": {
+            "id": "2502",
+            "name": "Nice",
+            "abbrev": "NICE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876478",
+          "date": "2026-08-29T18:00Z",
+          "name": "Le Mans at Stade Rennais",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "score": null
+          },
+          "away": {
+            "id": "2697",
+            "name": "Le Mans",
+            "abbrev": "MNS",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2697.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876477",
+          "date": "2026-08-29T18:00Z",
+          "name": "Lens at Strasbourg",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "180",
+            "name": "Strasbourg",
+            "abbrev": "STR",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+            "score": null
+          },
+          "away": {
+            "id": "175",
+            "name": "Lens",
+            "abbrev": "RCL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876476",
+          "date": "2026-08-30T18:45Z",
+          "name": "Paris Saint-Germain at Lille",
+          "state": "pre",
+          "detail": "Sun, August 30th at 2:45 PM EDT",
+          "home": {
+            "id": "166",
+            "name": "Lille",
+            "abbrev": "LILL",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+            "score": null
+          },
+          "away": {
+            "id": "160",
+            "name": "Paris Saint-Germain",
+            "abbrev": "PSG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876475",
+          "date": "2026-09-05T18:00Z",
+          "name": "Stade Rennais at Angers",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "7868",
+            "name": "Angers",
+            "abbrev": "ANG",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+            "score": null
+          },
+          "away": {
+            "id": "169",
+            "name": "Stade Rennais",
+            "abbrev": "REN",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+            "score": null
+          }
+        },
+        {
+          "id": "401876474",
+          "date": "2026-09-05T18:00Z",
+          "name": "Brest at Le Havre AC",
+          "state": "pre",
+          "detail": "TBD",
+          "home": {
+            "id": "3236",
+            "name": "Le Havre AC",
+            "abbrev": "HAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+            "score": null
+          },
+          "away": {
+            "id": "6997",
+            "name": "Brest",
+            "abbrev": "BRE",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+            "score": null
+          }
+        }
+      ]
+    }
+  }
+}

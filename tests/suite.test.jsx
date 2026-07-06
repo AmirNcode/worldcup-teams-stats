@@ -43,6 +43,13 @@ import {
   numberToDriverId,
 } from '../src/f1/lib/openf1.js'
 import { seasonStats } from '../src/f1/lib/select.js'
+import { LEAGUES, leagueById, DEFAULT_LEAGUE } from '../src/leagues/lib/leagues.js'
+import {
+  parseLeagueStandings,
+  parseLeagueScoreboard,
+  fetchLeagueStandings,
+  fetchLeagueMatches,
+} from '../src/leagues/lib/espn.js'
 import {
   analyticsEnabled,
   normalizeRoute,
@@ -383,6 +390,80 @@ check('alias unknown', canonName('Narnia'), null)
     check('f1 split round stitched across pages', all[2].results.map((x) => x.driverId), ['c', 'd'])
     check('f1 split round keeps winner from first page', all[2].winnerId, 'c')
     check('f1 all rounds present after paging', [all[1].winnerId, all[3].winnerId], ['a', 'e'])
+  }
+}
+
+// ---------- Leagues (ESPN league soccer) registry / parsing ----------
+{
+  check('leagues registry has the five majors', LEAGUES.map((l) => l.id),
+    ['epl', 'laliga', 'seriea', 'bundesliga', 'ligue1'])
+  check('leagueById resolves and falls through', [leagueById('seriea')?.espn, leagueById('nope')], ['ita.1', null])
+  check('default league is epl', DEFAULT_LEAGUE, 'epl')
+
+  const stat = (name, value) => ({ name, value, displayValue: String(value) })
+  const entry = (rank, name, pts, note) => ({
+    team: { id: String(rank), displayName: name, abbreviation: name.slice(0, 3).toUpperCase(),
+      logos: [{ href: `https://x/${rank}.png` }] },
+    ...(note ? { note } : {}),
+    stats: [stat('rank', rank), stat('gamesPlayed', 38), stat('wins', 25), stat('ties', 10),
+      stat('losses', 3), stat('pointsFor', 80), stat('pointsAgainst', 30),
+      stat('pointDifferential', 50), stat('points', pts)],
+  })
+  const stJson = {
+    season: { year: 2025, displayName: '2025-26 English Premier League' },
+    children: [{ standings: { entries: [
+      entry(2, 'Manchester City', 78),
+      entry(1, 'Arsenal', 85, { color: '#81D6AC', description: 'Champions League', rank: 1 }),
+    ] } }],
+  }
+  const st = parseLeagueStandings(stJson)
+  check('league standings season label + year', [st.season, st.seasonYear], ['2025-26 English Premier League', 2025])
+  check('league standings sorted by rank', st.rows.map((r) => r.name), ['Arsenal', 'Manchester City'])
+  check('league standings row fields', [st.rows[0].played, st.rows[0].w, st.rows[0].d, st.rows[0].l,
+    st.rows[0].gf, st.rows[0].ga, st.rows[0].gd, st.rows[0].pts], [38, 25, 10, 3, 80, 30, 50, 85])
+  check('league standings note + logo', [st.rows[0].note, st.rows[1].note, st.rows[0].logo],
+    ['Champions League', null, 'https://x/1.png'])
+  check('league standings tolerates empty payload', parseLeagueStandings({}).rows.length, 0)
+
+  const ev = (id, date, state, hs, as) => ({
+    id, date, name: 'A at B',
+    status: { type: { state, detail: state === 'post' ? 'FT' : date } },
+    competitions: [{ competitors: [
+      { homeAway: 'home', score: hs, team: { id: 'h', displayName: 'Home FC', abbreviation: 'HOM', logo: 'https://x/h.png' } },
+      { homeAway: 'away', score: as, team: { id: 'a', displayName: 'Away FC', abbreviation: 'AWA', logo: 'https://x/a.png' } },
+    ] }],
+  })
+  const sb = parseLeagueScoreboard({ events: [ev('1', '2026-05-17T11:30Z', 'post', '3', '2'), ev('2', '2026-08-15T14:00Z', 'pre')] })
+  check('league scoreboard post match parsed', [sb[0].state, sb[0].home.name, sb[0].home.score, sb[0].away.score],
+    ['post', 'Home FC', 3, 2])
+  check('league scoreboard pre match has null scores', [sb[1].state, sb[1].home.score, sb[1].away.score], ['pre', null, null])
+  check('league scoreboard tolerates empty payload', parseLeagueScoreboard({}).length, 0)
+
+  // Season fallback: current season not yet started (all zero games) → previous season
+  {
+    const zero = (rank, name) => ({ ...entry(rank, name, 0), stats: [stat('rank', rank), stat('gamesPlayed', 0), stat('points', 0)] })
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      if (url.includes('season=')) return stJson
+      return { season: { year: 2026, displayName: '2026-27 English Premier League' },
+        children: [{ standings: { entries: [zero(1, 'AFC Bournemouth')] } }] }
+    }
+    const got = await fetchLeagueStandings(getJson, 'eng.1')
+    check('league standings falls back to played season', [got.season, calls.length], ['2025-26 English Premier League', 2])
+    check('league standings fallback asks for previous year', calls[1].includes('season=2025'), true)
+  }
+
+  // Match windows: widen when the near window is empty (summer break)
+  {
+    const post = ev('10', '2026-05-17T11:30Z', 'post', '1', '0')
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      return calls.length <= 2 ? { events: [] } : { events: [post, post] }
+    }
+    const got = await fetchLeagueMatches(getJson, 'eng.1', new Date('2026-07-06T12:00:00Z'))
+    check('league matches widen empty windows and dedupe', [got.length, calls.length >= 3], [1, true])
   }
 }
 
