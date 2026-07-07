@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { leagueById, DEFAULT_LEAGUE } from '../lib/leagues'
 import { useLeagueData } from '../lib/data.jsx'
 import LeaguePicker from '../components/LeaguePicker'
@@ -46,10 +46,10 @@ export default function LeagueTablePage() {
               <tr key={row.teamId ?? row.name} className={zoneClass(row.note)} title={row.note ?? undefined}>
                 <td className="pos">{row.rank}</td>
                 <td className="team-col">
-                  <span className="league-team">
+                  <Link className="league-team" to={`/leagues/${league}/team/${row.teamId}`}>
                     {row.logo && <img src={row.logo} alt="" loading="lazy" />}
                     {row.name}
-                  </span>
+                  </Link>
                 </td>
                 <td>{row.played}</td>
                 <td>{row.w}</td>

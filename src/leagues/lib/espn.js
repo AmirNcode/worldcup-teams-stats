@@ -14,6 +14,18 @@ const SITE = 'https://site.api.espn.com/apis/site/v2/sports/soccer'
 export const standingsUrl = (code, season) =>
   season ? `${V2}/${code}/standings?season=${season}` : `${V2}/${code}/standings`
 export const scoreboardUrl = (code, range) => `${SITE}/${code}/scoreboard?dates=${range}&limit=100`
+// NOTE: unlike the other ESPN endpoints, /teams sends no CORS headers, so it
+// is only fetchable server-side — the snapshot generator uses it; the browser
+// provider must rely on the bundled teams list (it changes once a season).
+export const teamsUrl = (code) => `${SITE}/${code}/teams`
+export const rosterUrl = (code, teamId) => `${SITE}/${code}/teams/${teamId}/roster`
+// no opts → current-season schedule; { fixture: true } → upcoming fixtures;
+// { season } → that season's played games
+export const teamScheduleUrl = (code, teamId, opts = {}) => {
+  const base = `${SITE}/${code}/teams/${teamId}/schedule`
+  if (opts.fixture) return `${base}?fixture=true`
+  return opts.season ? `${base}?season=${opts.season}` : base
+}
 
 // YYYYMMDD-YYYYMMDD range covering [now + fromDays, now + toDays]
 export const dateRange = (fromDays, toDays, now = new Date()) => {
@@ -89,6 +101,94 @@ export function parseLeagueScoreboard(json) {
   })
   matches.sort((a, b) => String(a.date).localeCompare(String(b.date)))
   return matches
+}
+
+// → [{ id, name, shortName, abbrev, logo, color }] sorted by name
+export function parseTeams(json) {
+  const list = json?.sports?.[0]?.leagues?.[0]?.teams ?? []
+  const teams = list.map(({ team: t }) => ({
+    id: t?.id ?? null,
+    name: t?.displayName ?? '',
+    shortName: t?.shortDisplayName ?? t?.displayName ?? '',
+    abbrev: t?.abbreviation ?? '',
+    logo: t?.logos?.[0]?.href ?? null,
+    color: t?.color ? `#${t.color}` : null,
+  }))
+  teams.sort((a, b) => a.name.localeCompare(b.name))
+  return teams
+}
+
+// ESPN position abbreviations → the app's squad groups (same buckets the
+// World Cup lineup uses)
+const POSITION_GROUP = { G: 'GK', D: 'DEF', M: 'MID', F: 'FWD' }
+const GROUP_ORDER = { GK: 0, DEF: 1, MID: 2, FWD: 3, OTH: 4 }
+
+// → { coach, players: [{ id, name, jersey, age, country, group }] } with the
+// squad ordered GK → DEF → MID → FWD, by shirt number within each group
+export function parseRoster(json) {
+  const coachObj = json?.coach?.[0]
+  const coach = coachObj ? `${coachObj.firstName ?? ''} ${coachObj.lastName ?? ''}`.trim() : null
+  const players = (json?.athletes ?? []).map((a) => ({
+    id: a.id ?? null,
+    name: a.displayName ?? '',
+    jersey: a.jersey ?? null,
+    age: a.age ?? null,
+    country: a.citizenship ?? null,
+    group: POSITION_GROUP[a.position?.abbreviation] ?? 'OTH',
+  }))
+  players.sort(
+    (a, b) =>
+      (GROUP_ORDER[a.group] ?? 9) - (GROUP_ORDER[b.group] ?? 9) ||
+      (Number(a.jersey) || 999) - (Number(b.jersey) || 999),
+  )
+  return { coach, players }
+}
+
+// → { seasonYear, matches: [{ id, date, name, venue, state, home, away }] }
+// sorted by kickoff; scores are numbers for played matches else null
+export function parseTeamSchedule(json) {
+  const matches = (json?.events ?? []).map((ev) => {
+    const comp = ev.competitions?.[0]
+    const state = comp?.status?.type?.state ?? 'pre'
+    const side = (which) => {
+      const c = (comp?.competitors ?? []).find((x) => x.homeAway === which)
+      return {
+        id: c?.team?.id ?? null,
+        name: c?.team?.displayName ?? '',
+        abbrev: c?.team?.abbreviation ?? '',
+        logo: c?.team?.logo ?? c?.team?.logos?.[0]?.href ?? null,
+        score: state !== 'pre' ? num(c?.score?.displayValue ?? c?.score) : null,
+      }
+    }
+    return {
+      id: ev.id,
+      date: ev.date,
+      name: ev.name ?? '',
+      venue: comp?.venue?.fullName ?? null,
+      state,
+      home: side('home'),
+      away: side('away'),
+    }
+  })
+  matches.sort((a, b) => String(a.date).localeCompare(String(b.date)))
+  return { seasonYear: json?.season?.year ?? null, matches }
+}
+
+// Everything the team page needs: squad, upcoming fixtures, and played
+// matches. During the summer flip the current-season schedule is empty, so
+// results fall back to the previous season (same idea as the standings
+// fallback). Sequential fetches — be gentle with the unofficial API.
+export async function fetchTeamBundle(getJson, code, teamId) {
+  const roster = parseRoster(await getJson(rosterUrl(code, teamId)))
+  const fix = parseTeamSchedule(await getJson(teamScheduleUrl(code, teamId, { fixture: true })))
+  const fixtures = fix.matches.filter((m) => m.state === 'pre')
+  let res = parseTeamSchedule(await getJson(teamScheduleUrl(code, teamId)))
+  let results = res.matches.filter((m) => m.state === 'post')
+  if (!results.length && res.seasonYear) {
+    res = parseTeamSchedule(await getJson(teamScheduleUrl(code, teamId, { season: res.seasonYear - 1 })))
+    results = res.matches.filter((m) => m.state === 'post')
+  }
+  return { roster, fixtures, results }
 }
 
 // Standings for the season people care about: ESPN flips its default season to

@@ -1746,3 +1746,140 @@ table.league-table .team-col {
   font-size: 13px;
   white-space: nowrap;
 }
+
+/* ---------- Leagues: clubs & team page ---------- */
+
+.league-team-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 2px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+
+.league-team-row:first-of-type {
+  border-top: 0;
+}
+
+.league-team-row img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.league-team-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  flex: 0 0 auto;
+}
+
+.league-team-name {
+  flex: 1;
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-team-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.league-team-head img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.league-team-head h2 {
+  margin: 0;
+}
+
+.league-team-head p {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+}
+
+.league-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.league-stat-grid b {
+  color: var(--text);
+  display: block;
+  font-size: 1rem;
+}
+
+.team-match .team-match-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 110px;
+}
+
+.team-match-sub {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-collapse {
+  width: 100%;
+  margin: 14px 0 0;
+}
+
+.league-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 2px;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.league-player:first-of-type {
+  border-top: 0;
+}
+
+.league-jersey {
+  width: 26px;
+  text-align: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+
+.league-player-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-facts {
+  margin: 4px 0 8px;
+  padding-left: 18px;
+}
+
+.league-facts li {
+  margin: 4px 0;
+  font-size: 0.85rem;
+}

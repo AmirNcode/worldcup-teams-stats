@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import snapshot from '../data/snapshot.json'
 import { leagueById } from './leagues'
-import { fetchLeagueStandings, fetchLeagueMatches } from './espn'
+import { fetchLeagueStandings, fetchLeagueMatches, fetchTeamBundle } from './espn'
 
 // Owns the league-soccer data (standings + fixtures window per league) from
 // ESPN. Layered like the F1 provider: bundled snapshot = offline floor →
@@ -41,6 +41,8 @@ export function LeaguesDataProvider({ children }) {
     return base
   })
   const inFlight = useRef(new Set())
+  // per-club bundles (squad/fixtures/results), in-memory for the session
+  const [teamCache, setTeamCache] = useState({})
 
   const refresh = useCallback(async (leagueId) => {
     const league = leagueById(leagueId)
@@ -53,8 +55,16 @@ export function LeaguesDataProvider({ children }) {
         fetchLeagueMatches(getJson, league.espn),
       ])
       if (!standings.rows.length && !matches.length) return // garbled payload — keep prior state
-      const entry = { standings, matches, fetchedAt: Date.now(), source: 'live' }
       setModel((prev) => {
+        // the teams list is not CORS-fetchable in the browser (see teamsUrl);
+        // carry the bundled/cached list forward through live refreshes
+        const entry = {
+          standings,
+          matches,
+          teams: prev[leagueId]?.teams ?? [],
+          fetchedAt: Date.now(),
+          source: 'live',
+        }
         const next = { ...prev, [leagueId]: entry }
         try {
           const live = Object.fromEntries(
@@ -73,7 +83,28 @@ export function LeaguesDataProvider({ children }) {
     }
   }, [])
 
-  const value = useMemo(() => ({ model, refresh }), [model, refresh])
+  const loadedTeams = useRef(new Set())
+  const loadTeam = useCallback(async (leagueId, teamId) => {
+    const key = `${leagueId}:${teamId}`
+    const league = leagueById(leagueId)
+    if (!league || !teamId || inFlight.current.has(key) || loadedTeams.current.has(key)) return
+    inFlight.current.add(key)
+    try {
+      const getJson = (url) => fetch(url).then((r) => r.json())
+      const bundle = await fetchTeamBundle(getJson, league.espn, teamId)
+      loadedTeams.current.add(key)
+      setTeamCache((prev) => ({ ...prev, [key]: bundle }))
+    } catch {
+      /* network/parse failure — page keeps its loading/empty state */
+    } finally {
+      inFlight.current.delete(key)
+    }
+  }, [])
+
+  const value = useMemo(
+    () => ({ model, refresh, teamCache, loadTeam }),
+    [model, refresh, teamCache, loadTeam],
+  )
   return <LeaguesContext.Provider value={value}>{children}</LeaguesContext.Provider>
 }
 
@@ -98,8 +129,21 @@ export function useLeagueData(leagueId) {
   return {
     standings: entry?.standings ?? { season: null, seasonYear: null, rows: [] },
     matches: entry?.matches ?? [],
+    teams: entry?.teams ?? [],
     updatedAt: entry?.fetchedAt ? new Date(entry.fetchedAt) : null,
     source: entry?.source ?? 'bundled',
     refresh: () => refresh(leagueId),
   }
+}
+
+// Team-page hook: squad + fixtures + results for one club, fetched lazily the
+// first time the page is viewed and kept in memory for the session. Rosters
+// and per-team schedules are too bulky to snapshot for ~96 clubs, so this is
+// live-only — the page shows a loading state offline (fail-soft, no crash).
+export function useLeagueTeam(leagueId, teamId) {
+  const { teamCache, loadTeam } = useContext(LeaguesContext)
+  useEffect(() => {
+    loadTeam(leagueId, teamId)
+  }, [leagueId, teamId, loadTeam])
+  return teamCache[`${leagueId}:${teamId}`] ?? null
 }

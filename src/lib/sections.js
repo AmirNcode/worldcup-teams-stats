@@ -32,6 +32,7 @@ export const SECTIONS = [
     tabs: [
       { to: '/leagues/epl', end: true, emoji: '📊', label: 'Table' },
       { to: '/leagues/epl/fixtures', emoji: '📅', label: 'Fixtures' },
+      { to: '/leagues/epl/teams', emoji: '🔎', label: 'Teams' },
     ],
   },
   {

@@ -50,6 +50,10 @@ import {
   parseLeagueScoreboard,
   fetchLeagueStandings,
   fetchLeagueMatches,
+  parseTeams,
+  parseRoster,
+  parseTeamSchedule,
+  fetchTeamBundle,
 } from '../src/leagues/lib/espn.js'
 import {
   analyticsEnabled,
@@ -466,6 +470,69 @@ check('alias unknown', canonName('Narnia'), null)
     const got = await fetchLeagueMatches(getJson, 'eng.1', new Date('2026-07-06T12:00:00Z'))
     check('league matches widen empty windows and dedupe', [got.length, calls.length >= 3], [1, true])
   }
+
+  // Teams list / roster / team schedule parsers
+  const teams = parseTeams({ sports: [{ leagues: [{ teams: [
+    { team: { id: '359', displayName: 'Arsenal', shortDisplayName: 'Arsenal', abbreviation: 'ARS',
+      color: 'EF0107', logos: [{ href: 'https://x/359.png' }] } },
+    { team: { id: '360', displayName: 'Manchester United', shortDisplayName: 'Man United', abbreviation: 'MAN' } },
+  ] }] }] })
+  check('league teams parsed + sorted by name', [teams.length, teams[0].name, teams[0].logo, teams[1].abbrev],
+    [2, 'Arsenal', 'https://x/359.png', 'MAN'])
+  check('league teams tolerates empty payload', parseTeams({}).length, 0)
+
+  const roster = parseRoster({
+    coach: [{ firstName: 'Arsene', lastName: 'Wenger' }],
+    athletes: [
+      { id: '1', displayName: 'Reiss Nelson', jersey: '24', age: 26, citizenship: 'England',
+        position: { abbreviation: 'F' } },
+      { id: '2', displayName: 'A Keeper', jersey: '1', age: 30, citizenship: 'Spain',
+        position: { abbreviation: 'G' } },
+    ],
+  })
+  check('league roster coach + groups', [roster.coach, roster.players[0].group, roster.players[1].group],
+    ['Arsene Wenger', 'GK', 'FWD'])
+  check('league roster player fields', [roster.players[1].name, roster.players[1].jersey, roster.players[1].country],
+    ['Reiss Nelson', '24', 'England'])
+  check('league roster tolerates empty payload', parseRoster({}).players.length, 0)
+
+  const schedEv = (id, date, state, ourScore, oppScore) => ({
+    id, date, name: 'X at Y',
+    competitions: [{
+      venue: { fullName: 'Emirates Stadium' },
+      status: { type: { state } },
+      competitors: [
+        { homeAway: 'home', team: { id: '359', displayName: 'Arsenal', abbreviation: 'ARS' },
+          ...(ourScore != null ? { score: { displayValue: ourScore } } : {}) },
+        { homeAway: 'away', team: { id: '349', displayName: 'Bournemouth', abbreviation: 'BOU' },
+          ...(oppScore != null ? { score: { displayValue: oppScore } } : {}) },
+      ],
+    }],
+  })
+  const sched = parseTeamSchedule({ season: { year: 2025 },
+    events: [schedEv('2', '2026-05-01T14:00Z', 'post', '3', '1'), schedEv('1', '2025-09-01T14:00Z', 'post', '0', '0')] })
+  check('team schedule sorted by date with venue', [sched.matches[0].id, sched.matches[0].venue],
+    ['1', 'Emirates Stadium'])
+  check('team schedule scores + state', [sched.matches[1].home.score, sched.matches[1].away.score, sched.matches[1].state],
+    [3, 1, 'post'])
+  check('team schedule season year', sched.seasonYear, 2025)
+  check('team schedule tolerates empty payload', parseTeamSchedule({}).matches.length, 0)
+
+  // Team bundle: results fall back to previous season when current has none
+  {
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      if (url.includes('/roster')) return { coach: [{ firstName: 'A', lastName: 'B' }], athletes: [] }
+      if (url.includes('fixture=true')) return { season: { year: 2026 }, events: [schedEv('9', '2026-08-21T19:00Z', 'pre')] }
+      if (url.includes('season=2025')) return { season: { year: 2025 }, events: [schedEv('2', '2026-05-01T14:00Z', 'post', '3', '1')] }
+      return { season: { year: 2026 }, events: [] } // current-season schedule: nothing played yet
+    }
+    const bundle = await fetchTeamBundle(getJson, 'eng.1', '359')
+    check('team bundle fixtures + coach', [bundle.fixtures[0].id, bundle.roster.coach], ['9', 'A B'])
+    check('team bundle results fall back a season', [bundle.results[0].id, calls.some((u) => u.includes('season=2025'))],
+      ['2', true])
+  }
 }
 
 // ---------- OpenF1 (race detail) parsing ----------
@@ -534,7 +601,8 @@ check('alias unknown', canonName('Narnia'), null)
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
     '/f1/race/1', '/f1/race/7', '/f1/race/999',
-    '/leagues', '/leagues/epl', '/leagues/laliga', '/leagues/bundesliga/fixtures', '/leagues/nope']
+    '/leagues', '/leagues/epl', '/leagues/laliga', '/leagues/bundesliga/fixtures', '/leagues/nope',
+    '/leagues/epl/teams', '/leagues/seriea/team/110', '/leagues/nope/teams']
   for (const r of routes) {
     try {
       const html = renderToString(

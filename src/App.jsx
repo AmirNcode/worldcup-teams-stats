@@ -28,6 +28,8 @@ import F1CircuitPage from './f1/pages/F1CircuitPage'
 import F1RacePage from './f1/pages/F1RacePage'
 import LeagueTablePage from './leagues/pages/LeagueTablePage'
 import LeagueFixturesPage from './leagues/pages/LeagueFixturesPage'
+import LeagueTeamsPage from './leagues/pages/LeagueTeamsPage'
+import LeagueTeamPage from './leagues/pages/LeagueTeamPage'
 
 function UpdatedChip() {
   const { updatedAt, source, refresh } = useData()
@@ -152,6 +154,8 @@ export default function App() {
           <Route path="/leagues" element={<Navigate to={`/leagues/${DEFAULT_LEAGUE}`} replace />} />
           <Route path="/leagues/:league" element={<LeagueTablePage />} />
           <Route path="/leagues/:league/fixtures" element={<LeagueFixturesPage />} />
+          <Route path="/leagues/:league/teams" element={<LeagueTeamsPage />} />
+          <Route path="/leagues/:league/team/:teamId" element={<LeagueTeamPage />} />
           <Route path="*" element={<BracketPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}

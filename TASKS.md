@@ -50,3 +50,19 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ## Phase 6 — Memory
 - [x] `CLAUDE.md` — document the leagues section (§21), repo layout, scripts
+
+## Phase 7 — Club pages (round 2)
+- [x] Parsers + fetch helper (TDD): `parseTeams`, `parseRoster`, `parseTeamSchedule`,
+      `fetchTeamBundle` (results fall back a season during the summer flip)
+- [x] Snapshot: teams list per league (`update-leagues-data`); **/teams endpoint has no
+      CORS headers → generator-only, browser carries the bundled list forward**
+- [x] Provider: `useLeagueTeams` via model entry + `useLeagueTeam(league, teamId)` lazy
+      in-memory team bundles (roster + fixtures + results)
+- [x] `LeagueTeamsPage` — searchable club list (🔎 Teams tab, third tab)
+- [x] `LeagueTeamPage` — header + season stats, next match first, upcoming, previous
+      matches collapsed (score/date/venue), squad grouped GK/DEF/MID/FWD with coach,
+      curated honours & fun facts (`src/leagues/data/clubs.js`)
+- [x] Standings table team names link to club pages; `league_team_viewed` analytics;
+      route normalization for team routes
+- [x] Tests (11 new checks + 3 SSR routes) + build green; browser-verified (search,
+      squad, collapse toggle, live refresh after CORS fix)
