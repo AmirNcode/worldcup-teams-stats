@@ -4,42 +4,13 @@ import { track } from '../../lib/analytics'
 import { leagueById, DEFAULT_LEAGUE } from '../lib/leagues'
 import { useLeagueData, useLeagueTeam } from '../lib/data.jsx'
 import { clubInfo } from '../data/clubs'
-import { fmtDate, fmtTime } from '../../lib/format'
+import { LeagueMatchDays } from '../components/LeagueMatchCard'
 
 const GROUP_LABEL = { GK: 'Goalkeepers', DEF: 'Defenders', MID: 'Midfielders', FWD: 'Forwards', OTH: 'Squad' }
 
 const ordinal = (n) => {
   const v = n % 100
   return v >= 11 && v <= 13 ? 'th' : (['th', 'st', 'nd', 'rd'][n % 10] ?? 'th')
-}
-
-// One row of the team's schedule: opponent-centric, venue and local kickoff;
-// played matches carry the result like the World Cup match cards.
-function TeamMatchRow({ m }) {
-  const played = m.state === 'post'
-  return (
-    <div className="league-match team-match">
-      <span className="league-side home">
-        {m.home.name} {m.home.logo && <img src={m.home.logo} alt="" loading="lazy" />}
-      </span>
-      <span className="team-match-mid">
-        {played ? (
-          <span className="league-score">
-            {m.home.score} – {m.away.score}
-          </span>
-        ) : (
-          <span className="league-kickoff">{fmtTime(m.date)}</span>
-        )}
-        <span className="team-match-sub">
-          {fmtDate(m.date)}
-          {m.venue ? ` · ${m.venue}` : ''}
-        </span>
-      </span>
-      <span className="league-side away">
-        {m.away.logo && <img src={m.away.logo} alt="" loading="lazy" />} {m.away.name}
-      </span>
-    </div>
-  )
 }
 
 export default function LeagueTeamPage() {
@@ -101,34 +72,27 @@ export default function LeagueTeamPage() {
 
       <h3 className="league-group-title">Next match</h3>
       {next ? (
-        <div className="card">
-          <TeamMatchRow m={next} />
-        </div>
+        <LeagueMatchDays matches={[next]} />
       ) : (
         <p className="muted">No upcoming fixture scheduled yet.</p>
       )}
       {fixtures.length > 1 && (
-        <div className="card">
-          <h3>Upcoming</h3>
-          {fixtures.slice(1, 6).map((m) => (
-            <TeamMatchRow key={m.id} m={m} />
-          ))}
-        </div>
+        <>
+          <h3 className="league-group-title">Upcoming</h3>
+          <LeagueMatchDays matches={fixtures.slice(1, 6)} />
+        </>
       )}
 
       <button className="collapse-head league-collapse" onClick={() => setShowPrevious((v) => !v)} aria-expanded={showPrevious}>
         <span className="collapse-title">Previous matches{results.length ? ` (${results.length})` : ''}</span>
         <span>{showPrevious ? '▴' : '▾'}</span>
       </button>
-      {showPrevious && (
-        <div className="card">
-          {results.length ? (
-            results.map((m) => <TeamMatchRow key={m.id} m={m} />)
-          ) : (
-            <p className="muted">{bundle ? 'No played matches on record.' : 'Loading matches…'}</p>
-          )}
-        </div>
-      )}
+      {showPrevious &&
+        (results.length ? (
+          <LeagueMatchDays matches={results} />
+        ) : (
+          <p className="muted">{bundle ? 'No played matches on record.' : 'Loading matches…'}</p>
+        ))}
 
       <h3 className="league-group-title">Squad</h3>
       {players.length ? (
