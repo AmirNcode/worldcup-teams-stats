@@ -56,6 +56,7 @@ import {
   fetchTeamBundle,
   parseLeagueLeaders,
   fetchLeagueLeaders,
+  parseAthlete,
 } from '../src/leagues/lib/espn.js'
 import {
   analyticsEnabled,
@@ -561,6 +562,20 @@ check('alias unknown', canonName('Narnia'), null)
     check('cache with teams keeps its own', initialLeaguesModel(snap,
       { laliga: { standings: { rows: [2] }, matches: [], teams: [{ id: 'x', name: 'X' }] } }).laliga.teams[0].name, 'X')
   }
+
+  // Athlete bio (player sheet on the Boot tab)
+  const ath = parseAthlete({ athlete: {
+    id: '231388', displayName: 'Kylian Mbappé', jersey: '10', age: 27,
+    displayHeight: "5' 10\"", citizenship: 'France',
+    flag: { href: 'https://x/fra.png' },
+    position: { displayName: 'Forward' },
+    team: { displayName: 'Real Madrid', logos: [{ href: 'https://x/rm.png' }] },
+  } })
+  check('athlete bio parsed', [ath.name, ath.age, ath.team, ath.citizenship, ath.position],
+    ['Kylian Mbappé', 27, 'Real Madrid', 'France', 'Forward'])
+  check('athlete bio flag + jersey + height', [ath.flag, ath.jersey, ath.height],
+    ['https://x/fra.png', '10', "5' 10\""])
+  check('athlete bio tolerates empty payload', parseAthlete({}).name, '')
 
   // Team bundle: results fall back to previous season when current has none
   {

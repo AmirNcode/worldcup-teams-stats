@@ -194,6 +194,29 @@ export async function fetchTeamBundle(getJson, code, teamId) {
 
 export const leadersUrl = (code, season) =>
   season ? `${SITE}/${code}/statistics?season=${season}` : `${SITE}/${code}/statistics`
+export const athleteUrl = (code, athleteId) =>
+  `https://site.web.api.espn.com/apis/common/v3/sports/soccer/${code}/athletes/${athleteId}`
+
+// → athlete bio for the player sheet: { id, name, jersey, age, height,
+// weight, position, team, teamLogo, citizenship, flag }. The current-season
+// statsSummary in this payload is ignored — it resets to zero over the summer;
+// the sheet shows the leaders-row numbers instead.
+export function parseAthlete(json) {
+  const a = json?.athlete ?? {}
+  return {
+    id: a.id ?? null,
+    name: a.displayName ?? '',
+    jersey: a.jersey ?? null,
+    age: a.age ?? null,
+    height: a.displayHeight ?? null,
+    weight: a.displayWeight ?? null,
+    position: a.position?.displayName ?? null,
+    team: a.team?.displayName ?? null,
+    teamLogo: a.team?.logos?.[0]?.href ?? null,
+    citizenship: a.citizenship ?? null,
+    flag: a.flag?.href ?? null,
+  }
+}
 
 // → { goals: [{ id, name, value, matches }], assists: [...] } in rank order.
 // ESPN's leaders carry no team reference; the matches count is embedded in the

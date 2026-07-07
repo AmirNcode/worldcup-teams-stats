@@ -1854,3 +1854,59 @@ a.league-tag {
 .league-tag.away {
   text-align: right;
 }
+
+/* ---------- Leagues: player sheet (Boot tab) ---------- */
+
+.player-link {
+  padding: 0;
+  color: var(--text);
+  font-size: inherit;
+  text-align: left;
+}
+
+.player-sheet-name {
+  margin: 2px 24px 10px 0;
+  font-size: 1.15rem;
+}
+
+.player-sheet-stats {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.player-sheet-stats b {
+  color: var(--text);
+  font-size: 1.05rem;
+  display: block;
+}
+
+.player-sheet-bio {
+  padding: 4px 0;
+}
+
+.player-sheet-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.player-sheet-row span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.player-sheet-row img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}

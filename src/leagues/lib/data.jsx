@@ -1,7 +1,14 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import snapshot from '../data/snapshot.json'
 import { leagueById } from './leagues'
-import { fetchLeagueStandings, fetchLeagueMatches, fetchLeagueLeaders, fetchTeamBundle } from './espn'
+import {
+  fetchLeagueStandings,
+  fetchLeagueMatches,
+  fetchLeagueLeaders,
+  fetchTeamBundle,
+  athleteUrl,
+  parseAthlete,
+} from './espn'
 
 // Owns the league-soccer data (standings + fixtures window per league) from
 // ESPN. Layered like the F1 provider: bundled snapshot = offline floor →
@@ -93,6 +100,23 @@ export function LeaguesDataProvider({ children }) {
     }
   }, [])
 
+  // athlete bios for the scorer sheet, in-memory for the session
+  const [playerCache, setPlayerCache] = useState({})
+  const loadPlayer = useCallback(async (leagueId, athleteId) => {
+    const key = `${leagueId}:${athleteId}`
+    const league = leagueById(leagueId)
+    if (!league || !athleteId || inFlight.current.has(key)) return
+    inFlight.current.add(key)
+    try {
+      const bio = parseAthlete(await fetch(athleteUrl(league.espn, athleteId)).then((r) => r.json()))
+      if (bio.name) setPlayerCache((prev) => (prev[key] ? prev : { ...prev, [key]: bio }))
+    } catch {
+      /* network/parse failure — sheet keeps its loading state */
+    } finally {
+      inFlight.current.delete(key)
+    }
+  }, [])
+
   const loadedTeams = useRef(new Set())
   const loadTeam = useCallback(async (leagueId, teamId) => {
     const key = `${leagueId}:${teamId}`
@@ -112,8 +136,8 @@ export function LeaguesDataProvider({ children }) {
   }, [])
 
   const value = useMemo(
-    () => ({ model, refresh, teamCache, loadTeam }),
-    [model, refresh, teamCache, loadTeam],
+    () => ({ model, refresh, teamCache, loadTeam, playerCache, loadPlayer }),
+    [model, refresh, teamCache, loadTeam, playerCache, loadPlayer],
   )
   return <LeaguesContext.Provider value={value}>{children}</LeaguesContext.Provider>
 }
@@ -157,4 +181,14 @@ export function useLeagueTeam(leagueId, teamId) {
     loadTeam(leagueId, teamId)
   }, [leagueId, teamId, loadTeam])
   return teamCache[`${leagueId}:${teamId}`] ?? null
+}
+
+// Scorer-sheet hook: one athlete's bio, fetched lazily when the sheet opens
+// (pass a null athleteId while closed). Fail-soft: null until loaded.
+export function useLeaguePlayer(leagueId, athleteId) {
+  const { playerCache, loadPlayer } = useContext(LeaguesContext)
+  useEffect(() => {
+    if (athleteId) loadPlayer(leagueId, athleteId)
+  }, [leagueId, athleteId, loadPlayer])
+  return athleteId ? (playerCache[`${leagueId}:${athleteId}`] ?? null) : null
 }
