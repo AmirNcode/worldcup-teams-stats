@@ -54,6 +54,8 @@ import {
   parseRoster,
   parseTeamSchedule,
   fetchTeamBundle,
+  parseLeagueLeaders,
+  fetchLeagueLeaders,
 } from '../src/leagues/lib/espn.js'
 import {
   analyticsEnabled,
@@ -432,6 +434,7 @@ check('alias unknown', canonName('Narnia'), null)
 
   const ev = (id, date, state, hs, as) => ({
     id, date, name: 'A at B',
+    venue: { displayName: 'Big Arena' },
     status: { type: { state, detail: state === 'post' ? 'FT' : date } },
     competitions: [{ competitors: [
       { homeAway: 'home', score: hs, team: { id: 'h', displayName: 'Home FC', abbreviation: 'HOM', logo: 'https://x/h.png' } },
@@ -442,7 +445,36 @@ check('alias unknown', canonName('Narnia'), null)
   check('league scoreboard post match parsed', [sb[0].state, sb[0].home.name, sb[0].home.score, sb[0].away.score],
     ['post', 'Home FC', 3, 2])
   check('league scoreboard pre match has null scores', [sb[1].state, sb[1].home.score, sb[1].away.score], ['pre', null, null])
+  check('league scoreboard carries venue', sb[0].venue, 'Big Arena')
   check('league scoreboard tolerates empty payload', parseLeagueScoreboard({}).length, 0)
+
+  // Top-scorer leaders: goals + assists, matches pulled out of displayValue
+  const leadersJson = {
+    season: { year: 2026 },
+    stats: [
+      { name: 'goalsLeaders', leaders: [
+        { value: 25, displayValue: 'Matches: 31, Goals: 25', athlete: { id: '9', displayName: 'Kylian Mbappé' } },
+        { value: 23, displayValue: 'Matches: 34, Goals: 23', athlete: { id: '8', displayName: 'Vedat Muriqi' } },
+      ] },
+      { name: 'assistsLeaders', leaders: [
+        { value: 11, displayValue: 'Matches: 30, Assists: 11', athlete: { id: '7', displayName: 'Lamine Yamal' } },
+      ] },
+    ],
+  }
+  const led = parseLeagueLeaders(leadersJson)
+  check('league leaders goals parsed', [led.goals[0].name, led.goals[0].value, led.goals[0].matches],
+    ['Kylian Mbappé', 25, 31])
+  check('league leaders assists parsed', [led.assists[0].name, led.assists[0].value], ['Lamine Yamal', 11])
+  check('league leaders tolerate empty payload', [parseLeagueLeaders({}).goals.length, parseLeagueLeaders({}).assists.length], [0, 0])
+  {
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      return url.includes('season=') ? leadersJson : { season: { year: 2026 }, stats: [] }
+    }
+    const got = await fetchLeagueLeaders(getJson, 'esp.1')
+    check('league leaders fall back a season when empty', [got.goals.length, calls[1]?.includes('season=2025')], [2, true])
+  }
 
   // Season fallback: current season not yet started (all zero games) → previous season
   {
@@ -614,7 +646,8 @@ check('alias unknown', canonName('Narnia'), null)
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
     '/f1/race/1', '/f1/race/7', '/f1/race/999',
     '/leagues', '/leagues/epl', '/leagues/laliga', '/leagues/bundesliga/fixtures', '/leagues/nope',
-    '/leagues/epl/teams', '/leagues/seriea/team/110', '/leagues/nope/teams']
+    '/leagues/epl/teams', '/leagues/seriea/team/110', '/leagues/nope/teams',
+    '/leagues/laliga/scorers', '/leagues/nope/scorers']
   for (const r of routes) {
     try {
       const html = renderToString(

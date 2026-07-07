@@ -30,6 +30,7 @@ import LeagueTablePage from './leagues/pages/LeagueTablePage'
 import LeagueFixturesPage from './leagues/pages/LeagueFixturesPage'
 import LeagueTeamsPage from './leagues/pages/LeagueTeamsPage'
 import LeagueTeamPage from './leagues/pages/LeagueTeamPage'
+import LeagueScorersPage from './leagues/pages/LeagueScorersPage'
 
 function UpdatedChip() {
   const { updatedAt, source, refresh } = useData()
@@ -155,6 +156,7 @@ export default function App() {
           <Route path="/leagues/:league" element={<LeagueTablePage />} />
           <Route path="/leagues/:league/fixtures" element={<LeagueFixturesPage />} />
           <Route path="/leagues/:league/teams" element={<LeagueTeamsPage />} />
+          <Route path="/leagues/:league/scorers" element={<LeagueScorersPage />} />
           <Route path="/leagues/:league/team/:teamId" element={<LeagueTeamPage />} />
           <Route path="*" element={<BracketPage />} />
         </Routes>

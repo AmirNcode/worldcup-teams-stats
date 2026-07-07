@@ -7,7 +7,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { LEAGUES } from '../src/leagues/lib/leagues.js'
-import { fetchLeagueStandings, fetchLeagueMatches, parseTeams, teamsUrl } from '../src/leagues/lib/espn.js'
+import { fetchLeagueStandings, fetchLeagueMatches, fetchLeagueLeaders, parseTeams, teamsUrl } from '../src/leagues/lib/espn.js'
 
 async function getJson(url) {
   const res = await fetch(url)
@@ -22,9 +22,11 @@ async function main() {
     const standings = await fetchLeagueStandings(getJson, lg.espn)
     const matches = await fetchLeagueMatches(getJson, lg.espn)
     const teams = parseTeams(await getJson(teamsUrl(lg.espn)))
-    leagues[lg.id] = { standings, matches, teams }
+    const leaders = await fetchLeagueLeaders(getJson, lg.espn)
+    leagues[lg.id] = { standings, matches, teams, leaders }
     console.log(
-      `${lg.name}: ${standings.rows.length} table rows, ${teams.length} teams (${standings.season}), ${matches.length} matches in window`,
+      `${lg.name}: ${standings.rows.length} table rows, ${teams.length} teams (${standings.season}), ` +
+        `${matches.length} matches, top scorer ${leaders.goals[0]?.name ?? '—'} (${leaders.goals[0]?.value ?? 0})`,
     )
   }
   const out = { generatedAt: new Date().toISOString(), source: 'espn', leagues }

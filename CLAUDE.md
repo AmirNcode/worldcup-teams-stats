@@ -651,7 +651,19 @@ all five. Design spec: `docs/superpowers/specs/2026-07-06-league-soccer-design.m
   - `src/leagues/data/clubs.js` — hand-curated honours/fun facts keyed by ESPN
     team id (counts through 2025-26, may drift; single file to correct;
     missing clubs render no card).
+- **Match cards** (`LeagueMatchCard` / `LeagueMatchDays`): World Cup card
+  layout — venue centered on the card's top line, teams left/right (crest,
+  23px; names are plain-text-styled links to the club page), score + FT badge
+  or local kickoff time in the center, and the date as an outside
+  `date-header` heading grouping all matches of the same local day.
+- **Top scorers** (👟 Boot tab → `/leagues/:league/scorers`): goals + assists
+  leaders with matches and per-match rate, headed by the league's real award
+  (`award` in the registry: Golden Boot, Pichichi Trophy, Capocannoniere,
+  Torjägerkanone, Trophée du Meilleur Buteur). Data from ESPN's
+  `/statistics` endpoint (CORS-open) via `fetchLeagueLeaders` with the same
+  previous-season fallback; ESPN leaders carry **no team ref**, and the
+  matches count is regexed out of `displayValue`.
 - **Analytics:** `track('league_viewed', { league })` on picker switch,
   `track('league_team_viewed', { league, teamId })` on club pages;
-  `normalizeRoute` collapses `/leagues/<x>`, `…/fixtures`, `…/teams`, and
-  `…/team/<id>`.
+  `normalizeRoute` collapses `/leagues/<x>`, `…/fixtures`, `…/teams`,
+  `…/scorers`, and `…/team/<id>`.

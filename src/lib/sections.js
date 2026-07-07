@@ -33,6 +33,7 @@ export const SECTIONS = [
       { to: '/leagues/epl', end: true, emoji: '📊', label: 'Table' },
       { to: '/leagues/epl/fixtures', emoji: '📅', label: 'Fixtures' },
       { to: '/leagues/epl/teams', emoji: '🔎', label: 'Teams' },
+      { to: '/leagues/epl/scorers', emoji: '👟', label: 'Boot' },
     ],
   },
   {

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import snapshot from '../data/snapshot.json'
 import { leagueById } from './leagues'
-import { fetchLeagueStandings, fetchLeagueMatches, fetchTeamBundle } from './espn'
+import { fetchLeagueStandings, fetchLeagueMatches, fetchLeagueLeaders, fetchTeamBundle } from './espn'
 
 // Owns the league-soccer data (standings + fixtures window per league) from
 // ESPN. Layered like the F1 provider: bundled snapshot = offline floor →
@@ -41,6 +41,7 @@ export function initialLeaguesModel(snapshotLeagues, cached) {
       ...base[id],
       ...data,
       teams: data.teams?.length ? data.teams : (base[id]?.teams ?? []),
+      leaders: data.leaders?.goals?.length ? data.leaders : (base[id]?.leaders ?? { goals: [], assists: [] }),
       source: 'cache',
     }
   }
@@ -60,9 +61,10 @@ export function LeaguesDataProvider({ children }) {
     inFlight.current.add(leagueId)
     try {
       const getJson = (url) => fetch(url).then((r) => r.json())
-      const [standings, matches] = await Promise.all([
+      const [standings, matches, leaders] = await Promise.all([
         fetchLeagueStandings(getJson, league.espn),
         fetchLeagueMatches(getJson, league.espn),
+        fetchLeagueLeaders(getJson, league.espn),
       ])
       if (!standings.rows.length && !matches.length) return // garbled payload — keep prior state
       setModel((prev) => {
@@ -72,7 +74,7 @@ export function LeaguesDataProvider({ children }) {
         const teams = prev[leagueId]?.teams?.length
           ? prev[leagueId].teams
           : (snapshot.leagues?.[leagueId]?.teams ?? [])
-        const entry = { standings, matches, teams, fetchedAt: Date.now(), source: 'live' }
+        const entry = { standings, matches, teams, leaders, fetchedAt: Date.now(), source: 'live' }
         const next = { ...prev, [leagueId]: entry }
         try {
           const live = Object.fromEntries(
@@ -138,6 +140,7 @@ export function useLeagueData(leagueId) {
     standings: entry?.standings ?? { season: null, seasonYear: null, rows: [] },
     matches: entry?.matches ?? [],
     teams: entry?.teams ?? [],
+    leaders: entry?.leaders ?? { goals: [], assists: [] },
     updatedAt: entry?.fetchedAt ? new Date(entry.fetchedAt) : null,
     source: entry?.source ?? 'bundled',
     refresh: () => refresh(leagueId),

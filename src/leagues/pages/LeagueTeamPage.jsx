@@ -72,14 +72,14 @@ export default function LeagueTeamPage() {
 
       <h3 className="league-group-title">Next match</h3>
       {next ? (
-        <LeagueMatchDays matches={[next]} />
+        <LeagueMatchDays league={league} matches={[next]} />
       ) : (
         <p className="muted">No upcoming fixture scheduled yet.</p>
       )}
       {fixtures.length > 1 && (
         <>
           <h3 className="league-group-title">Upcoming</h3>
-          <LeagueMatchDays matches={fixtures.slice(1, 6)} />
+          <LeagueMatchDays league={league} matches={fixtures.slice(1, 6)} />
         </>
       )}
 
@@ -89,7 +89,7 @@ export default function LeagueTeamPage() {
       </button>
       {showPrevious &&
         (results.length ? (
-          <LeagueMatchDays matches={results} />
+          <LeagueMatchDays league={league} matches={results} />
         ) : (
           <p className="muted">{bundle ? 'No played matches on record.' : 'Loading matches…'}</p>
         ))}

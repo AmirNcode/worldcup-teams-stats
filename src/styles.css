@@ -1831,10 +1831,24 @@ table.league-table .team-col {
 }
 
 .league-tag img {
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
   object-fit: contain;
   flex: 0 0 auto;
+}
+
+/* club links inside match cards read as plain text, not accent-colored */
+a.league-tag {
+  color: var(--text);
+}
+
+/* venue centered on the card's top line */
+.match-meta.league-venue {
+  justify-content: center;
+}
+
+.match-meta.league-venue span {
+  text-align: center;
 }
 
 .league-tag.away {

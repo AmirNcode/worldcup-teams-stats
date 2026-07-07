@@ -21,12 +21,12 @@ export default function LeagueFixturesPage() {
       <p className="muted">Times shown in your time zone ({tzLabel()}).</p>
       <h3 className="league-group-title">Upcoming</h3>
       {upcoming.length ? (
-        <LeagueMatchDays matches={upcoming} />
+        <LeagueMatchDays league={league} matches={upcoming} />
       ) : (
         <p className="muted">Fixtures appear here once the season schedule is published.</p>
       )}
       <h3 className="league-group-title">Results</h3>
-      {results.length ? <LeagueMatchDays matches={results} /> : <p className="muted">No recent matches.</p>}
+      {results.length ? <LeagueMatchDays league={league} matches={results} /> : <p className="muted">No recent matches.</p>}
     </div>
   )
 }

@@ -93,6 +93,7 @@ export function parseLeagueScoreboard(json) {
       id: ev.id,
       date: ev.date,
       name: ev.name ?? '',
+      venue: ev.venue?.displayName ?? comp?.venue?.fullName ?? null,
       state: ev.status?.type?.state ?? 'pre',
       detail: ev.status?.type?.detail ?? '',
       home: side('home'),
@@ -189,6 +190,37 @@ export async function fetchTeamBundle(getJson, code, teamId) {
     results = res.matches.filter((m) => m.state === 'post')
   }
   return { roster, fixtures, results }
+}
+
+export const leadersUrl = (code, season) =>
+  season ? `${SITE}/${code}/statistics?season=${season}` : `${SITE}/${code}/statistics`
+
+// → { goals: [{ id, name, value, matches }], assists: [...] } in rank order.
+// ESPN's leaders carry no team reference; the matches count is embedded in the
+// displayValue text ("Matches: 31, Goals: 25"), so it is regexed out for the
+// goals-per-match column.
+export function parseLeagueLeaders(json) {
+  const category = (name) => {
+    const cat = (json?.stats ?? []).find((s) => s.name === name)
+    return (cat?.leaders ?? []).map((l) => ({
+      id: l.athlete?.id ?? null,
+      name: l.athlete?.displayName ?? '',
+      value: l.value ?? 0,
+      matches: Number(/Matches:\s*(\d+)/.exec(l.displayValue ?? '')?.[1]) || null,
+    }))
+  }
+  return { goals: category('goalsLeaders'), assists: category('assistsLeaders') }
+}
+
+// Leaders for the season people care about — same summer-flip fallback as the
+// standings: an empty current-season leaderboard falls back to the previous
+// season's final one.
+export async function fetchLeagueLeaders(getJson, code) {
+  const current = await getJson(leadersUrl(code))
+  const parsed = parseLeagueLeaders(current)
+  if (parsed.goals.length || !current?.season?.year) return parsed
+  const prev = parseLeagueLeaders(await getJson(leadersUrl(code, current.season.year - 1)))
+  return prev.goals.length ? prev : parsed
 }
 
 // Standings for the season people care about: ESPN flips its default season to
