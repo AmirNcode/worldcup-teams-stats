@@ -27,19 +27,29 @@ function loadCache() {
   }
 }
 
+// Build the starting model: bundled snapshot as the floor, cached live
+// payloads on top. A cached entry may predate fields added later (e.g. the
+// teams list) — any field it lacks falls back to the bundled entry rather
+// than silently vanishing. Pure and exported for tests.
+export function initialLeaguesModel(snapshotLeagues, cached) {
+  const base = {}
+  for (const [id, data] of Object.entries(snapshotLeagues ?? {})) {
+    base[id] = { ...data, fetchedAt: null, source: 'bundled' }
+  }
+  for (const [id, data] of Object.entries(cached ?? {})) {
+    base[id] = {
+      ...base[id],
+      ...data,
+      teams: data.teams?.length ? data.teams : (base[id]?.teams ?? []),
+      source: 'cache',
+    }
+  }
+  return base
+}
+
 export function LeaguesDataProvider({ children }) {
-  // { [leagueId]: { standings, matches, fetchedAt, source } }
-  const [model, setModel] = useState(() => {
-    const cached = loadCache()
-    const base = {}
-    for (const [id, data] of Object.entries(snapshot.leagues ?? {})) {
-      base[id] = { ...data, fetchedAt: null, source: 'bundled' }
-    }
-    for (const [id, data] of Object.entries(cached ?? {})) {
-      base[id] = { ...data, source: 'cache' }
-    }
-    return base
-  })
+  // { [leagueId]: { standings, matches, teams, fetchedAt, source } }
+  const [model, setModel] = useState(() => initialLeaguesModel(snapshot.leagues, loadCache()))
   const inFlight = useRef(new Set())
   // per-club bundles (squad/fixtures/results), in-memory for the session
   const [teamCache, setTeamCache] = useState({})
@@ -57,14 +67,12 @@ export function LeaguesDataProvider({ children }) {
       if (!standings.rows.length && !matches.length) return // garbled payload — keep prior state
       setModel((prev) => {
         // the teams list is not CORS-fetchable in the browser (see teamsUrl);
-        // carry the bundled/cached list forward through live refreshes
-        const entry = {
-          standings,
-          matches,
-          teams: prev[leagueId]?.teams ?? [],
-          fetchedAt: Date.now(),
-          source: 'live',
-        }
+        // carry the bundled/cached list forward through live refreshes, and
+        // never let an empty carried list shadow the bundled one
+        const teams = prev[leagueId]?.teams?.length
+          ? prev[leagueId].teams
+          : (snapshot.leagues?.[leagueId]?.teams ?? [])
+        const entry = { standings, matches, teams, fetchedAt: Date.now(), source: 'live' }
         const next = { ...prev, [leagueId]: entry }
         try {
           const live = Object.fromEntries(

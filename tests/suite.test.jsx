@@ -26,7 +26,7 @@ import {
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
 import { F1DataProvider } from '../src/f1/lib/data.jsx'
-import { LeaguesDataProvider } from '../src/leagues/lib/data.jsx'
+import { LeaguesDataProvider, initialLeaguesModel } from '../src/leagues/lib/data.jsx'
 import {
   parseSchedule,
   parseDriverStandings,
@@ -517,6 +517,18 @@ check('alias unknown', canonName('Narnia'), null)
     [3, 1, 'post'])
   check('team schedule season year', sched.seasonYear, 2025)
   check('team schedule tolerates empty payload', parseTeamSchedule({}).matches.length, 0)
+
+  // A stale localStorage cache written before the teams list existed must not
+  // shadow the bundled teams (regression: league clubs page rendered empty)
+  {
+    const snap = { laliga: { standings: { rows: [1] }, matches: [], teams: [{ id: '83', name: 'Barcelona' }] } }
+    const staleCache = { laliga: { standings: { rows: [2] }, matches: [], fetchedAt: 123 } }
+    const m = initialLeaguesModel(snap, staleCache)
+    check('stale cache keeps bundled teams list', m.laliga.teams.map((t) => t.name), ['Barcelona'])
+    check('stale cache still wins for standings', [m.laliga.standings.rows[0], m.laliga.source], [2, 'cache'])
+    check('cache with teams keeps its own', initialLeaguesModel(snap,
+      { laliga: { standings: { rows: [2] }, matches: [], teams: [{ id: 'x', name: 'X' }] } }).laliga.teams[0].name, 'X')
+  }
 
   // Team bundle: results fall back to previous season when current has none
   {
