@@ -9,7 +9,7 @@
 export const SECTIONS = [
   {
     id: 'soccer',
-    sport: 'Soccer',
+    sport: 'International Football',
     emoji: '🏆',
     title: 'World Cup 2026',
     home: '/',
@@ -23,7 +23,7 @@ export const SECTIONS = [
   },
   {
     id: 'leagues',
-    sport: 'Leagues',
+    sport: 'Club Football',
     emoji: '⚽',
     title: 'Top Leagues',
     home: '/leagues',
