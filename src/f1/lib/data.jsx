@@ -4,11 +4,10 @@ import {
   scheduleUrl,
   driverStandingsUrl,
   constructorStandingsUrl,
-  resultsUrl,
   parseSchedule,
   parseDriverStandings,
   parseConstructorStandings,
-  parseResults,
+  fetchAllResults,
   normalize,
 } from './jolpica'
 
@@ -37,18 +36,19 @@ function loadCache() {
 }
 
 async function fetchModel() {
-  const [sch, ds, cs, rs] = await Promise.all([
-    fetch(scheduleUrl()).then((r) => r.json()),
-    fetch(driverStandingsUrl()).then((r) => r.json()),
-    fetch(constructorStandingsUrl()).then((r) => r.json()),
-    fetch(resultsUrl()).then((r) => r.json()),
+  const getJson = (url) => fetch(url).then((r) => r.json())
+  const [sch, ds, cs, results] = await Promise.all([
+    getJson(scheduleUrl()),
+    getJson(driverStandingsUrl()),
+    getJson(constructorStandingsUrl()),
+    fetchAllResults(getJson),
   ])
   return normalize({
     season: sch?.MRData?.RaceTable?.season ?? null,
     schedule: parseSchedule(sch),
     driverStandings: parseDriverStandings(ds),
     constructorStandings: parseConstructorStandings(cs),
-    results: parseResults(rs),
+    results,
   })
 }
 

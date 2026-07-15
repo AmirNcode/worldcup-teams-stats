@@ -1,85 +1,68 @@
-# TASKS.md — Current initiative: add the Formula 1 section
+# TASKS.md — Current initiative: League Soccer section
 
-Phased checklist for the work described in `PLAN.md`. Check items off as they
-land. When the initiative ships, archive the completed phases and repoint this
-file at the next initiative.
+Phased checklist for the work described in `PLAN.md` (spec:
+`docs/superpowers/specs/2026-07-06-league-soccer-design.md`). Check items off
+as they land. TDD: parser/logic items get failing checks in
+`tests/suite.test.jsx` first.
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ---
 
 ## Phase 0 — Docs
-- [x] `PLAN.md` — blueprint + future-sports architecture + data-source research
+- [x] `PLAN.md` — repoint at the leagues initiative
 - [x] `TASKS.md` — this checklist
-- [x] `CLAUDE.md` — add the multi-sport / sections section; update repo layout
 
-## Phase 1 — Shared shell (multi-sport)
-- [x] `src/lib/sections.js` — `SECTIONS` registry + `sectionForPath()`
-- [x] `src/components/SportSwitcher.jsx` — dropdown title (caret, a11y, outside-click/Esc)
-- [x] `App.jsx` — derive active section; render its title + tab bar; `data-section` on root
-- [x] `App.jsx` — top-bar reflow: update chip on row 1, feedback + theme on row 2
-- [x] `App.jsx` — register F1 routes; "Sample data" chip on F1 (mock phase)
-- [x] `styles.css` — switcher/dropdown styles, two-row top-bar, `[data-section='f1']` red accent
+## Phase 1 — Data layer (pure, testable)
+- [x] `src/leagues/lib/leagues.js` — `LEAGUES` registry + `leagueById()` + `DEFAULT_LEAGUE`
+- [x] Failing checks: `parseLeagueStandings` (rank/W/D/L/GF/GA/GD/Pts/note), `parseLeagueScoreboard`
+      (pre/post state, scores, kickoff ISO), empty payloads never throw
+- [x] `src/leagues/lib/espn.js` — `standingsUrl`, `scoreboardUrl`, `parseLeagueStandings`,
+      `parseLeagueScoreboard` + `fetchLeagueStandings` (previous-season fallback) +
+      `fetchLeagueMatches` (widened windows, capped, deduped)
+- [x] `scripts/generate-leagues.mjs` + `update-leagues-data` npm script
+- [x] `src/leagues/data/snapshot.json` — generated, all five leagues (2025-26 finals)
 
-## Phase 2 — F1 mock data (`src/f1/data/`)
-- [x] `teams.js` — 10 constructors (color, base, power unit, titles, points, driver slugs, facts)
-- [x] `drivers.js` — 20 drivers (number, country, team, points, wins, podiums, poles)
-- [x] `circuits.js` — 12 circuits (country, length, laps, lap record, facts)
-- [x] `calendar.js` — 12 rounds; first 6 "done" with finishing order + pole + fastest lap
-- [x] `index.js` — lookups/derivations (`driverBySlug`, `driversByPoints`, `driverResults`, …)
+## Phase 2 — Provider
+- [x] `src/leagues/lib/data.jsx` — `LeaguesDataProvider` + `useLeagueData(leagueId)`:
+      snapshot → localStorage (`leagues.espn.v1`) → lazy live fetch; focus + 6h refresh
+      for viewed league; fail-soft
+- [x] Mount provider in `src/main.jsx`
 
-## Phase 3 — F1 pages (`src/f1/pages/`)
-- [x] `F1StandingsPage` — drivers' + constructors' tables
-- [x] `F1CalendarPage` — round list, winner on done rounds, link to circuit
-- [x] `F1TeamsPage` + `F1TeamPage` — constructor browse + detail (with its drivers)
-- [x] `F1DriversPage` + `F1DriverPage` — driver browse + detail (per-GP results, wins)
-- [x] `F1CircuitsPage` + `F1CircuitPage` — circuit browse + detail (fastest-lap record)
+## Phase 3 — Shell wiring
+- [x] `src/lib/sections.js` — `leagues` section entry (⚽, home `/leagues`, Table/Fixtures tabs)
+- [x] `App.jsx` — routes (`/leagues` redirect, `:league` pages, unknown slug redirect),
+      league-slug substitution in tab links, `LeaguesUpdatedChip`
+- [x] `src/leagues/components/LeaguePicker.jsx` — chip row, active league highlighted
+- [x] `styles.css` — `[data-section='leagues']` green accent, picker + table styles
+- [x] `src/lib/analytics.js` — `normalizeRoute` collapses `/leagues/<x>`
 
-## Phase 4 — Tests & verification
-- [x] `tests/suite.test.jsx` — add F1 routes to SSR smoke; fix the `home-link` → switcher assertion
-- [x] `npm test` green (38 checks pass)
-- [x] `npm run build` clean (73 modules)
+## Phase 4 — Pages
+- [x] `LeagueTablePage.jsx` — standings table, zone coloring via `note`, season label
+- [x] `LeagueFixturesPage.jsx` — Results (newest first) + Upcoming (local time),
+      summer-break empty state
 
-## Phase 5 — Ship
-- [x] Commit on `development`
-- [x] Push to `origin/development`
-- [x] (User) reviewed F1 red accent in-app — kept
+## Phase 5 — Tests & verification
+- [x] SSR smoke routes: `/leagues`, `/leagues/epl`, `/leagues/laliga`, `/leagues/bundesliga/fixtures`, `/leagues/nope`
+- [x] `npm test` green, `npm run build` green
+- [x] Browser verification: tables + fixtures render live (EPL/Bundesliga spot-checked,
+      snapshot carries all five), tabs follow active league, no console errors
 
-## Phase 6 — F1 refinements (round 2)
-- [x] Standings: newcomer explainers under Drivers’ + Constructors’ Championship
-- [x] Team logos: `F1TeamLogo` + `public/f1/logos/` convention + color-badge fallback
-- [x] Tab reorder: Calendar first and section home (Standings → `/f1/standings`)
-- [x] Calendar: per-round start time in the visitor’s local time zone
-- [x] Tests updated (routes + assertions); `npm test` + `npm run build` green
-- [x] Commit + push to `development`
+## Phase 6 — Memory
+- [x] `CLAUDE.md` — document the leagues section (§21), repo layout, scripts
 
-## Phase 7a — Live structured data (Jolpica) — DONE
-- [x] CORS verified open on Jolpica + OpenF1 (no proxy / backend needed)
-- [x] `src/f1/lib/jolpica.js` parsers + `normalize()` (+ unit tests)
-- [x] `scripts/generate-f1.mjs` + `src/f1/data/snapshot.json` (offline floor; `npm run update-f1-data`)
-- [x] `F1DataProvider` (`src/f1/lib/data.jsx`): snapshot → cache → live; 6h poll + focus refresh; fail-soft
-- [x] `src/f1/lib/select.js` selectors + curated reference (constructors, circuits, flags by Jolpica id)
-- [x] All 8 F1 pages read live data; route slugs are Jolpica ids; logos keyed by `constructorId`
-- [x] Real F1 “Updated…” chip replaces the “Sample data” chip
-- [x] `npm test` + `npm run build` green; verified live data renders; commit + push
-
-## Phase 7b — OpenF1 race detail (free historical) — DONE
-Pivot: true live timing during a session is OpenF1's PAID tier (and would need a
-token-holding backend), so we used the FREE historical tier for post-session depth.
-- [x] `src/f1/lib/openf1.js` parsers (sessions, drivers, pit, stints) + number→driverId join + tests
-- [x] `F1RacePage` (`/f1/race/:round`): Jolpica classification + OpenF1 pit stops + tyre strategy
-- [x] Joined by date; lazy + sequential fetch (3 req/s limit); fail-soft to Jolpica-only
-- [x] Calendar: completed rounds → race detail; upcoming → circuit
-- [x] `npm test` + `npm run build` green; verified pit/tyre enrichment renders; commit + push
-
-## Phase 8 — Polish: race times, calendar fix, tab redesign — DONE
-- [x] Calendar: “Next” = soonest FUTURE round; a past round still missing its result shows “Result pending”
-- [x] Race page: per-driver total time / gap to leader + best lap (Jolpica Time/FastestLap; no extra API)
-- [x] Dropped the redundant Standings tab; Drivers tab = Drivers’ Championship, Teams tab = Constructors’ Championship
-- [x] New **Stats** tab: season records (most wins/poles/podiums/fastest laps, biggest grid→finish climb, most DNFs, leaders) via `seasonStats`
-- [x] `/f1/standings` → redirect to `/f1/drivers`; tests + docs updated; `npm test` + `npm run build` green; commit + push
-
----
-
-## Future initiatives (backlog — see PLAN.md §1, §5)
-- [ ] Next sport (tennis / a domestic soccer league) via the same section recipe
+## Phase 7 — Club pages (round 2)
+- [x] Parsers + fetch helper (TDD): `parseTeams`, `parseRoster`, `parseTeamSchedule`,
+      `fetchTeamBundle` (results fall back a season during the summer flip)
+- [x] Snapshot: teams list per league (`update-leagues-data`); **/teams endpoint has no
+      CORS headers → generator-only, browser carries the bundled list forward**
+- [x] Provider: `useLeagueTeams` via model entry + `useLeagueTeam(league, teamId)` lazy
+      in-memory team bundles (roster + fixtures + results)
+- [x] `LeagueTeamsPage` — searchable club list (🔎 Teams tab, third tab)
+- [x] `LeagueTeamPage` — header + season stats, next match first, upcoming, previous
+      matches collapsed (score/date/venue), squad grouped GK/DEF/MID/FWD with coach,
+      curated honours & fun facts (`src/leagues/data/clubs.js`)
+- [x] Standings table team names link to club pages; `league_team_viewed` analytics;
+      route normalization for team routes
+- [x] Tests (11 new checks + 3 SSR routes) + build green; browser-verified (search,
+      squad, collapse toggle, live refresh after CORS fix)

@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import App from './App'
 import { DataProvider } from './lib/data.jsx'
 import { F1DataProvider } from './f1/lib/data.jsx'
+import { LeaguesDataProvider } from './leagues/lib/data.jsx'
 import './styles.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HashRouter>
       <DataProvider>
         <F1DataProvider>
-          <App />
+          <LeaguesDataProvider>
+            <App />
+          </LeaguesDataProvider>
         </F1DataProvider>
       </DataProvider>
     </HashRouter>

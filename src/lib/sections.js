@@ -9,16 +9,31 @@
 export const SECTIONS = [
   {
     id: 'soccer',
-    sport: 'Soccer',
+    sport: 'International Football',
     emoji: '🏆',
     title: 'World Cup 2026',
     home: '/',
     tabs: [
-      { to: '/', end: true, emoji: '🏆', label: 'Bracket' },
       { to: '/schedule', emoji: '📅', label: 'Schedule' },
+      { to: '/', end: true, emoji: '🏆', label: 'Bracket' },
       { to: '/teams', emoji: '🔎', label: 'Teams' },
       { to: '/groups', emoji: '📊', label: 'Groups' },
       { to: '/scorers', emoji: '👟', label: 'Boot' },
+    ],
+  },
+  {
+    id: 'leagues',
+    sport: 'Club Football',
+    emoji: '⚽',
+    title: 'Top Leagues',
+    home: '/leagues',
+    // tab `to` values name the default league; App.jsx substitutes the active
+    // league slug from the URL so the tabs follow the league being viewed
+    tabs: [
+      { to: '/leagues/epl', end: true, emoji: '📊', label: 'Table' },
+      { to: '/leagues/epl/fixtures', emoji: '📅', label: 'Fixtures' },
+      { to: '/leagues/epl/teams', emoji: '🔎', label: 'Teams' },
+      { to: '/leagues/epl/scorers', emoji: '👟', label: 'Boot' },
     ],
   },
   {

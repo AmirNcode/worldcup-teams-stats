@@ -26,11 +26,13 @@ import {
 import App from '../src/App.jsx'
 import AdSlot from '../src/components/AdSlot.jsx'
 import { F1DataProvider } from '../src/f1/lib/data.jsx'
+import { LeaguesDataProvider, initialLeaguesModel } from '../src/leagues/lib/data.jsx'
 import {
   parseSchedule,
   parseDriverStandings,
   parseConstructorStandings,
   parseResults,
+  fetchAllResults,
   normalize,
 } from '../src/f1/lib/jolpica.js'
 import {
@@ -42,6 +44,20 @@ import {
   numberToDriverId,
 } from '../src/f1/lib/openf1.js'
 import { seasonStats } from '../src/f1/lib/select.js'
+import { LEAGUES, leagueById, DEFAULT_LEAGUE } from '../src/leagues/lib/leagues.js'
+import {
+  parseLeagueStandings,
+  parseLeagueScoreboard,
+  fetchLeagueStandings,
+  fetchLeagueMatches,
+  parseTeams,
+  parseRoster,
+  parseTeamSchedule,
+  fetchTeamBundle,
+  parseLeagueLeaders,
+  fetchLeagueLeaders,
+  parseAthlete,
+} from '../src/leagues/lib/espn.js'
 import {
   analyticsEnabled,
   normalizeRoute,
@@ -353,6 +369,229 @@ check('alias unknown', canonName('Narnia'), null)
   check('f1 normalize sorts drivers by position', model.drivers[0].driverId, 'antonelli')
   // bad/empty payloads never throw — parsers return empty, normalize stays safe
   check('f1 parsers tolerate empty payload', [parseSchedule({}).length, parseDriverStandings({}).length], [0, 0])
+
+  // Jolpica caps `limit` at 100 rows, so results are paged and a race can be
+  // split across a page boundary; fetchAllResults must stitch pages back together.
+  {
+    const row = (pos, driverId) => ({
+      position: String(pos), points: '0', grid: String(pos), status: 'Finished',
+      Driver: { driverId }, Constructor: { constructorId: 'x' },
+    })
+    const pages = {
+      0: { MRData: { total: '5', limit: '3', offset: '0', RaceTable: { Races: [
+        { round: '1', Results: [row(1, 'a'), row(2, 'b')] },
+        { round: '2', Results: [row(1, 'c')] },
+      ] } } },
+      3: { MRData: { total: '5', limit: '3', offset: '3', RaceTable: { Races: [
+        { round: '2', Results: [row(2, 'd')] },
+        { round: '3', Results: [row(1, 'e')] },
+      ] } } },
+    }
+    const urls = []
+    const getJson = async (url) => {
+      urls.push(url)
+      const offset = Number(new URL(url).searchParams.get('offset') ?? 0)
+      return pages[offset]
+    }
+    const all = await fetchAllResults(getJson, '2026')
+    check('f1 paged results fetch every page', urls.length, 2)
+    check('f1 split round stitched across pages', all[2].results.map((x) => x.driverId), ['c', 'd'])
+    check('f1 split round keeps winner from first page', all[2].winnerId, 'c')
+    check('f1 all rounds present after paging', [all[1].winnerId, all[3].winnerId], ['a', 'e'])
+  }
+}
+
+// ---------- Leagues (ESPN league soccer) registry / parsing ----------
+{
+  check('leagues registry has the five majors', LEAGUES.map((l) => l.id),
+    ['epl', 'laliga', 'seriea', 'bundesliga', 'ligue1'])
+  check('leagueById resolves and falls through', [leagueById('seriea')?.espn, leagueById('nope')], ['ita.1', null])
+  check('default league is epl', DEFAULT_LEAGUE, 'epl')
+
+  const stat = (name, value) => ({ name, value, displayValue: String(value) })
+  const entry = (rank, name, pts, note) => ({
+    team: { id: String(rank), displayName: name, abbreviation: name.slice(0, 3).toUpperCase(),
+      logos: [{ href: `https://x/${rank}.png` }] },
+    ...(note ? { note } : {}),
+    stats: [stat('rank', rank), stat('gamesPlayed', 38), stat('wins', 25), stat('ties', 10),
+      stat('losses', 3), stat('pointsFor', 80), stat('pointsAgainst', 30),
+      stat('pointDifferential', 50), stat('points', pts)],
+  })
+  const stJson = {
+    season: { year: 2025, displayName: '2025-26 English Premier League' },
+    children: [{ standings: { entries: [
+      entry(2, 'Manchester City', 78),
+      entry(1, 'Arsenal', 85, { color: '#81D6AC', description: 'Champions League', rank: 1 }),
+    ] } }],
+  }
+  const st = parseLeagueStandings(stJson)
+  check('league standings season label + year', [st.season, st.seasonYear], ['2025-26 English Premier League', 2025])
+  check('league standings sorted by rank', st.rows.map((r) => r.name), ['Arsenal', 'Manchester City'])
+  check('league standings row fields', [st.rows[0].played, st.rows[0].w, st.rows[0].d, st.rows[0].l,
+    st.rows[0].gf, st.rows[0].ga, st.rows[0].gd, st.rows[0].pts], [38, 25, 10, 3, 80, 30, 50, 85])
+  check('league standings note + logo', [st.rows[0].note, st.rows[1].note, st.rows[0].logo],
+    ['Champions League', null, 'https://x/1.png'])
+  check('league standings tolerates empty payload', parseLeagueStandings({}).rows.length, 0)
+
+  const ev = (id, date, state, hs, as) => ({
+    id, date, name: 'A at B',
+    venue: { displayName: 'Big Arena' },
+    status: { type: { state, detail: state === 'post' ? 'FT' : date } },
+    competitions: [{ competitors: [
+      { homeAway: 'home', score: hs, team: { id: 'h', displayName: 'Home FC', abbreviation: 'HOM', logo: 'https://x/h.png' } },
+      { homeAway: 'away', score: as, team: { id: 'a', displayName: 'Away FC', abbreviation: 'AWA', logo: 'https://x/a.png' } },
+    ] }],
+  })
+  const sb = parseLeagueScoreboard({ events: [ev('1', '2026-05-17T11:30Z', 'post', '3', '2'), ev('2', '2026-08-15T14:00Z', 'pre')] })
+  check('league scoreboard post match parsed', [sb[0].state, sb[0].home.name, sb[0].home.score, sb[0].away.score],
+    ['post', 'Home FC', 3, 2])
+  check('league scoreboard pre match has null scores', [sb[1].state, sb[1].home.score, sb[1].away.score], ['pre', null, null])
+  check('league scoreboard carries venue', sb[0].venue, 'Big Arena')
+  check('league scoreboard tolerates empty payload', parseLeagueScoreboard({}).length, 0)
+
+  // Top-scorer leaders: goals + assists, matches pulled out of displayValue
+  const leadersJson = {
+    season: { year: 2026 },
+    stats: [
+      { name: 'goalsLeaders', leaders: [
+        { value: 25, displayValue: 'Matches: 31, Goals: 25', athlete: { id: '9', displayName: 'Kylian Mbappé' } },
+        { value: 23, displayValue: 'Matches: 34, Goals: 23', athlete: { id: '8', displayName: 'Vedat Muriqi' } },
+      ] },
+      { name: 'assistsLeaders', leaders: [
+        { value: 11, displayValue: 'Matches: 30, Assists: 11', athlete: { id: '7', displayName: 'Lamine Yamal' } },
+      ] },
+    ],
+  }
+  const led = parseLeagueLeaders(leadersJson)
+  check('league leaders goals parsed', [led.goals[0].name, led.goals[0].value, led.goals[0].matches],
+    ['Kylian Mbappé', 25, 31])
+  check('league leaders assists parsed', [led.assists[0].name, led.assists[0].value], ['Lamine Yamal', 11])
+  check('league leaders tolerate empty payload', [parseLeagueLeaders({}).goals.length, parseLeagueLeaders({}).assists.length], [0, 0])
+  {
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      return url.includes('season=') ? leadersJson : { season: { year: 2026 }, stats: [] }
+    }
+    const got = await fetchLeagueLeaders(getJson, 'esp.1')
+    check('league leaders fall back a season when empty', [got.goals.length, calls[1]?.includes('season=2025')], [2, true])
+  }
+
+  // Season fallback: current season not yet started (all zero games) → previous season
+  {
+    const zero = (rank, name) => ({ ...entry(rank, name, 0), stats: [stat('rank', rank), stat('gamesPlayed', 0), stat('points', 0)] })
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      if (url.includes('season=')) return stJson
+      return { season: { year: 2026, displayName: '2026-27 English Premier League' },
+        children: [{ standings: { entries: [zero(1, 'AFC Bournemouth')] } }] }
+    }
+    const got = await fetchLeagueStandings(getJson, 'eng.1')
+    check('league standings falls back to played season', [got.season, calls.length], ['2025-26 English Premier League', 2])
+    check('league standings fallback asks for previous year', calls[1].includes('season=2025'), true)
+  }
+
+  // Match windows: widen when the near window is empty (summer break)
+  {
+    const post = ev('10', '2026-05-17T11:30Z', 'post', '1', '0')
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      return calls.length <= 2 ? { events: [] } : { events: [post, post] }
+    }
+    const got = await fetchLeagueMatches(getJson, 'eng.1', new Date('2026-07-06T12:00:00Z'))
+    check('league matches widen empty windows and dedupe', [got.length, calls.length >= 3], [1, true])
+  }
+
+  // Teams list / roster / team schedule parsers
+  const teams = parseTeams({ sports: [{ leagues: [{ teams: [
+    { team: { id: '359', displayName: 'Arsenal', shortDisplayName: 'Arsenal', abbreviation: 'ARS',
+      color: 'EF0107', logos: [{ href: 'https://x/359.png' }] } },
+    { team: { id: '360', displayName: 'Manchester United', shortDisplayName: 'Man United', abbreviation: 'MAN' } },
+  ] }] }] })
+  check('league teams parsed + sorted by name', [teams.length, teams[0].name, teams[0].logo, teams[1].abbrev],
+    [2, 'Arsenal', 'https://x/359.png', 'MAN'])
+  check('league teams tolerates empty payload', parseTeams({}).length, 0)
+
+  const roster = parseRoster({
+    coach: [{ firstName: 'Arsene', lastName: 'Wenger' }],
+    athletes: [
+      { id: '1', displayName: 'Reiss Nelson', jersey: '24', age: 26, citizenship: 'England',
+        position: { abbreviation: 'F' } },
+      { id: '2', displayName: 'A Keeper', jersey: '1', age: 30, citizenship: 'Spain',
+        position: { abbreviation: 'G' } },
+    ],
+  })
+  check('league roster coach + groups', [roster.coach, roster.players[0].group, roster.players[1].group],
+    ['Arsene Wenger', 'GK', 'FWD'])
+  check('league roster player fields', [roster.players[1].name, roster.players[1].jersey, roster.players[1].country],
+    ['Reiss Nelson', '24', 'England'])
+  check('league roster tolerates empty payload', parseRoster({}).players.length, 0)
+
+  const schedEv = (id, date, state, ourScore, oppScore) => ({
+    id, date, name: 'X at Y',
+    competitions: [{
+      venue: { fullName: 'Emirates Stadium' },
+      status: { type: { state } },
+      competitors: [
+        { homeAway: 'home', team: { id: '359', displayName: 'Arsenal', abbreviation: 'ARS' },
+          ...(ourScore != null ? { score: { displayValue: ourScore } } : {}) },
+        { homeAway: 'away', team: { id: '349', displayName: 'Bournemouth', abbreviation: 'BOU' },
+          ...(oppScore != null ? { score: { displayValue: oppScore } } : {}) },
+      ],
+    }],
+  })
+  const sched = parseTeamSchedule({ season: { year: 2025 },
+    events: [schedEv('2', '2026-05-01T14:00Z', 'post', '3', '1'), schedEv('1', '2025-09-01T14:00Z', 'post', '0', '0')] })
+  check('team schedule sorted by date with venue', [sched.matches[0].id, sched.matches[0].venue],
+    ['1', 'Emirates Stadium'])
+  check('team schedule scores + state', [sched.matches[1].home.score, sched.matches[1].away.score, sched.matches[1].state],
+    [3, 1, 'post'])
+  check('team schedule season year', sched.seasonYear, 2025)
+  check('team schedule tolerates empty payload', parseTeamSchedule({}).matches.length, 0)
+
+  // A stale localStorage cache written before the teams list existed must not
+  // shadow the bundled teams (regression: league clubs page rendered empty)
+  {
+    const snap = { laliga: { standings: { rows: [1] }, matches: [], teams: [{ id: '83', name: 'Barcelona' }] } }
+    const staleCache = { laliga: { standings: { rows: [2] }, matches: [], fetchedAt: 123 } }
+    const m = initialLeaguesModel(snap, staleCache)
+    check('stale cache keeps bundled teams list', m.laliga.teams.map((t) => t.name), ['Barcelona'])
+    check('stale cache still wins for standings', [m.laliga.standings.rows[0], m.laliga.source], [2, 'cache'])
+    check('cache with teams keeps its own', initialLeaguesModel(snap,
+      { laliga: { standings: { rows: [2] }, matches: [], teams: [{ id: 'x', name: 'X' }] } }).laliga.teams[0].name, 'X')
+  }
+
+  // Athlete bio (player sheet on the Boot tab)
+  const ath = parseAthlete({ athlete: {
+    id: '231388', displayName: 'Kylian Mbappé', jersey: '10', age: 27,
+    displayHeight: "5' 10\"", citizenship: 'France',
+    flag: { href: 'https://x/fra.png' },
+    position: { displayName: 'Forward' },
+    team: { displayName: 'Real Madrid', logos: [{ href: 'https://x/rm.png' }] },
+  } })
+  check('athlete bio parsed', [ath.name, ath.age, ath.team, ath.citizenship, ath.position],
+    ['Kylian Mbappé', 27, 'Real Madrid', 'France', 'Forward'])
+  check('athlete bio flag + jersey + height', [ath.flag, ath.jersey, ath.height],
+    ['https://x/fra.png', '10', "5' 10\""])
+  check('athlete bio tolerates empty payload', parseAthlete({}).name, '')
+
+  // Team bundle: results fall back to previous season when current has none
+  {
+    const calls = []
+    const getJson = async (url) => {
+      calls.push(url)
+      if (url.includes('/roster')) return { coach: [{ firstName: 'A', lastName: 'B' }], athletes: [] }
+      if (url.includes('fixture=true')) return { season: { year: 2026 }, events: [schedEv('9', '2026-08-21T19:00Z', 'pre')] }
+      if (url.includes('season=2025')) return { season: { year: 2025 }, events: [schedEv('2', '2026-05-01T14:00Z', 'post', '3', '1')] }
+      return { season: { year: 2026 }, events: [] } // current-season schedule: nothing played yet
+    }
+    const bundle = await fetchTeamBundle(getJson, 'eng.1', '359')
+    check('team bundle fixtures + coach', [bundle.fixtures[0].id, bundle.roster.coach], ['9', 'A B'])
+    check('team bundle results fall back a season', [bundle.results[0].id, calls.some((u) => u.includes('season=2025'))],
+      ['2', true])
+  }
 }
 
 // ---------- OpenF1 (race detail) parsing ----------
@@ -420,13 +659,16 @@ check('alias unknown', canonName('Narnia'), null)
     '/f1', '/f1/stats', '/f1/teams', '/f1/team/mclaren', '/f1/team/nope',
     '/f1/drivers', '/f1/driver/piastri', '/f1/driver/nope',
     '/f1/circuits', '/f1/circuit/monaco', '/f1/circuit/nope',
-    '/f1/race/1', '/f1/race/7', '/f1/race/999']
+    '/f1/race/1', '/f1/race/7', '/f1/race/999',
+    '/leagues', '/leagues/epl', '/leagues/laliga', '/leagues/bundesliga/fixtures', '/leagues/nope',
+    '/leagues/epl/teams', '/leagues/seriea/team/110', '/leagues/nope/teams',
+    '/leagues/laliga/scorers', '/leagues/nope/scorers']
   for (const r of routes) {
     try {
       const html = renderToString(
         <MemoryRouter initialEntries={[r]}>
           <DataProvider>
-            <F1DataProvider><App /></F1DataProvider>
+            <F1DataProvider><LeaguesDataProvider><App /></LeaguesDataProvider></F1DataProvider>
           </DataProvider>
         </MemoryRouter>,
       )

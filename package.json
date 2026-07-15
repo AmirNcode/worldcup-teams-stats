@@ -10,6 +10,7 @@
     "test": "node scripts/run-tests.mjs",
     "update-data": "node scripts/generate-schedule.mjs",
     "update-f1-data": "node scripts/generate-f1.mjs",
+    "update-leagues-data": "node scripts/generate-leagues.mjs",
     "update-icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {

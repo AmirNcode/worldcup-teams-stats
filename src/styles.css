@@ -50,6 +50,17 @@
   --accent-soft: #3a1614;
 }
 
+/* Leagues section: pitch green. Same revert rule as the F1 accent. */
+[data-section='leagues'] {
+  --accent: #0a7d33;
+  --accent-soft: #dcf3e3;
+}
+
+[data-theme='dark'] [data-section='leagues'] {
+  --accent: #34c265;
+  --accent-soft: #12301c;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -364,6 +375,10 @@ tr.qualifying td:first-child {
 
 tr.maybe td:first-child {
   box-shadow: inset 3px 0 0 var(--star);
+}
+
+tr.relegated td:first-child {
+  box-shadow: inset 3px 0 0 var(--live);
 }
 
 /* the team whose page you're on, within its group table */
@@ -1615,4 +1630,283 @@ table.cmp-table td {
 .tyre-W {
   background: #0067ad;
   color: #fff;
+}
+
+/* ---------- Leagues section ---------- */
+
+.league-picker {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.league-picker::-webkit-scrollbar {
+  display: none;
+}
+
+.league-chip {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.league-chip.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+.league-season {
+  margin: -4px 0 10px;
+  font-size: 13px;
+}
+
+.league-legend {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+table.league-table .team-col {
+  max-width: 160px;
+}
+
+.league-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.league-team img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.league-group-title {
+  margin: 16px 2px 8px;
+}
+
+/* ---------- Leagues: clubs & team page ---------- */
+
+.league-team-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 2px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+
+.league-team-row:first-of-type {
+  border-top: 0;
+}
+
+.league-team-row img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.league-team-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  flex: 0 0 auto;
+}
+
+.league-team-name {
+  flex: 1;
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-team-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.league-team-head img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.league-team-head h2 {
+  margin: 0;
+}
+
+.league-team-head p {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+}
+
+.league-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.league-stat-grid b {
+  color: var(--text);
+  display: block;
+  font-size: 1rem;
+}
+
+.league-collapse {
+  width: 100%;
+  margin: 14px 0 0;
+}
+
+.league-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 2px;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.league-player:first-of-type {
+  border-top: 0;
+}
+
+.league-jersey {
+  width: 26px;
+  text-align: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+
+.league-player-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-facts {
+  margin: 4px 0 8px;
+  padding-left: 18px;
+}
+
+.league-facts li {
+  margin: 4px 0;
+  font-size: 0.85rem;
+}
+
+/* league team inside a match card's .match-main side (crest + name) */
+.league-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.85rem;
+}
+
+.league-tag b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.league-tag img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* club links inside match cards read as plain text, not accent-colored */
+a.league-tag {
+  color: var(--text);
+}
+
+/* venue centered on the card's top line */
+.match-meta.league-venue {
+  justify-content: center;
+}
+
+.match-meta.league-venue span {
+  text-align: center;
+}
+
+.league-tag.away {
+  text-align: right;
+}
+
+/* ---------- Leagues: player sheet (Boot tab) ---------- */
+
+.player-link {
+  padding: 0;
+  color: var(--text);
+  font-size: inherit;
+  text-align: left;
+}
+
+.player-sheet-name {
+  margin: 2px 24px 10px 0;
+  font-size: 1.15rem;
+}
+
+.player-sheet-stats {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.player-sheet-stats b {
+  color: var(--text);
+  font-size: 1.05rem;
+  display: block;
+}
+
+.player-sheet-bio {
+  padding: 4px 0;
+}
+
+.player-sheet-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.player-sheet-row span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.player-sheet-row img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }

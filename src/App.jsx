@@ -5,6 +5,8 @@ import { useTheme } from './lib/prefs'
 import { initAnalytics, trackPageview, track } from './lib/analytics'
 import { sectionForPath } from './lib/sections'
 import { useF1Data } from './f1/lib/data.jsx'
+import { useLeagueData } from './leagues/lib/data.jsx'
+import { leagueById, DEFAULT_LEAGUE } from './leagues/lib/leagues'
 import AdSlot from './components/AdSlot'
 import FeedbackForm from './components/FeedbackForm'
 import SportSwitcher from './components/SportSwitcher'
@@ -24,6 +26,11 @@ import F1DriverPage from './f1/pages/F1DriverPage'
 import F1CircuitsPage from './f1/pages/F1CircuitsPage'
 import F1CircuitPage from './f1/pages/F1CircuitPage'
 import F1RacePage from './f1/pages/F1RacePage'
+import LeagueTablePage from './leagues/pages/LeagueTablePage'
+import LeagueFixturesPage from './leagues/pages/LeagueFixturesPage'
+import LeagueTeamsPage from './leagues/pages/LeagueTeamsPage'
+import LeagueTeamPage from './leagues/pages/LeagueTeamPage'
+import LeagueScorersPage from './leagues/pages/LeagueScorersPage'
 
 function UpdatedChip() {
   const { updatedAt, source, refresh } = useData()
@@ -53,11 +60,31 @@ function F1UpdatedChip() {
   )
 }
 
+function LeaguesUpdatedChip({ league }) {
+  const { updatedAt, source, refresh } = useLeagueData(league)
+  const label = updatedAt
+    ? `Updated ${updatedAt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`
+    : source === 'bundled'
+      ? 'Offline data'
+      : 'Loading…'
+  return (
+    <button className="chip" onClick={refresh} title="League data via ESPN. Tap to refresh now.">
+      ⟳ {label}
+    </button>
+  )
+}
+
 export default function App() {
   const [theme, toggleTheme] = useTheme()
   const [feedbackOpen, setFeedbackOpen] = useState(false)
   const location = useLocation()
   const section = sectionForPath(location.pathname)
+  // Active league from the URL; the section's tab links name the default
+  // league, so swap in the viewed one to keep the tabs on the same league.
+  const urlLeague = location.pathname.split('/')[2]
+  const activeLeague = section.id === 'leagues' && leagueById(urlLeague) ? urlLeague : DEFAULT_LEAGUE
+  const tabTo = (to) =>
+    section.id === 'leagues' ? to.replace(`/leagues/${DEFAULT_LEAGUE}`, `/leagues/${activeLeague}`) : to
 
   useEffect(() => {
     initAnalytics()
@@ -96,7 +123,13 @@ export default function App() {
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
           </div>
-          {section.id === 'f1' ? <F1UpdatedChip /> : <UpdatedChip />}
+          {section.id === 'f1' ? (
+            <F1UpdatedChip />
+          ) : section.id === 'leagues' ? (
+            <LeaguesUpdatedChip league={activeLeague} />
+          ) : (
+            <UpdatedChip />
+          )}
         </div>
       </header>
       {feedbackOpen && <FeedbackForm onClose={() => setFeedbackOpen(false)} />}
@@ -119,6 +152,12 @@ export default function App() {
           <Route path="/f1/circuit/:slug" element={<F1CircuitPage />} />
           <Route path="/f1/race/:round" element={<F1RacePage />} />
           <Route path="/f1/stats" element={<F1StatsPage />} />
+          <Route path="/leagues" element={<Navigate to={`/leagues/${DEFAULT_LEAGUE}`} replace />} />
+          <Route path="/leagues/:league" element={<LeagueTablePage />} />
+          <Route path="/leagues/:league/fixtures" element={<LeagueFixturesPage />} />
+          <Route path="/leagues/:league/teams" element={<LeagueTeamsPage />} />
+          <Route path="/leagues/:league/scorers" element={<LeagueScorersPage />} />
+          <Route path="/leagues/:league/team/:teamId" element={<LeagueTeamPage />} />
           <Route path="*" element={<BracketPage />} />
         </Routes>
         {/* keyed by route so a genuine in-app navigation requests a fresh ad */}
@@ -126,7 +165,7 @@ export default function App() {
       </main>
       <nav className="tabbar">
         {section.tabs.map((t) => (
-          <NavLink key={t.to} to={t.to} end={t.end}>
+          <NavLink key={t.to} to={tabTo(t.to)} end={t.end}>
             <span>{t.emoji}</span>
             {t.label}
           </NavLink>
